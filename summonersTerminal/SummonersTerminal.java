@@ -3,10 +3,9 @@ package summonersTerminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import helpers.Helpers;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
+import summonersTerminal.gameHelpers.Helpers;
 
 public class SummonersTerminal {
     Scanner scanner = new Scanner(System.in);

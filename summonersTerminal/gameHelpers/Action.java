@@ -3,8 +3,6 @@ package summonersTerminal.gameHelpers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import helpers.Helpers;
 import summonersTerminal.Champion;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;

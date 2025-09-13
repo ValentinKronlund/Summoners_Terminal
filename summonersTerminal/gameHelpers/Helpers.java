@@ -1,10 +1,6 @@
-package helpers;
+package summonersTerminal.gameHelpers;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
-
-import day3.Student;
 
 public class Helpers {
     /* ----- HELPERS! 👷🏽 ----- */
@@ -56,13 +52,6 @@ public class Helpers {
             System.out.println(prompt);
             return '.';
         }
-    }
-
-    public void sortByScore(List<Student> students, boolean ascending) {
-        Comparator<Student> comparator = Comparator.comparingInt(Student::getTestResults);
-        comparator = !ascending ? comparator.reversed() : comparator;
-        comparator = comparator.thenComparing(Student::getName);
-        students.sort(comparator);
     }
 
 }
