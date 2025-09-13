@@ -17,4 +17,5 @@ TODO:
 - Add level-up system.
 - Create NPC behaviour.
 - Create Player Nexus, which can be destroyed.
+- Add Towers.
 - Add more dynamic items.
