@@ -8,7 +8,7 @@ public class Nexus {
     public Nexus(String name) {
         this.name = name;
         this.stats = new Stats(
-                50,
+                500,
                 0,
                 0,
                 0,
