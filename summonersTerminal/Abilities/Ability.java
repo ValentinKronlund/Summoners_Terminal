@@ -20,6 +20,7 @@ public class Ability
         this.mName = pName;
     }
 
+    //NOTE(Nat): This is base ActivateAbility, if you have special cases should use Override on the ability class itself.
     public boolean ActivateAbility(Champion pChampion, List<Minion> pTargets)
     {
         final Stats stats = pChampion.getStats();
