@@ -8,11 +8,13 @@ import summonersTerminal.gameHelpers.Abilities;
 import summonersTerminal.gameHelpers.Damage;
 
 public class Champion {
+    private final int startGold = 500;
+    
     String championName;
     ChampionClass championClass;
     private Stats stats;
     private int level = 1;
-    private int gold = 50000;
+    private int gold = startGold;
     private boolean isDead = false;
     private boolean inBase = false;
 
