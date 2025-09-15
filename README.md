@@ -27,9 +27,44 @@ Good luck, and have fun! 😄
 
 TODO:
 
+- Refactor actions:
+
+  - Count down from at total of 5 actions points, instead of counting up.
+  - Display how many action points are spent per action.
+
+- Player behaviour:
+
+  - Add display of stats between each action (Refactor out 's')
+  - Add 'passive' mana regen between actions.
+  - Attempting to purchase item without gold should fail without sending you you to base.
+
 - Add more ability options.
+
+  - Each champion should have 2 abilities: one basic ability, and one ultimate.
+  - Each champion
+
 - Add level-up system.
-- Create NPC behaviour.
-- Create Player Nexus, which can be destroyed.
+
+  - Minions should award exp when killed.
+  - Champion should level up after 'x' amount of exp.
+  - Level up multiplier should kick in for each concecutive level.
+  - Max level should be 18.
+
+- NPC behaviour.
+
+  - Overload minion.takeDamage() so that it can take an index (displayed when hit).
+  - Add enemy champion behaviour.
+  - Truncate gold value to use 🪙 instead of text.
+
+- Friendly NPC:
+
+  - Add player nexus.
+  - (Optional) - Add friendly minions.
+
 - Add Towers.
-- Add more dynamic items.
+  - Tower should attack player if they attempt to hit it.
+  - (Optional) - Tower should attack minions if possible (even when player hits tower).
+- Add more dynamic items effects.
+  - Crit chance.
+  - Reduced healing.
+  - Increased health/mana regen.
