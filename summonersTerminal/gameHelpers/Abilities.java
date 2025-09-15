@@ -23,7 +23,7 @@ public class Abilities {
                     return false;
                 }
 
-                System.out.println("\nGaren used 'Judgment' for " + manaCost + " mana");
+                System.out.println("\nGaren used 💫'Judgment'💫 for " + manaCost + " mana");
                 champion.useMana(manaCost);
 
                 for (int tick = 1; tick <= 3; tick++) {
@@ -65,10 +65,8 @@ public class Abilities {
                     return false;
                 }
 
-                System.out.println("\nKatarina used 'Bouncing Blade' for " + manaCost + " mana");
+                System.out.println("\nKatarina used 🗡️'Bouncing Blade'🗡️ for " + manaCost + " mana");
                 champion.useMana(manaCost);
-
-                System.out.println("T: " + targetIdx + " AE: " + aoeEnd);
 
                 List<Minion> aoeTargets = new ArrayList<>(minionWave.subList(targetIdx, aoeEnd));
                 for (Minion minion : aoeTargets) {
@@ -90,6 +88,34 @@ public class Abilities {
             }
 
             case "Veigar": {
+                int damage = championStats.abilityPower();
+                int manaCost = 125;
+                int targetIdx = minionWave.indexOf(target);
+                int aoeEnd = Math.min(minionWave.size(), targetIdx + 3);
+
+                if (targetIdx < 0 || championStats.mana() < manaCost) {
+                    System.out.println("\nNot enough mana to cast that spell!");
+                    return false;
+                }
+
+                System.out.println("\nVeigar used 🔮'Baleful Strike'🔮 for " + manaCost + " mana");
+                champion.useMana(manaCost);
+
+                List<Minion> aoeTargets = new ArrayList<>(minionWave.subList(targetIdx, aoeEnd));
+                for (Minion minion : aoeTargets) {
+                    if (minion != null) {
+                        minion.takeDamage(damage, minionWave, champion);
+                    }
+                    try {
+                        Thread.sleep(150);
+                    } catch (InterruptedException err) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+
+                }
+                System.out.println("\n");
+
                 return true;
             }
 

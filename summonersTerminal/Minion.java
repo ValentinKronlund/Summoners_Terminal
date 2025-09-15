@@ -30,7 +30,7 @@ public class Minion {
         System.out.println(
                 "Minion has died!\n"
                         + champion.championName + " has been awarded with 🥇"
-                        + goldValue + " gold!");
+                        + goldValue + " gold! \n");
         wave.remove(this);
         champion.addGold(goldValue);
     }
@@ -49,7 +49,7 @@ public class Minion {
                     stats.attackPower(),
                     stats.abilityPower());
 
-            System.out.println("🗡️ " + this.minionName + " Minion has taken " + damageAmount + " damage!" + " | HP: "
+            System.out.println(this.minionName + " Minion has taken " + damageAmount + " damage!" + " | HP: "
                     + this.stats.health());
 
             if (this.stats.health() <= 0) {
