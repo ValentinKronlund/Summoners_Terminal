@@ -13,8 +13,6 @@ Good luck, and have fun! 😄
 
 ### [ Rules ]:
 
----
-
     Your aim is to destroy the enemy nexus 🔻, while protecting your own. 💎
     To attack a nexus, a champion must first break through the enemies minions.
     Minions spawn in waves at the start of each combat sequence.
