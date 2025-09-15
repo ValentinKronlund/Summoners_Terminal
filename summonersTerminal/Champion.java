@@ -3,15 +3,10 @@ package summonersTerminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import summonersTerminal.Abilities.Ability;
 import summonersTerminal.gameHelpers.Abilities;
-import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Damage;
 
-public class Champion
-{
-    public Ability[] mAbilities = new Ability[2];
+public class Champion {
 
     String championName;
     ChampionClass championClass;
@@ -26,8 +21,7 @@ public class Champion
 
     public Champion(
             String championName,
-            ChampionClass championClass)
-    {
+            ChampionClass championClass) {
         this.championName = championName;
         this.championClass = championClass;
 
@@ -37,27 +31,22 @@ public class Champion
                 base.attackPower(), base.abilityPower());
     }
 
-    public void levelUp()
-    {
+    public void levelUp() {
         this.level++;
         recalcAllStats();
     }
 
-    private Stats baseAtCurrentLevel()
-    {
+    private Stats baseAtCurrentLevel() {
         Stats st = championClass.base();
-        for (int i = 1; i < level; i++)
-        {
+        for (int i = 1; i < level; i++) {
             st = st.plus(championClass.growthPerLevel());
         }
         return st;
     }
 
-    private void recalcAllStats()
-    {
+    private void recalcAllStats() {
         Stats itemBonus = Stats.ZERO;
-        for (Item item : items)
-        {
+        for (Item item : items) {
             itemBonus = itemBonus.plus(item.stats());
         }
 
@@ -73,15 +62,12 @@ public class Champion
     }
 
     // Actions below 👇🏽 ----------
-    public boolean equip(Item item)
-    {
-        if (items.size() >= 6)
-        {
+    public boolean equip(Item item) {
+        if (items.size() >= 6) {
             System.out.println("\nYou don't have any more available item slots!");
             return false;
         }
-        if (this.gold < item.cost())
-        {
+        if (this.gold < item.cost()) {
             System.out.println("\nNot enough gold for that item!");
             return false;
         }
@@ -92,8 +78,7 @@ public class Champion
         return goToBase();
     }
 
-    public boolean unequip(Item item)
-    {
+    public boolean unequip(Item item) {
         if (!items.remove(item))
             return false;
 
@@ -104,30 +89,19 @@ public class Champion
         return true;
     }
 
-    public boolean attack(Minion target, List<Minion> minionWave)
-    {
+    public boolean attack(Minion target, List<Minion> minionWave) {
         return target.takeDamage(this.stats.attackPower(), minionWave, this);
     }
 
-    public boolean attackNexus(Nexus nexus)
-    {
+    public boolean attackNexus(Nexus nexus) {
         return nexus.takeDamage(this.stats.attackPower());
     }
 
-    public boolean ability(List<Minion> targets)
-    {
-        Copy.chooseAbility(this);
-        final int abilitySlot = helper.askInt(scanner, "") -1;
-
-        Copy.chooseTarget(targets);
-        final int targetIndex = helper.askInt(scanner, "");
-
-        //return Abilities.ability(this, championName, target, minionWave);
-        return mAbilities[abilitySlot].ActivateAbility(this.stats, targets);
+    public boolean ability(Minion target, List<Minion> minionWave) {
+        return Abilities.ability(this, championName, target, minionWave);
     }
 
-    public boolean goToBase()
-    {
+    public boolean goToBase() {
         this.inBase = true;
         System.out.println("\nYou have gone to the base -- HP and Mana reset!✨\n");
         recalcAllStats();
@@ -135,16 +109,14 @@ public class Champion
         return true;
     }
 
-    public boolean onDeath()
-    {
+    public boolean onDeath() {
         System.out.println("You have been slain! 😵");
         this.isDead = true;
         this.inBase = true;
         return true;
     }
 
-    public boolean respawn()
-    {
+    public boolean respawn() {
         this.isDead = false;
         this.inBase = false;
         recalcAllStats();
@@ -152,11 +124,9 @@ public class Champion
         return true;
     }
 
-    public boolean takeDamage(int damageAmount)
-    {
+    public boolean takeDamage(int damageAmount) {
         int damageTaken = (int) Math.round(Damage.damageAfterArmor(damageAmount, stats.armor()));
-        try
-        {
+        try {
             this.stats = new Stats(
                     stats.health() - damageTaken,
                     stats.mana(),
@@ -167,58 +137,48 @@ public class Champion
 
             System.out.println("You have taken " + damageTaken + " damage!" + " | HP: " + this.stats.health());
 
-            if (this.stats.health() <= 0)
-            {
+            if (this.stats.health() <= 0) {
                 onDeath();
             }
 
             return true;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Some spooky shit happened when champion tried to take damage 👻");
             return false;
         }
     }
 
     // ----- GETTERS
-    public Stats getStats()
-    {
+    public Stats getStats() {
         return stats;
     }
 
-    public int getLevel()
-    {
+    public int getLevel() {
         return level;
     }
 
-    public int getGold()
-    {
+    public int getGold() {
         return gold;
     }
 
-    public boolean getIsDead()
-    {
+    public boolean getIsDead() {
         return isDead;
     }
 
-    public boolean getInBase()
-    {
+    public boolean getInBase() {
         return inBase;
     }
 
-    public List<Item> getItems()
-    {
+    public List<Item> getItems() {
         return items;
     }
 
     // ----- Setters
-    public void walkFromBase()
-    {
+    public void walkFromBase() {
         this.inBase = false;
     }
 
-    public void useMana(int manaCost)
-    {
+    public void useMana(int manaCost) {
         this.stats = new Stats(
                 stats.health(),
                 stats.mana() - manaCost,
@@ -228,19 +188,17 @@ public class Champion
                 stats.abilityPower());
     }
 
-    public void addGold(int amount)
-    {
+    public void addGold(int amount) {
         this.gold += amount;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         String itemsString = items.isEmpty()
                 ? "(none)"
                 : items.stream()
-                .map(Item::toString)
-                .collect(Collectors.joining("\n"));
+                        .map(Item::toString)
+                        .collect(Collectors.joining("\n"));
 
         return "[%s] - (Lv.%d %s)\n%s\nGold: %d\nItems: %s ".formatted(championName, level, championClass, stats, gold,
                 itemsString);

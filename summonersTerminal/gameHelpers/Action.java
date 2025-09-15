@@ -139,7 +139,7 @@ public class Action {
     public static boolean attackAction(Champion playerChampion, List<Minion> minionWave, Nexus nexus) {
         while (true) {
             if (minionWave.size() > 0) {
-                Copy.chooseTarget(minionWave);
+                Copy.attackActionChoiceCopy(minionWave);
                 int targetIdx = helper.askInt(scanner, "");
                 if (targetIdx > minionWave.size() || targetIdx < 0)
                     targetIdx = minionWave.size() - 1;
@@ -164,14 +164,27 @@ public class Action {
         }
     }
 
-    public static boolean abilityAction(Champion playerChampion, List<Minion> availableTargets) {
-        // 1. Player has chosen to use an ability -> Champion -> List<Targets> (minion wave for now)
-        // 2. Player chooses which ability to use -> Ability index
-        // 3. The ability gets passed list of targets, asks for target index. -> Champion, List<Targets>
-        // 4. The ability decides depending on target, how to distribute damage across list
+    public static boolean abilityAction(Champion playerChampion, List<Minion> minionWave) {
+        while (true) {
+            Copy.attackActionChoiceCopy(minionWave);
+            int targetIdx = helper.askInt(scanner, "");
+            try {
+                if (targetIdx > minionWave.size() | targetIdx < 1) {
+                    System.out.println("There is no minion at that location -- Try again");
+                    continue;
+                }
+                if (minionWave.get(targetIdx - 1) == null) {
+                    System.out.println("No minion at given index: " + targetIdx);
+                    continue;
+                }
 
-
-        return playerChampion.ability(availableTargets);
+                Minion targetMinion = minionWave.get(targetIdx - 1);
+                boolean successfulAttack = playerChampion.ability(targetMinion, minionWave);
+                return successfulAttack;
+            } catch (IllegalArgumentException e) {
+                System.out.println("No minion at given index: " + targetIdx);
+                continue;
+            }
         }
     }
 
