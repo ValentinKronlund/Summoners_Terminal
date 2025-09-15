@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import summonersTerminal.Champions.Garen;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
@@ -33,7 +34,8 @@ public class SummonersTerminal {
 
                 switch (championRequest) {
                     case "Garen", "garen", "G", "g": {
-                        this.playerChampion = new Champion("Garen", ChampionClass.BRAWLER);
+                        //this.playerChampion = new Champion("Garen", ChampionClass.BRAWLER);
+                        this.playerChampion = new Garen();
                         break;
                     }
                     case "Katarina", "katarina", "K", "k": {

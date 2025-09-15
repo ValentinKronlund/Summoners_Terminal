@@ -1,5 +1,6 @@
 package summonersTerminal.Abilities;
 
+import summonersTerminal.Champion;
 import summonersTerminal.Minion;
 import summonersTerminal.Stats;
 
@@ -9,18 +10,24 @@ public class Ability
 {
     public String mName;
     public String mDescription;
-    public float mPhysicalDamageRatio;
-    public float mMagicDamageRatio;
-    public float mBaseDamage;
-    public int mManaCost;
+    public float mPhysicalDamageRatio = 0.0f;
+    public float mMagicDamageRatio = 0.0f;
+    public float mBaseDamage = 0.0f;
+    public int mManaCost = 99999;
 
-    public boolean ActivateAbility(Stats pChampionStats, List<Minion> pTargets)
+    Ability(final String pName)
     {
-        final float damage = mBaseDamage + pChampionStats.attackPower() * mPhysicalDamageRatio + pChampionStats.abilityPower() * mMagicDamageRatio;
+        this.mName = pName;
+    }
+
+    public boolean ActivateAbility(Champion pChampion, List<Minion> pTargets)
+    {
+        final Stats stats = pChampion.getStats();
+        final float damage = mBaseDamage + stats.attackPower() * mPhysicalDamageRatio + stats.abilityPower() * mMagicDamageRatio;
 
         for (int i = 0; i < pTargets.size(); i++)
         {
-            //pTargets.get(i).takeDamage(damage); //TO-DO: refactor takeDamage method
+            pTargets.get(i).takeDamage((int) damage, pTargets, pChampion);
         }
 
         return true;

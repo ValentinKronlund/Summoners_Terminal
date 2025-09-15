@@ -13,7 +13,8 @@ import summonersTerminal.gameHelpers.Helpers;
 
 public class Champion
 {
-    public Ability[] mAbilities = new Ability[2];
+    public final int mAbilitySlots = 2;
+    public Ability[] mAbilities;
 
     String championName;
     ChampionClass championClass;
@@ -32,11 +33,13 @@ public class Champion
     {
         this.championName = championName;
         this.championClass = championClass;
-
         Stats base = championClass.base();
+
         this.stats = new Stats(
                 base.health(), base.mana(), base.armor(), base.resistance(),
                 base.attackPower(), base.abilityPower());
+
+        mAbilities = new Ability[mAbilitySlots];
     }
 
     public void levelUp()
@@ -128,7 +131,7 @@ public class Champion
         final int targetIndex = helper.askInt(scanner, "");
 
         //return Abilities.ability(this, championName, target, minionWave);
-        return mAbilities[abilitySlot].ActivateAbility(this.stats, targets);
+        return mAbilities[abilitySlot].ActivateAbility(this, targets);
     }
 
     public boolean goToBase()

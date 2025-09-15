@@ -7,9 +7,11 @@ import summonersTerminal.Item;
 import summonersTerminal.Minion;
 import summonersTerminal.Nexus;
 
-public class Copy {
+public class Copy
+{
 
-    public static void initialCopy() {
+    public static void initialCopy()
+    {
         System.out.println("\n🔮 Welcome, to Summoner's Terminal! 🔮");
         System.out.println(
                 "\n[ Rules ]: \n"
@@ -33,7 +35,8 @@ public class Copy {
 
     }
 
-    public static void championsSelectedCopy(Champion playerChampion, Champion enemyChampion) {
+    public static void championsSelectedCopy(Champion playerChampion, Champion enemyChampion)
+    {
         System.out.println(
                 "\n⚔️ Champions selected! ⚔️\n\n"
                         + "Player Champion 😎" + "\n" + playerChampion.toString() + "\n\n"
@@ -42,20 +45,24 @@ public class Copy {
         System.out.println("\n🔮 Minions have spawned! 🔮\n");
     }
 
-    public static void newWaveCopy(int waveNumber) {
+    public static void newWaveCopy(int waveNumber)
+    {
         System.out.println("\n👹 New wave incoming! 👹"
                 + "\n👹 Wave number: " + waveNumber + " 👹\n");
     }
 
-    public static void waveCopy(List<Minion> minionWave) {
+    public static void waveCopy(List<Minion> minionWave)
+    {
         System.out.println("\n♦️♦️♦️♦️♦️");
-        for (Minion minion : minionWave) {
+        for (Minion minion : minionWave)
+        {
             System.out.println(minion.toString());
         }
         System.out.println("\n♦️♦️♦️♦️♦️");
     }
 
-    public static void baseActionChoiceCopy(int playerActionCount) {
+    public static void baseActionChoiceCopy(int playerActionCount)
+    {
         System.out.println("\n\nAction count: " + playerActionCount + "\n");
         System.out.println(
                 "\nWhat would you like to do?\n"
@@ -70,32 +77,41 @@ public class Copy {
                         + "q: Quit the game\n");
     }
 
-    public static void chooseAbility(Champion champion) {
+    public static void chooseAbility(Champion champion)
+    {
         System.out.println("\nWhat ability would you like to use?\n");
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
 
-        for (int i = 0; i <= champion.mAbilities.length -1; i++) {
-            System.out.println("[" + (i + 1) + "] " + champion.mAbilities[i].mName);
+        for (int i = 0; i <= champion.mAbilities.length - 1; i++)
+        {
+            if (champion.mAbilities[i] != null) //NOTE(Nat): Shouldn't be needed but we do this for now
+            {
+                System.out.println("[" + (i + 1) + "] " + champion.mAbilities[i].mName);
+            }
         }
 
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
     }
 
-    public static void chooseTarget(List<Minion> targets) {
+    public static void chooseTarget(List<Minion> targets)
+    {
         System.out.println("\nWhat target would you like to attack?\n");
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
-        for (int i = 0; i < targets.size(); i++) {
+        for (int i = 0; i < targets.size(); i++)
+        {
             System.out.println("[" + (i + 1) + "] " + targets.get(i));
         }
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
 
     }
 
-    public static void attackNexusCopy(Nexus nexus) {
+    public static void attackNexusCopy(Nexus nexus)
+    {
         System.out.println("\n" + nexus.toString() + " | has been attacked!");
     }
 
-    public static void viewItemsCopy() {
+    public static void viewItemsCopy()
+    {
         System.out.println("\n\n[1] " + Item.THORN_MAIL.toString() +
                 "\n[2] " + Item.ROD_OF_AGES.toString() +
                 "\n[3] " + Item.INFINITY_EDGE.toString() +
@@ -103,7 +119,8 @@ public class Copy {
                 "\n");
     }
 
-    public static void quitCopy() {
+    public static void quitCopy()
+    {
         System.out.println(
                 "\nYou are about to quit the game 😵"
                         + "\nAre you sure you want to leave and lose 25 LP?"
@@ -111,7 +128,8 @@ public class Copy {
                         + "\n\nType 'q' if you want to quit");
     }
 
-    public static void victoryCopy() {
+    public static void victoryCopy()
+    {
         System.out.println(
                 "\n\n🔻 The Enemy Nexus has been destroyed! 🔻\n\n");
 
