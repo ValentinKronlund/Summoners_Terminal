@@ -12,7 +12,7 @@ public class Champion {
     ChampionClass championClass;
     private Stats stats;
     private int level = 1;
-    private int gold = 500;
+    private int gold = 50000;
     private boolean isDead = false;
     private boolean inBase = false;
 
