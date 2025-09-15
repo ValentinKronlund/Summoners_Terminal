@@ -70,11 +70,22 @@ public class Copy {
                         + "q: Quit the game\n");
     }
 
-    public static void attackActionChoiceCopy(List<Minion> minionWave) {
+    public static void chooseAbility(Champion champion) {
+        System.out.println("\nWhat ability would you like to use?\n");
+        System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
+
+        for (int i = 0; i <= champion.mAbilities.length -1; i++) {
+            System.out.println("[" + (i + 1) + "] " + champion.mAbilities[i].mName);
+        }
+
+        System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
+    }
+
+    public static void chooseTarget(List<Minion> targets) {
         System.out.println("\nWhat target would you like to attack?\n");
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
-        for (int i = 0; i < minionWave.size(); i++) {
-            System.out.println("[" + (i + 1) + "] " + minionWave.get(i));
+        for (int i = 0; i < targets.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + targets.get(i));
         }
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
 
