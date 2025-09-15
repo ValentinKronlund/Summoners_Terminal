@@ -5,5 +5,4 @@ public class Main {
         SummonersTerminal game = new SummonersTerminal();
         game.PlayGame();
     }
-
 }
