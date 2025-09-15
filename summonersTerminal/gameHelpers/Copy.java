@@ -13,12 +13,16 @@ public class Copy {
         System.out.println("\n🔮 Welcome, to Summoner's Terminal! 🔮");
         System.out.println(
                 "\n[ Rules ]: \n"
-                        + "   Your aim is to destroy the enemy nexus 🔻, while protecting your own 💎\n"
-                        + "   To attack a nexus, a champion must first break through the enemies minions\n\n"
-                        + "   Minions spawn in waves at the start of each combat sequence\n"
-                        + "   A minion wave consists of 2 melee minions with 90hp, and 3 caster minions with 70hp\n"
-                        + "   Every three waves, a canon minion with 220hp will be added to the wave\n"
-                        + "   Minions award gold when killed, which can be used to purchase items between combat sequences\n"
+                        + "------------------------------------------------\n"
+                        + "   Your aim is to destroy the enemy nexus 🔻, while protecting your own. 💎\n"
+                        + "   To attack a nexus, a champion must first break through the enemies minions.\n\n"
+                        + "   Minions spawn in waves at the start of each combat sequence.\n"
+                        + "   A combat sequence consists of 5 actions. Each combat action cost 1 action point.\n"
+                        + "   Certain actions, such as going to base or purchasing items, cost more action points.\n"
+                        + "\n   A minion wave consists of 2 melee minions, and 3 caster minions.\n"
+                        + "   Every three waves, a stronger canon minion will be added to the wave.\n"
+                        + "\n   Minions award gold when killed, which can be used to purchase items.\n"
+                        + "\n   Attempting to buy an item will send you back to base, even if you don't have enough gold!\n"
                         + "------------------------------------------------\n");
         System.out.println("\n🔮 Minions spawning soon! 🔮\n");
 
@@ -31,16 +35,16 @@ public class Copy {
 
     public static void championsSelectedCopy(Champion playerChampion, Champion enemyChampion) {
         System.out.println(
-                "\nChampions selected!\n\n"
+                "\n⚔️ Champions selected! ⚔️\n\n"
                         + "Player Champion 😎" + "\n" + playerChampion.toString() + "\n\n"
                         + "Enemy Champion 😈" + "\n" + enemyChampion.toString() + "\n");
 
-        System.out.println("\n\n🔮 Minions have spawned! 🔮");
+        System.out.println("\n🔮 Minions have spawned! 🔮\n");
     }
 
     public static void newWaveCopy(int waveNumber) {
         System.out.println("\n👹 New wave incoming! 👹"
-                + " Wave number: " + waveNumber + "\n");
+                + "\n👹 Wave number: " + waveNumber + " 👹\n");
     }
 
     public static void waveCopy(List<Minion> minionWave) {

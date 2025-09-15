@@ -3,6 +3,7 @@ package summonersTerminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
@@ -62,7 +63,6 @@ public class SummonersTerminal {
 
     private boolean GameLoop() {
         while (!winConditionMet) {
-            System.out.println("WIN CONDITION MET: " + winConditionMet);
             if (playerChampion.getIsDead() == true) {
                 playerChampion.respawn();
             }
