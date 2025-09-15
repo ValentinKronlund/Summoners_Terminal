@@ -56,34 +56,35 @@ public class Abilities {
             case "Katarina": {
                 int damage = (int) Math.round((championStats.attackPower() * 0.45) + (championStats.abilityPower()));
                 int manaCost = 125;
-                List<Minion> aoeTargets = new ArrayList<>();
                 int targetIdx = minionWave.indexOf(target);
+                int aoeEnd = Math.min(minionWave.size() - 1, targetIdx + 3); // <--- Ability hits 3 targets, since
+                                                                             // toIndex in subList is exclusive
 
-                if (championStats.mana() < manaCost) {
+                if (targetIdx < 0 || championStats.mana() < manaCost) {
                     System.out.println("\nNot enough mana to cast that spell!");
                     return false;
                 }
 
                 System.out.println("\nKatarina used 'Bouncing Blade' for " + manaCost + " mana");
                 champion.useMana(manaCost);
-                aoeTargets.add(target);
 
-                for (int i = 1; i <= 2; i++) {
-                    if (targetIdx > (minionWave.size() - 1) | (targetIdx + i) > (minionWave.size() - 1)) {
-                        continue;
-                    }
+                System.out.println("T: " + targetIdx + " AE: " + aoeEnd);
 
-                    if (minionWave.get(targetIdx + i) == null) {
-                        continue;
-                    }
-
-                    aoeTargets.add(minionWave.get(targetIdx + i));
-
-                }
-
+                List<Minion> aoeTargets = new ArrayList<>(minionWave.subList(targetIdx, aoeEnd));
                 for (Minion minion : aoeTargets) {
-                    minion.takeDamage(damage, minionWave, champion);
+                    if (minion != null) {
+                        System.out.println("\n");
+                        minion.takeDamage(damage, minionWave, champion);
+                    }
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException err) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+
                 }
+                System.out.println("\n");
 
                 return true;
             }

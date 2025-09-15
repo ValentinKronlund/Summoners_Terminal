@@ -49,7 +49,7 @@ public class Minion {
                     stats.attackPower(),
                     stats.abilityPower());
 
-            System.out.println(this.minionName + " Minion has taken " + damageAmount + " damage!" + " | HP: "
+            System.out.println("🗡️ " + this.minionName + " Minion has taken " + damageAmount + " damage!" + " | HP: "
                     + this.stats.health());
 
             if (this.stats.health() <= 0) {

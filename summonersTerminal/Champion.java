@@ -119,9 +119,8 @@ public class Champion {
         this.isDead = false;
         this.inBase = false;
         recalcAllStats();
-        respawn();
         System.out.println("\nYou have respawned! 🩵\n");
-        return isDead;
+        return true;
     }
 
     public boolean takeDamage(int damageAmount) {

@@ -153,6 +153,9 @@ public class SummonersTerminal {
 
                 if (playerChampion.getInBase() == false) {
                     for (Minion minion : minionWave) {
+                        if (playerChampion.getIsDead() == true) {
+                            break;
+                        }
                         playerChampion.takeDamage(minion.attack());
                     }
                 }
