@@ -1,4 +1,4 @@
-package summonersTerminal.Champion;
+package summonersTerminal.Champions;
 
 import summonersTerminal.Champion;
 import summonersTerminal.ChampionClass;
