@@ -57,8 +57,8 @@ public class Abilities {
                 int damage = (int) Math.round((championStats.attackPower() * 0.45) + (championStats.abilityPower()));
                 int manaCost = 125;
                 int targetIdx = minionWave.indexOf(target);
-                int aoeEnd = Math.min(minionWave.size() - 1, targetIdx + 3); // <--- Ability hits 3 targets, since
-                                                                             // toIndex in subList is exclusive
+                int aoeEnd = Math.min(minionWave.size(), targetIdx + 3); // <--- Ability hits 3 targets, since
+                                                                         // toIndex in subList is exclusive
 
                 if (targetIdx < 0 || championStats.mana() < manaCost) {
                     System.out.println("\nNot enough mana to cast that spell!");
