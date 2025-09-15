@@ -68,10 +68,10 @@ public class SummonersTerminal {
             }
 
             Copy.newWaveCopy(waveNumber);
-            int playerActionCount = 0;
-
             Action.generateMinionWave(minionWave, waveNumber);
             Copy.waveCopy(minionWave);
+
+            int playerActionCount = 0;
             playerChampion.walkFromBase();
 
             while (playerActionCount < 5 & playerChampion.getIsDead() == false) {
@@ -127,11 +127,7 @@ public class SummonersTerminal {
                         }
 
                         case 'q': {
-                            System.out.println(
-                                    "\nYou are about to quit the game 😵"
-                                            + "\nAre you sure you want to leave and lose 25 LP?"
-                                            + "\nYou'll be stuck in elo hell!"
-                                            + "\n\nType 'q' if you want to quit");
+                            Copy.quitCopy();
                             char quitConfirmation = helper.askChar(scanner, "");
                             switch (quitConfirmation) {
                                 case 'q':
@@ -157,8 +153,12 @@ public class SummonersTerminal {
 
                 if (playerChampion.getInBase() == false) {
                     for (Minion minion : minionWave) {
-                        playerChampion.takeDamage(minion.attack(), playerActionCount);
+                        playerChampion.takeDamage(minion.attack());
                     }
+                }
+
+                if (playerChampion.getIsDead() == true) {
+                    break;
                 }
 
             }

@@ -3,6 +3,7 @@ package summonersTerminal.gameHelpers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import summonersTerminal.Champion;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;
@@ -100,17 +101,14 @@ public class Action {
                     return;
                 }
                 case 2: {
-
                     champion.equip(Item.ROD_OF_AGES);
                     return;
                 }
                 case 3: {
-
                     champion.equip(Item.INFINITY_EDGE);
                     return;
                 }
                 case 4: {
-
                     champion.equip(Item.RABADONS_DEATHCAP);
                     return;
                 }

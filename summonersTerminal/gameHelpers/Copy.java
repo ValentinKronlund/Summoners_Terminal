@@ -92,6 +92,14 @@ public class Copy {
                 "\n");
     }
 
+    public static void quitCopy() {
+        System.out.println(
+                "\nYou are about to quit the game 😵"
+                        + "\nAre you sure you want to leave and lose 25 LP?"
+                        + "\nYou'll be stuck in elo hell!"
+                        + "\n\nType 'q' if you want to quit");
+    }
+
     public static void victoryCopy() {
         System.out.println(
                 "\n\n🔻 The Enemy Nexus has been destroyed! 🔻\n\n");

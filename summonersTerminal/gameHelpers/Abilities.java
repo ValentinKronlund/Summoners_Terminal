@@ -15,33 +15,46 @@ public class Abilities {
         switch (championName) {
             case "Garen": {
                 int manaCost = 150;
-                int damage = (int) Math.round((championStats.attackPower() * 0.3));
-                int targetIdx = minionWave.indexOf(target);
+                int damageTick = (int) Math.round(championStats.attackPower() * 0.15);
+                int center = minionWave.indexOf(target);
 
-                if (championStats.mana() < manaCost) {
+                if (center < 0 || championStats.mana() < manaCost) {
                     System.out.println("\nNot enough mana to cast that spell!");
                     return false;
                 }
 
                 System.out.println("\nGaren used 'Judgment' for " + manaCost + " mana");
                 champion.useMana(manaCost);
-                int aoeStart = Math.max(0, targetIdx - 2);
-                int aoeEnd = Math.min(minionWave.size() - 1, targetIdx + 2);
-                List<Minion> aoeTargets = new ArrayList<>(minionWave.subList(aoeStart, aoeEnd + 1));
 
-                int hits = 0;
-                for (Minion minion : aoeTargets) {
-                    if (minion == null) {
-                        continue;
+                for (int tick = 1; tick <= 3; tick++) {
+                    int aoeStart = Math.max(0, center - 2);
+                    int aoeEnd = Math.min(minionWave.size() - 1, center + 2);
+                    if (aoeStart > aoeEnd)
+                        break; // <-- Wave empty
+                    List<Minion> aoeTargets = new ArrayList<>(minionWave.subList(aoeStart, aoeEnd + 1));
+                    for (Minion minion : aoeTargets) {
+                        if (minion != null) {
+                            minion.takeDamage(damageTick, minionWave, champion);
+                        }
                     }
-                    minion.takeDamage(damage, minionWave, champion);
-                    hits++;
+
+                    System.out.println("\n");
+
+                    if (tick < 3) {
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException err) {
+                            Thread.currentThread().interrupt();
+                            break;
+                        }
+                    }
                 }
-                return hits > 0;
+
+                return true;
             }
 
             case "Katarina": {
-                int damage = (int) Math.round((championStats.attackPower() * 0.4) + (championStats.abilityPower()));
+                int damage = (int) Math.round((championStats.attackPower() * 0.45) + (championStats.abilityPower()));
                 int manaCost = 125;
                 List<Minion> aoeTargets = new ArrayList<>();
                 int targetIdx = minionWave.indexOf(target);

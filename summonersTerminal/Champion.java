@@ -3,6 +3,7 @@ package summonersTerminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import summonersTerminal.gameHelpers.Abilities;
 import summonersTerminal.gameHelpers.Damage;
 
@@ -107,24 +108,23 @@ public class Champion {
         return true;
     }
 
-    public boolean onDeath(int playerActionCount) {
+    public boolean onDeath() {
         System.out.println("You have been slain! 😵");
         this.isDead = true;
         this.inBase = true;
-        playerActionCount = 5;
-        recalcAllStats();
-        respawn();
         return true;
     }
 
     public boolean respawn() {
         this.isDead = false;
         this.inBase = false;
+        recalcAllStats();
+        respawn();
         System.out.println("\nYou have respawned! 🩵\n");
         return isDead;
     }
 
-    public boolean takeDamage(int damageAmount, int playerActionCount) {
+    public boolean takeDamage(int damageAmount) {
         int damageTaken = (int) Math.round(Damage.damageAfterArmor(damageAmount, stats.armor()));
         try {
             this.stats = new Stats(
@@ -138,7 +138,7 @@ public class Champion {
             System.out.println("You have taken " + damageTaken + " damage!" + " | HP: " + this.stats.health());
 
             if (this.stats.health() <= 0) {
-                onDeath(playerActionCount);
+                onDeath();
             }
 
             return true;
