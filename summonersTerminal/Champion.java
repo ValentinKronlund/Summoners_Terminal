@@ -2,12 +2,14 @@ package summonersTerminal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import summonersTerminal.Abilities.Ability;
 import summonersTerminal.gameHelpers.Abilities;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Damage;
+import summonersTerminal.gameHelpers.Helpers;
 
 public class Champion
 {
@@ -116,12 +118,14 @@ public class Champion
 
     public boolean ability(List<Minion> targets)
     {
+        Helpers helper = new Helpers();
+        Scanner scanner = new Scanner(System.in);
+
         Copy.chooseAbility(this);
-        //final int abilitySlot = helper.askInt(scanner, "") -1;
-        final int abilitySlot = 0;
+        final int abilitySlot = helper.askInt(scanner, "") -1;
 
         Copy.chooseTarget(targets);
-        //final int targetIndex = helper.askInt(scanner, "");
+        final int targetIndex = helper.askInt(scanner, "");
 
         //return Abilities.ability(this, championName, target, minionWave);
         return mAbilities[abilitySlot].ActivateAbility(this.stats, targets);

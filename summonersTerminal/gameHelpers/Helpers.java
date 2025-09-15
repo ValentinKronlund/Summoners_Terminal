@@ -26,7 +26,6 @@ public class Helpers {
             } catch (NumberFormatException e) {
                 System.out.println("⚠️ Please enter a whole number! ⚠️");
             }
-
         }
     }
 
@@ -53,5 +52,4 @@ public class Helpers {
             return '.';
         }
     }
-
 }

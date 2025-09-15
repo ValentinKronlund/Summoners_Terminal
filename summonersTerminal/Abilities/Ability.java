@@ -11,12 +11,18 @@ public class Ability
     public String mDescription;
     public float mPhysicalDamageRatio;
     public float mMagicDamageRatio;
-    public int mBaseDamage;
+    public float mBaseDamage;
     public int mManaCost;
 
     public boolean ActivateAbility(Stats pChampionStats, List<Minion> pTargets)
     {
-        System.out.println("This is base method, please use override!");
-        return false;
+        final float damage = mBaseDamage + pChampionStats.attackPower() * mPhysicalDamageRatio + pChampionStats.abilityPower() * mMagicDamageRatio;
+
+        for (int i = 0; i < pTargets.size(); i++)
+        {
+            //pTargets.get(i).takeDamage(damage); //TO-DO: refactor takeDamage method
+        }
+
+        return true;
     }
 }
