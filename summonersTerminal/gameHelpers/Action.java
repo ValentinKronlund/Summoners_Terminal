@@ -1,3 +1,5 @@
+package summonersTerminal.gameHelpers;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,7 +9,6 @@ import summonersTerminal.Item;
 import summonersTerminal.Minion;
 import summonersTerminal.MinionType;
 import summonersTerminal.Nexus;
-import summonersTerminal.gameHelpers.Helpers;
 
 public class Action
 {

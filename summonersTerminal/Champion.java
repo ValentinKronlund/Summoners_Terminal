@@ -117,10 +117,11 @@ public class Champion
     public boolean ability(List<Minion> targets)
     {
         Copy.chooseAbility(this);
-        final int abilitySlot = helper.askInt(scanner, "") -1;
+        //final int abilitySlot = helper.askInt(scanner, "") -1;
+        final int abilitySlot = 0;
 
         Copy.chooseTarget(targets);
-        final int targetIndex = helper.askInt(scanner, "");
+        //final int targetIndex = helper.askInt(scanner, "");
 
         //return Abilities.ability(this, championName, target, minionWave);
         return mAbilities[abilitySlot].ActivateAbility(this.stats, targets);
