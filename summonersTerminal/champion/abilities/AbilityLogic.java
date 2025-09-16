@@ -1,7 +1,6 @@
 package summonersTerminal.champion.abilities;
 
 import java.util.List;
-
 import summonersTerminal.Champion;
 import summonersTerminal.Minion;
 

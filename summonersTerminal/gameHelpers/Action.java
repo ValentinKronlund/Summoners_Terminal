@@ -3,7 +3,6 @@ package summonersTerminal.gameHelpers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import summonersTerminal.Champion;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;
@@ -43,7 +42,7 @@ public class Action {
             Champion enemyChampion,
             List<Minion> minionWave,
             int playerActionCount) {
-        while (playerActionCount < 5 & playerChampion.getIsDead() == false) {
+        while (playerActionCount < 5 & playerChampion.isDead() == false) {
             Copy.baseActionChoiceCopy(playerActionCount);
 
             try {
@@ -119,16 +118,16 @@ public class Action {
                 return true;
             }
 
-            if (playerChampion.getInBase() == false) {
+            if (playerChampion.inBase() == false) {
                 for (Minion minion : minionWave) {
-                    if (playerChampion.getIsDead() == true) {
+                    if (playerChampion.isDead() == true) {
                         break;
                     }
                     playerChampion.takeDamage(minion.attack());
                 }
             }
 
-            if (playerChampion.getIsDead() == true) {
+            if (playerChampion.isDead() == true) {
                 break;
             }
 
@@ -167,16 +166,11 @@ public class Action {
 
     public static boolean abilityAction(Champion playerChampion, List<Minion> minionWave) {
         while (true) {
-            Copy.chooseAbility();
-
-            List<Ability> playerAbilities = playerChampion.showAbilities();
-            for (int i = 1; i <= playerAbilities.size(); i++) {
-                System.out.println("[" + i + "] " + playerAbilities.get(i - 1).name());
-            }
-
+            List<Ability> playerAbilities = playerChampion.abilities();
+            Copy.chooseAbility(playerAbilities);
             int abilityIndex = helper.askInt(scanner, "") - 1;
-            if (abilityIndex < 0 || abilityIndex >= playerAbilities.size()) {
-                System.out.println("No ability at given index: " + abilityIndex);
+
+            if (!Validation.validateAbilityOption(abilityIndex, playerAbilities)) {
                 continue;
             }
 
@@ -184,12 +178,7 @@ public class Action {
             int targetIdx = helper.askInt(scanner, "");
 
             try {
-                if (targetIdx > minionWave.size() | targetIdx < 1) {
-                    System.out.println("There is no minion at that location -- Try again");
-                    continue;
-                }
-                if (minionWave.get(targetIdx - 1) == null) {
-                    System.out.println("No minion at given index: " + targetIdx);
+                if (!Validation.validateTargetChoice(targetIdx, minionWave)) {
                     continue;
                 }
 

@@ -1,11 +1,11 @@
 package summonersTerminal.gameHelpers;
 
 import java.util.List;
-
 import summonersTerminal.Champion;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;
 import summonersTerminal.Nexus;
+import summonersTerminal.champion.abilities.Ability;
 
 public class Copy {
 
@@ -80,8 +80,14 @@ public class Copy {
 
     }
 
-    public static void chooseAbility() {
+    public static void chooseAbility(List<Ability> rawAbilities) {
         System.out.println("\nWhat ability would you like to use?\n");
+        System.out.println("🔮 🔮 🔮 🔮 🔮");
+        for (int i = 1; i <= rawAbilities.size(); i++) {
+            System.out.println("[" + i + "] " + rawAbilities.get(i - 1).name());
+        }
+        System.out.println("🔮 🔮 🔮 🔮 🔮");
+
     }
 
     public static void attackNexusCopy(Nexus nexus) {

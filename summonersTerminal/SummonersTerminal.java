@@ -63,7 +63,7 @@ public class SummonersTerminal {
 
     private void GameLoop() {
         while (!winConditionMet) {
-            if (playerChampion.getIsDead() == true) {
+            if (playerChampion.isDead() == true) {
                 playerChampion.respawn();
             }
 

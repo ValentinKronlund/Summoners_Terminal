@@ -12,7 +12,7 @@ public final class AbilityKits {
 
     public static Ability garenJudgment() {
         return new SimpleAbility("Judgment", 150, (self, target, wave) -> {
-            Stats championStats = self.getStats();
+            Stats championStats = self.stats();
             int center = wave.indexOf(target);
             int damageTick = (int) Math.round(championStats.attackPower() * 0.15);
 
@@ -50,7 +50,7 @@ public final class AbilityKits {
 
     public static Ability katarinaBouncingBlade() {
         return new SimpleAbility("Bouncing Blade", 125, (self, target, wave) -> {
-            Stats championStats = self.getStats();
+            Stats championStats = self.stats();
             int damage = (int) Math.round((championStats.attackPower() * 0.45) + (championStats.abilityPower()));
             int targetIdx = wave.indexOf(target);
             int aoeEnd = Math.min(wave.size(), targetIdx + 3); // <--- Ability hits 3 targets, since toIndex in subList
@@ -80,7 +80,7 @@ public final class AbilityKits {
 
     public static Ability veigarBalefulStrike() {
         return new SimpleAbility("Bouncing Blade", 125, (self, target, wave) -> {
-            Stats championStats = self.getStats();
+            Stats championStats = self.stats();
             int damage = championStats.abilityPower();
             int targetIdx = wave.indexOf(target);
             int aoeEnd = Math.min(wave.size(), targetIdx + 3);

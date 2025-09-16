@@ -2,14 +2,13 @@ package summonersTerminal.gameHelpers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import summonersTerminal.Champion;
 import summonersTerminal.Minion;
 import summonersTerminal.Stats;
 
 public class Abilities {
     public static boolean ability(Champion champion, String championName, Minion target, List<Minion> minionWave) {
-        Stats championStats = champion.getStats();
+        Stats championStats = champion.stats();
 
         switch (championName) {
             case "Garen": {

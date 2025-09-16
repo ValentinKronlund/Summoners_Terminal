@@ -1,7 +1,6 @@
 package summonersTerminal.champion.abilities;
 
 import java.util.List;
-
 import summonersTerminal.Champion;
 import summonersTerminal.Minion;
 import summonersTerminal.Stats;
@@ -36,7 +35,7 @@ public final class SimpleAbility implements Ability {
             Champion self,
             Minion target,
             List<Minion> wave) {
-        Stats ownStats = self.getStats();
+        Stats ownStats = self.stats();
         if (ownStats.mana() < manaCost) {
             System.out.printf("\nNot enough mana to cast %s (%d/%d)%n", name, ownStats.mana(), manaCost);
             return false;
