@@ -40,12 +40,12 @@ public class Copy {
                         + "Player Champion 😎" + playerChampion.toString() + "\n\n"
                         + "Enemy Champion 😈" + enemyChampion.toString() + "\n");
 
-        System.out.println("🔮 Minions have spawned! 🔮\n");
+        System.out.println("🔮 Minions have spawned! 🔮");
     }
 
     public static void newWaveCopy(int waveNumber) {
-        System.out.println("👹 New wave incoming! 👹"
-                + "\n👹 Wave number: " + waveNumber + " 👹");
+        System.out.println("\n👹 New wave incoming! 👹"
+                + "\n👹 Wave number: " + waveNumber + " 👹\n");
     }
 
     public static void waveCopy(List<Minion> minionWave) {
@@ -65,7 +65,6 @@ public class Copy {
                         + "b: Go to base.\n"
                         + "i: View available items.\n"
                         + "p: Purchase an item.\n"
-                        + "s: Display your stats.\n"
                         + "e: Display enemy stats.\n"
                         + "w: Display minion wave.\n"
                         + "q: Quit the game");

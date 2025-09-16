@@ -26,13 +26,17 @@ public class Minion {
                 base.abilityPower());
     }
 
-    public void onDeath(
+    private void onDeath(
             List<Minion> wave,
-            Champion champion) {
+            Champion champion,
+            String takenDamageString) {
+        String minionDeathString = minionName + " has died! "
+                + champion.championName + " has been awarded with "
+                + goldValue + "🪙";
+
         System.out.println(
-                minionName + " has died!\n"
-                        + champion.championName + " has been awarded with 🥇"
-                        + goldValue + " gold! \n");
+                takenDamageString + " | " + minionDeathString);
+
         wave.remove(this);
         champion.addGold(goldValue);
     }
@@ -43,19 +47,15 @@ public class Minion {
 
     public boolean takeDamage(int damageAmount, List<Minion> wave, Champion champion) {
         try {
-            this.stats = new Stats(
-                    stats.health() - damageAmount,
-                    stats.mana(),
-                    stats.armor(),
-                    stats.resistance(),
-                    stats.attackPower(),
-                    stats.abilityPower());
+            this.stats = this.stats.minus(new Stats(damageAmount, 0, 0, 0, 0, 0));
 
-            System.out.println(this.minionName + " Minion has taken " + damageAmount + " damage!" + " | HP: "
-                    + this.stats.health());
+            String takenDamageString = this.minionName + " Minion has taken " + damageAmount + " damage!" + " | HP: "
+                    + this.stats.health();
 
             if (this.stats.health() <= 0) {
-                onDeath(wave, champion);
+                onDeath(wave, champion, takenDamageString);
+            } else {
+                System.out.println(takenDamageString);
             }
 
             return true;
