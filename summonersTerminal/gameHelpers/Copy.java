@@ -1,6 +1,7 @@
 package summonersTerminal.gameHelpers;
 
 import java.util.List;
+
 import summonersTerminal.Champion;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;
@@ -24,50 +25,50 @@ public class Copy {
                         + "\n   Minions award gold when killed, which can be used to purchase items.\n"
                         + "\n   Attempting to buy an item will send you back to base, even if you don't have enough gold!\n"
                         + "------------------------------------------------\n");
-        System.out.println("\n🔮 Minions spawning soon! 🔮\n");
+        System.out.println("🔮 Minions spawning soon! 🔮\n");
 
-        System.out.println("\n👤 Choose your champion: 👤\n\n"
+        System.out.println("👤 Choose your champion: 👤\n\n"
                 + "(G)aren\n"
                 + "(K)atarina\n"
-                + "(V)eigar\n");
+                + "(V)eigar");
 
     }
 
     public static void championsSelectedCopy(Champion playerChampion, Champion enemyChampion) {
         System.out.println(
                 "\n⚔️ Champions selected! ⚔️\n\n"
-                        + "Player Champion 😎" + "\n" + playerChampion.toString() + "\n\n"
-                        + "Enemy Champion 😈" + "\n" + enemyChampion.toString() + "\n");
+                        + "Player Champion 😎" + playerChampion.toString() + "\n\n"
+                        + "Enemy Champion 😈" + enemyChampion.toString() + "\n");
 
-        System.out.println("\n🔮 Minions have spawned! 🔮\n");
+        System.out.println("🔮 Minions have spawned! 🔮\n");
     }
 
     public static void newWaveCopy(int waveNumber) {
-        System.out.println("\n👹 New wave incoming! 👹"
-                + "\n👹 Wave number: " + waveNumber + " 👹\n");
+        System.out.println("👹 New wave incoming! 👹"
+                + "\n👹 Wave number: " + waveNumber + " 👹");
     }
 
     public static void waveCopy(List<Minion> minionWave) {
-        System.out.println("\n♦️♦️♦️♦️♦️");
+        System.out.println("♦️♦️♦️♦️♦️");
         for (Minion minion : minionWave) {
             System.out.println(minion.toString());
         }
-        System.out.println("\n♦️♦️♦️♦️♦️");
+        System.out.println("♦️♦️♦️♦️♦️");
     }
 
     public static void baseActionChoiceCopy(int playerActionCount) {
-        System.out.println("\n\nAction count: " + playerActionCount + "\n");
+        System.out.println("\nAction count: " + playerActionCount + "\n");
         System.out.println(
-                "\nWhat would you like to do?\n"
+                "What would you like to do?\n"
                         + "a: Use your ability!\n"
                         + "m: Melee attack!\n"
-                        + "g: Go to base.\n"
+                        + "b: Go to base.\n"
                         + "i: View available items.\n"
                         + "p: Purchase an item.\n"
                         + "s: Display your stats.\n"
                         + "e: Display enemy stats.\n"
                         + "w: Display minion wave.\n"
-                        + "q: Quit the game\n");
+                        + "q: Quit the game");
     }
 
     public static void chooseTarget(List<Minion> minionWave) {

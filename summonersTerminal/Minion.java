@@ -3,14 +3,16 @@ package summonersTerminal;
 import java.util.List;
 
 public class Minion {
+    static int indexId;
     String minionName;
     MinionType minionType;
     private Stats stats;
     private int goldValue;
 
     public Minion(
+            int indexId,
             MinionType minionType) {
-        this.minionName = minionType.nameType();
+        this.minionName = minionType.nameType() + "[" + indexId + "]";
         this.minionType = minionType;
         this.goldValue = minionType.goldValue();
 
@@ -28,7 +30,7 @@ public class Minion {
             List<Minion> wave,
             Champion champion) {
         System.out.println(
-                "Minion has died!\n"
+                minionName + " has died!\n"
                         + champion.championName + " has been awarded with 🥇"
                         + goldValue + " gold! \n");
         wave.remove(this);
