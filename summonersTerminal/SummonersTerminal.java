@@ -3,7 +3,6 @@ package summonersTerminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
@@ -25,7 +24,7 @@ public class SummonersTerminal {
     }
 
     private void InitiateGame() {
-        String playerName = helper.askLine(scanner, "\nWhat is your gamer tag?\n");
+        String playerName = helper.askLine(scanner, "\nWhat is your gamer tag? ");
         Copy.initialCopy();
 
         while (playerChampion == null) {

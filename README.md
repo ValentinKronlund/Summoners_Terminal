@@ -27,6 +27,10 @@ Good luck, and have fun! 😄
 
 TODO:
 
+- UI:
+
+  - Player stats should be shown between each round.
+
 - Refactor actions:
 
   - Count down from at total of 5 actions points, instead of counting up.
@@ -38,10 +42,10 @@ TODO:
   - Add 'passive' mana regen between actions.
   - Attempting to purchase item without gold should fail without sending you you to base.
 
-- Add more ability options.
+- Add more ability options. _CURRENLY DOING_
 
   - Each champion should have 2 abilities: one basic ability, and one ultimate.
-  - Each champion
+  - Each champion should be able to choose between a passive -- shared between champions
 
 - Add level-up system.
 

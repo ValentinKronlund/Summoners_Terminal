@@ -14,7 +14,7 @@ public final class AbilityKits {
         return new SimpleAbility("Judgment", 150, (self, target, wave) -> {
             Stats championStats = self.stats();
             int center = wave.indexOf(target);
-            int damageTick = (int) Math.round(championStats.attackPower() * 0.15);
+            int damageTick = (int) Math.round(championStats.attackPower() * 0.4);
 
             System.out.println("\nGaren used 💫'Judgment'💫");
 
@@ -31,8 +31,6 @@ public final class AbilityKits {
                         minion.takeDamage(damageTick, wave, self);
                     }
                 }
-
-                System.out.println("\n");
 
                 if (tick < 3) {
                     try {

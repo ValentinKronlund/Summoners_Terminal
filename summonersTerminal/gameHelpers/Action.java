@@ -3,6 +3,7 @@ package summonersTerminal.gameHelpers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import summonersTerminal.Champion;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;
@@ -13,22 +14,28 @@ import summonersTerminal.champion.abilities.Ability;
 public class Action {
     static Helpers helper = new Helpers();
     static Scanner scanner = new Scanner(System.in);
+    static int meleeCounter = 0;
+    static int casterCounter = 0;
+    static int canonCounter = 0;
 
     public static void generateMinionWave(List<Minion> minionWave, int waveNumber) {
         List<Minion> wave = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) { // Add Melee minions
-            Minion newMinion = new Minion(MinionType.MELEE);
+            Minion newMinion = new Minion(meleeCounter, MinionType.MELEE);
             wave.add(newMinion);
+            meleeCounter++;
         }
         for (int i = 0; i < 3; i++) { // Add Caster minions
-            Minion newMinion = new Minion(MinionType.CASTER);
+            Minion newMinion = new Minion(casterCounter, MinionType.CASTER);
             wave.add(newMinion);
+            casterCounter++;
         }
 
         if (waveNumber % 3 == 0) {
-            Minion newMinion = new Minion(MinionType.CANON);
+            Minion newMinion = new Minion(canonCounter, MinionType.CANON);
             wave.add(newMinion);
+            canonCounter++;
         }
 
         for (Minion minion : wave) {
