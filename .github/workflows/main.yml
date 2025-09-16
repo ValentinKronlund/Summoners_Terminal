@@ -12,3 +12,6 @@ jobs:
     uses: diillson/auto-pull-request@v1.0.1
       with:
         destination_branch: "main"
+
+- name: Delete merged branch
+  uses: SvanBoxel/delete-merged-branch@1.4.3
