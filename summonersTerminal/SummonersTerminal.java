@@ -3,6 +3,7 @@ package summonersTerminal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
@@ -27,34 +28,7 @@ public class SummonersTerminal {
         String playerName = helper.askLine(scanner, "\nWhat is your gamer tag? ");
         Copy.initialCopy();
 
-        while (playerChampion == null) {
-            try {
-                String championRequest = helper.askLine(scanner, "");
-
-                switch (championRequest) {
-                    case "Garen", "garen", "G", "g": {
-                        this.playerChampion = ChampionID.GAREN.create(playerName);
-                        break;
-                    }
-                    case "Katarina", "katarina", "K", "k": {
-                        this.playerChampion = ChampionID.KATARINA.create(playerName);
-                        break;
-                    }
-                    case "Veigar", "veigar", "V", "v": {
-                        this.playerChampion = ChampionID.VEIGAR.create(playerName);
-                        break;
-                    }
-                    default: {
-                        System.out.println("\n There is no champion named: " + championRequest);
-                        throw new IllegalArgumentException();
-                    }
-                }
-            } catch (IllegalArgumentException err) {
-                System.out.println("Try again! ");
-                continue;
-            }
-        }
-
+        this.playerChampion = Action.chooseChampion(playerName);
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
@@ -72,8 +46,7 @@ public class SummonersTerminal {
 
             int playerActionCount = 0;
             playerChampion.walkFromBase();
-
-            boolean shouldEndGame = Action.mainActionOptions(nexus, playerChampion, enemyChampion, minionWave,
+            boolean shouldEndGame = Action.mainActionsLoop(nexus, playerChampion, enemyChampion, minionWave,
                     playerActionCount);
 
             if (shouldEndGame == true) {
@@ -81,11 +54,9 @@ public class SummonersTerminal {
                     endGame(true);
                 }
                 endGame(false);
-
             }
 
             waveNumber++;
-
         }
     }
 

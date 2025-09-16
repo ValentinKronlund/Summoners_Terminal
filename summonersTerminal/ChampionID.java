@@ -7,7 +7,7 @@ import summonersTerminal.champion.abilities.AbilityKits;
 public enum ChampionID {
         GAREN(
                         "Garen",
-                        new Stats(700, 200, 25, 30, 45, 0),
+                        new Stats(600, 200, 20, 15, 45, 0),
                         new Stats(70, 20, 4, 3, 5, 0),
                         new Ability[] { AbilityKits.garenJudgment() }),
         KATARINA(
@@ -18,7 +18,7 @@ public enum ChampionID {
 
         VEIGAR(
                         "Veigar",
-                        new Stats(450, 500, 10, 30, 20, 50),
+                        new Stats(450, 500, 10, 25, 20, 50),
                         new Stats(45, 40, 2, 3, 3, 7),
                         new Ability[] { AbilityKits.veigarBalefulStrike() });
 

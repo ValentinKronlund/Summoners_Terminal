@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import summonersTerminal.Champion;
+import summonersTerminal.ChampionID;
 import summonersTerminal.Item;
 import summonersTerminal.Minion;
 import summonersTerminal.MinionType;
@@ -17,6 +18,33 @@ public class Action {
     static int meleeCounter = 0;
     static int casterCounter = 0;
     static int canonCounter = 0;
+
+    public static Champion chooseChampion(String playerName) {
+        Champion champion = null;
+
+        while (champion == null) {
+            String championRequest = helper.askLine(scanner, "");
+
+            switch (championRequest) {
+                case "Garen", "garen", "G", "g": {
+                    champion = ChampionID.GAREN.create(playerName);
+                    break;
+                }
+                case "Katarina", "katarina", "K", "k": {
+                    champion = ChampionID.KATARINA.create(playerName);
+                    break;
+                }
+                case "Veigar", "veigar", "V", "v": {
+                    champion = ChampionID.VEIGAR.create(playerName);
+                    break;
+                }
+                default: {
+                    System.out.println("\n There is no champion named: " + championRequest);
+                }
+            }
+        }
+        return champion;
+    }
 
     public static void generateMinionWave(List<Minion> minionWave, int waveNumber) {
         List<Minion> wave = new ArrayList<>();
@@ -31,7 +59,6 @@ public class Action {
             wave.add(newMinion);
             casterCounter++;
         }
-
         if (waveNumber % 3 == 0) {
             Minion newMinion = new Minion(canonCounter, MinionType.CANON);
             wave.add(newMinion);
@@ -43,13 +70,14 @@ public class Action {
         }
     }
 
-    public static boolean mainActionOptions(
+    public static boolean mainActionsLoop(
             Nexus nexus,
             Champion playerChampion,
             Champion enemyChampion,
             List<Minion> minionWave,
             int playerActionCount) {
         while (playerActionCount < 5 & playerChampion.isDead() == false) {
+            System.out.println("\n" + playerChampion.toString());
             Copy.baseActionChoiceCopy(playerActionCount);
 
             try {
@@ -85,12 +113,6 @@ public class Action {
                         playerActionCount += 2;
                         break;
                     }
-
-                    case 's': {
-                        System.out.println("\n" + playerChampion.toString());
-                        continue; // <----- Continue here as to not lose a round or take damage.
-                    }
-
                     case 'e': {
                         System.out.println("\n" + enemyChampion.toString());
                         continue; // <----- Continue here as to not lose a round or take damage.
@@ -148,8 +170,8 @@ public class Action {
             if (minionWave.size() > 0) {
                 Copy.chooseTarget(minionWave);
                 int targetIdx = helper.askInt(scanner, "");
-                if (targetIdx > minionWave.size() || targetIdx < 0)
-                    targetIdx = minionWave.size() - 1;
+                if (targetIdx > minionWave.size() || targetIdx <= 0)
+                    targetIdx = 1;
                 try {
                     if (minionWave.get(targetIdx - 1) == null) {
                         System.out.println("No minion at given index: " + targetIdx);
