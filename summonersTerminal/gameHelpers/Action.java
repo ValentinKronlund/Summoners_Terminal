@@ -9,6 +9,7 @@ import summonersTerminal.Item;
 import summonersTerminal.Minion;
 import summonersTerminal.MinionType;
 import summonersTerminal.Nexus;
+import summonersTerminal.champion.abilities.Ability;
 
 public class Action {
     static Helpers helper = new Helpers();
@@ -139,7 +140,7 @@ public class Action {
     public static boolean attackAction(Champion playerChampion, List<Minion> minionWave, Nexus nexus) {
         while (true) {
             if (minionWave.size() > 0) {
-                Copy.attackActionChoiceCopy(minionWave);
+                Copy.chooseTarget(minionWave);
                 int targetIdx = helper.askInt(scanner, "");
                 if (targetIdx > minionWave.size() || targetIdx < 0)
                     targetIdx = minionWave.size() - 1;
@@ -166,8 +167,22 @@ public class Action {
 
     public static boolean abilityAction(Champion playerChampion, List<Minion> minionWave) {
         while (true) {
-            Copy.attackActionChoiceCopy(minionWave);
+            Copy.chooseAbility();
+
+            List<Ability> playerAbilities = playerChampion.showAbilities();
+            for (int i = 1; i <= playerAbilities.size(); i++) {
+                System.out.println("[" + i + "] " + playerAbilities.get(i - 1).name());
+            }
+
+            int abilityIndex = helper.askInt(scanner, "") - 1;
+            if (abilityIndex < 0 || abilityIndex >= playerAbilities.size()) {
+                System.out.println("No ability at given index: " + abilityIndex);
+                continue;
+            }
+
+            Copy.chooseTarget(minionWave);
             int targetIdx = helper.askInt(scanner, "");
+
             try {
                 if (targetIdx > minionWave.size() | targetIdx < 1) {
                     System.out.println("There is no minion at that location -- Try again");
@@ -179,7 +194,7 @@ public class Action {
                 }
 
                 Minion targetMinion = minionWave.get(targetIdx - 1);
-                boolean successfulAttack = playerChampion.ability(targetMinion, minionWave);
+                boolean successfulAttack = playerChampion.useAbility(abilityIndex, targetMinion, minionWave);
                 return successfulAttack;
             } catch (IllegalArgumentException e) {
                 System.out.println("No minion at given index: " + targetIdx);

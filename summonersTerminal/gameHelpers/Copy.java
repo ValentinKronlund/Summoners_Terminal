@@ -70,7 +70,7 @@ public class Copy {
                         + "q: Quit the game\n");
     }
 
-    public static void attackActionChoiceCopy(List<Minion> minionWave) {
+    public static void chooseTarget(List<Minion> minionWave) {
         System.out.println("\nWhat target would you like to attack?\n");
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
         for (int i = 0; i < minionWave.size(); i++) {
@@ -78,6 +78,10 @@ public class Copy {
         }
         System.out.println("🗡️ 🗡️ 🗡️ 🗡️ 🗡️");
 
+    }
+
+    public static void chooseAbility() {
+        System.out.println("\nWhat ability would you like to use?\n");
     }
 
     public static void attackNexusCopy(Nexus nexus) {

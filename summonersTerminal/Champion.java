@@ -1,15 +1,17 @@
 package summonersTerminal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import summonersTerminal.gameHelpers.Abilities;
+
+import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.gameHelpers.Damage;
 
-public class Champion {
+public final class Champion {
 
     String championName;
-    ChampionClass championClass;
+    ChampionID championId;
     private Stats stats;
     private int level = 1;
     private final int startGold = 500;
@@ -17,18 +19,16 @@ public class Champion {
     private boolean isDead = false;
     private boolean inBase = false;
 
+    private final List<Ability> abilityKit;
     private final List<Item> items = new ArrayList<>();
 
     public Champion(
             String championName,
-            ChampionClass championClass) {
+            ChampionID championId) {
         this.championName = championName;
-        this.championClass = championClass;
-
-        Stats base = championClass.base();
-        this.stats = new Stats(
-                base.health(), base.mana(), base.armor(), base.resistance(),
-                base.attackPower(), base.abilityPower());
+        this.championId = championId;
+        this.stats = championId.base;
+        this.abilityKit = new ArrayList<>(championId.abilityKit);
     }
 
     public void levelUp() {
@@ -37,9 +37,9 @@ public class Champion {
     }
 
     private Stats baseAtCurrentLevel() {
-        Stats st = championClass.base();
+        Stats st = championId.base;
         for (int i = 1; i < level; i++) {
-            st = st.plus(championClass.growthPerLevel());
+            st = st.plus(championId.growthPerLevel);
         }
         return st;
     }
@@ -97,8 +97,13 @@ public class Champion {
         return nexus.takeDamage(this.stats.attackPower());
     }
 
-    public boolean ability(Minion target, List<Minion> minionWave) {
-        return Abilities.ability(this, championName, target, minionWave);
+    public boolean useAbility(int abilityIndex, Minion target, List<Minion> minionWave) {
+        if (abilityIndex < 0 || abilityIndex >= abilityKit.size()) {
+            System.out.println("Invalid ability index: " + abilityIndex + 1);
+            return false;
+        }
+        Ability ability = abilityKit.get(abilityIndex);
+        return ability.cast(this, target, minionWave);
     }
 
     public boolean goToBase() {
@@ -127,14 +132,7 @@ public class Champion {
     public boolean takeDamage(int damageAmount) {
         int damageTaken = (int) Math.round(Damage.damageAfterArmor(damageAmount, stats.armor()));
         try {
-            this.stats = new Stats(
-                    stats.health() - damageTaken,
-                    stats.mana(),
-                    stats.armor(),
-                    stats.resistance(),
-                    stats.attackPower(),
-                    stats.abilityPower());
-
+            this.stats = stats.minus(new Stats(damageTaken, 0, 0, 0, 0, 0));
             System.out.println("You have taken " + damageTaken + " damage!" + " | HP: " + this.stats.health());
 
             if (this.stats.health() <= 0) {
@@ -173,19 +171,17 @@ public class Champion {
         return items;
     }
 
+    public List<Ability> showAbilities() {
+        return Collections.unmodifiableList(abilityKit);
+    }
+
     // ----- Setters
     public void walkFromBase() {
         this.inBase = false;
     }
 
     public void useMana(int manaCost) {
-        this.stats = new Stats(
-                stats.health(),
-                stats.mana() - manaCost,
-                stats.armor(),
-                stats.resistance(),
-                stats.attackPower(),
-                stats.abilityPower());
+        this.stats = stats.minus(new Stats(0, manaCost, 0, 0, 0, 0));
     }
 
     public void addGold(int amount) {
@@ -194,14 +190,17 @@ public class Champion {
 
     @Override
     public String toString() {
+        String abilityNames = abilityKit.stream().map(Ability::name).reduce((a, b) -> a + "\n" + b)
+                .orElse("(no abilities)");
         String itemsString = items.isEmpty()
                 ? "(none)"
                 : items.stream()
                         .map(Item::toString)
                         .collect(Collectors.joining("\n"));
 
-        return "[%s] - (Lv.%d %s)\n%s\nGold: %d\nItems: %s ".formatted(championName, level, championClass, stats, gold,
-                itemsString);
+        return "\n[%s] - (%s | Lv.%d)\n%s\n%s\nGold: %d\nItems: %s".formatted(championName, championId.displayName,
+                level, stats,
+                abilityNames, gold, itemsString);
     }
 
 }

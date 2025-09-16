@@ -8,7 +8,6 @@ import summonersTerminal.Minion;
 import summonersTerminal.Stats;
 
 public class Abilities {
-
     public static boolean ability(Champion champion, String championName, Minion target, List<Minion> minionWave) {
         Stats championStats = champion.getStats();
 

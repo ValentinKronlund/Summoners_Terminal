@@ -25,6 +25,7 @@ public class SummonersTerminal {
     }
 
     private void InitiateGame() {
+        String playerName = helper.askLine(scanner, "\nWhat is your gamer tag?\n");
         Copy.initialCopy();
 
         while (playerChampion == null) {
@@ -33,15 +34,15 @@ public class SummonersTerminal {
 
                 switch (championRequest) {
                     case "Garen", "garen", "G", "g": {
-                        this.playerChampion = new Champion("Garen", ChampionClass.BRAWLER);
+                        this.playerChampion = ChampionID.GAREN.create(playerName);
                         break;
                     }
                     case "Katarina", "katarina", "K", "k": {
-                        this.playerChampion = new Champion("Katarina", ChampionClass.ASSASSIN);
+                        this.playerChampion = ChampionID.KATARINA.create(playerName);
                         break;
                     }
                     case "Veigar", "veigar", "V", "v": {
-                        this.playerChampion = new Champion("Veigar", ChampionClass.MAGE);
+                        this.playerChampion = ChampionID.VEIGAR.create(playerName);
                         break;
                     }
                     default: {
@@ -55,7 +56,7 @@ public class SummonersTerminal {
             }
         }
 
-        this.enemyChampion = new Champion("Lux", ChampionClass.MAGE);
+        this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
     }
