@@ -7,6 +7,7 @@ import java.util.Scanner;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
+import summonersTerminal.gameHelpers.Screen;
 
 public class SummonersTerminal {
     Scanner scanner = new Scanner(System.in);
@@ -26,7 +27,7 @@ public class SummonersTerminal {
 
     private void InitiateGame() {
         String playerName = helper.askLine(scanner, "\nWhat is your gamer tag?\n");
-        Copy.initialCopy();
+        Screen.get().addIntroMessage().draw();
 
         while (playerChampion == null) {
             try {

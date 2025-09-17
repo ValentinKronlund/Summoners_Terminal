@@ -12,7 +12,7 @@ public class Helpers {
             if (correctInput != null && !correctInput.isEmpty()) {
                 return correctInput;
             } else {
-                System.out.println("⚠️ Please enter a correct input value, don't leave it blank! ⚠️");
+                Screen.get().addStatus("⚠️ Please enter a correct input value, don't leave it blank! ⚠️").draw();
             }
         }
     }

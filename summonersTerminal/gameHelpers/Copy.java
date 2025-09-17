@@ -7,9 +7,31 @@ import summonersTerminal.Minion;
 import summonersTerminal.Nexus;
 import summonersTerminal.champion.abilities.Ability;
 
-public class Copy {
+public final class Copy {
 
-    public static void initialCopy() {
+    public static String initialCopy() {
+        return
+            """
+            🔮 Welcome, to Summoner's Terminal! 🔮
+            ------------------------------------------------
+               Your aim is to destroy the enemy nexus 🔻, while protecting your own. 💎
+               Minions spawn in waves at the start of each combat sequence.
+               A combat sequence consists of 5 actions. Each combat action cost 1 action point.
+               Certain actions, such as going to base or purchasing items, cost more action points.
+               A minion wave consists of 2 melee minions, and 3 caster minions.
+               Every three waves, a stronger canon minion will be added to the wave.
+               Minions award gold when killed, which can be used to purchase items.
+               Attempting to buy an item will send you back to base, even if you don't have enough gold!
+            🔮 Minions spawning soon! 🔮
+            
+            👤 Choose your champion: 👤
+            
+            (G)aren
+            (K)atarina
+            (V)eigar
+            """
+        ;
+/*
         System.out.println("\n🔮 Welcome, to Summoner's Terminal! 🔮");
         System.out.println(
                 "\n[ Rules ]: \n"
@@ -30,7 +52,7 @@ public class Copy {
                 + "(G)aren\n"
                 + "(K)atarina\n"
                 + "(V)eigar\n");
-
+*/
     }
 
     public static void championsSelectedCopy(Champion playerChampion, Champion enemyChampion) {
