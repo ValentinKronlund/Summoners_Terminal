@@ -1,12 +1,15 @@
 package summonersTerminal;
 
-public class Nexus {
-    String name;
-    public boolean isDestroyed = false;
+import java.util.List;
+
+public final class Nexus implements Target {
+    private final String _name;
+    private boolean _isAlive = false;
     private Stats stats;
 
     public Nexus(String name) {
-        this.name = name;
+        this._name = name;
+        this._isAlive = true;
         this.stats = new Stats(
                 500,
                 0,
@@ -16,21 +19,26 @@ public class Nexus {
                 0);
     }
 
-    public void onDeath() {
-        this.isDestroyed = true;
+    @Override
+    public String name() {
+        return _name;
     }
 
-    public boolean takeDamage(int damageAmount) {
-        try {
-            this.stats = new Stats(
-                    stats.health() - damageAmount,
-                    stats.mana(),
-                    stats.armor(),
-                    stats.resistance(),
-                    stats.attackPower(),
-                    stats.abilityPower());
+    @Override
+    public boolean isAlive() {
+        return _isAlive;
+    }
 
-            System.out.println(this.name + " has taken " + damageAmount + " damage!" + " | HP: "
+    public void onDeath() {
+        this._isAlive = false;
+    }
+
+    @Override
+    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
+        try {
+            this.stats = this.stats.minus(new Stats(physicalDamage, 0, 0, 0, 0, 0));
+
+            System.out.println(this._name + " has taken " + physicalDamage + " damage!" + " | HP: "
                     + this.stats.health());
 
             if (this.stats.health() <= 0) {
@@ -47,7 +55,7 @@ public class Nexus {
 
     @Override
     public String toString() {
-        return "[%s] - HP:%d".formatted(name, stats.health());
+        return "[%s] - HP:%d".formatted(_name, stats.health());
     }
 
 }

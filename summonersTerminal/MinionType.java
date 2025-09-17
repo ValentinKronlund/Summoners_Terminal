@@ -7,15 +7,15 @@ public enum MinionType {
                                         90,
                                         0,
                                         10,
-                                        0,
+                                        5,
                                         17,
                                         0),
                         new Stats(
+                                        20,
                                         0,
+                                        4,
                                         0,
-                                        0,
-                                        0,
-                                        0,
+                                        3,
                                         0),
                         150),
         CASTER(
@@ -23,16 +23,16 @@ public enum MinionType {
                         new Stats(
                                         70,
                                         0,
-                                        0,
-                                        0,
+                                        5,
+                                        5,
                                         13,
                                         0),
                         new Stats(
+                                        20,
                                         0,
                                         0,
                                         0,
-                                        0,
-                                        0,
+                                        4,
                                         0),
                         100),
         CANON(
@@ -45,11 +45,11 @@ public enum MinionType {
                                         25,
                                         0),
                         new Stats(
+                                        40,
                                         0,
+                                        5,
                                         0,
-                                        0,
-                                        0,
-                                        0,
+                                        8,
                                         0),
                         250);
 

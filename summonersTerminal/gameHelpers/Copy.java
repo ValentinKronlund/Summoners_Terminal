@@ -15,7 +15,7 @@ public class Copy {
         System.out.println(
                 "\n[ Rules ]: \n"
                         + "------------------------------------------------\n"
-                        + "   Your aim is to destroy the enemy nexus 🔻, while protecting your own. 💎\n"
+                        + "   Your aim is to destroy the enemy nexus 🔻, while protecting your own. 💠\n"
                         + "   To attack a nexus, a champion must first break through the enemies minions.\n\n"
                         + "   Minions spawn in waves at the start of each combat sequence.\n"
                         + "   A combat sequence consists of 5 actions. Each combat action cost 1 action point.\n"
@@ -48,26 +48,41 @@ public class Copy {
                 + "\n👹 Wave number: " + waveNumber + " 👹\n");
     }
 
-    public static void waveCopy(List<Minion> minionWave) {
-        System.out.println("♦️♦️♦️♦️♦️");
-        for (Minion minion : minionWave) {
+    public static void enemyWaveCopy(List<Minion> enemyMinionWave) {
+        System.out.println("♦️ ♦️ ♦️ ♦️ ♦️");
+        for (Minion minion : enemyMinionWave) {
             System.out.println(minion.toString());
         }
-        System.out.println("♦️♦️♦️♦️♦️");
+        System.out.println("♦️ ♦️ ♦️ ♦️ ♦️");
+    }
+
+    public static void nexusCopy(Nexus nexus) {
+        System.out.println(nexus.toString());
+    }
+
+    public static void allyWaveCopy(List<Minion> allyMinionWave) {
+        System.out.println("🔷🔷🔷🔷🔷");
+        for (Minion minion : allyMinionWave) {
+            System.out.println(minion.toString());
+        }
+        System.out.println("🔷🔷🔷🔷🔷");
     }
 
     public static void baseActionChoiceCopy(int playerActionCount) {
         System.out.println("\nAction count: " + playerActionCount + "\n");
         System.out.println(
                 "What would you like to do?\n"
-                        + "a: Use your ability!\n"
-                        + "m: Melee attack!\n"
-                        + "b: Go to base.\n"
-                        + "i: View available items.\n"
-                        + "p: Purchase an item.\n"
-                        + "e: Display enemy stats.\n"
-                        + "w: Display minion wave.\n"
-                        + "q: Quit the game");
+                        + "a: 🔮 Use your ability!\n"
+                        + "m: 🗡️  Melee attack!\n"
+                        + "b: 🏰 Go to base.\n"
+                        + "i: 🧐 View available items.\n"
+                        + "p: 💰 Purchase an item.\n"
+                        + "q: 😇 Display ally minion wave.\n"
+                        + "w: 😈 Display enemy minion wave.\n"
+                        + "e: 🏆 Display enemy stats.\n"
+                        + "r: 💠 Display ally nexus.\n"
+                        + "t: ♦️  Display ally nexus.\n"
+                        + "x: ❌ Quit the game");
     }
 
     public static void chooseTarget(List<Minion> minionWave) {
@@ -107,7 +122,7 @@ public class Copy {
                 "\nYou are about to quit the game 😵"
                         + "\nAre you sure you want to leave and lose 25 LP?"
                         + "\nYou'll be stuck in elo hell!"
-                        + "\n\nType 'q' if you want to quit");
+                        + "\n\nType 'x' if you want to quit");
     }
 
     public static void victoryCopy() {
@@ -125,6 +140,25 @@ public class Copy {
                         + "\n  💎💎💎💎💎💎💎💎💎"
                         + "\n    💎💎💎💎💎💎💎"
                         + "\n      💎💎💎💎💎"
+                        + "\n\n");
+
+    }
+
+    public static void defeatCopy() {
+        System.out.println(
+                "\n\n🔻 The Enemy Nexus has been destroyed! 🔻\n\n");
+
+        System.out.println(
+                "\n\n"
+                        + "\n      🔻🔻🔻🔻🔻"
+                        + "\n    🔻🔻🔻🔻🔻🔻🔻"
+                        + "\n  🔻🔻🔻🔻🔻🔻🔻🔻🔻"
+                        + "\n 🔻🔻🔻        🔻🔻🔻"
+                        + "\n🔻🔻🔺  DEFEAT! 🔺🔻🔻"
+                        + "\n 🔻🔻🔻        🔻🔻🔻"
+                        + "\n  🔻🔻🔻🔻🔻🔻🔻🔻🔻"
+                        + "\n    🔻🔻🔻🔻🔻🔻🔻"
+                        + "\n      🔻🔻🔻🔻🔻"
                         + "\n\n");
     }
 }

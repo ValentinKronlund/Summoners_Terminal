@@ -15,8 +15,10 @@ public class SummonersTerminal {
     private boolean winConditionMet = false;
     private Champion playerChampion;
     private Champion enemyChampion;
-    private Nexus nexus = new Nexus("Enemy Nexus");
-    private List<Minion> minionWave = new ArrayList<>();
+    private Nexus enemyNexus = new Nexus("♦️ Enemy Nexus ♦️");
+    private Nexus allyNexus = new Nexus("💠 Ally Nexus 💠");
+    private List<Minion> enemyMinionWave = new ArrayList<>();
+    private List<Minion> allyMinionWave = new ArrayList<>();
     private int waveNumber = 1;
 
     public void PlayGame() {
@@ -36,33 +38,44 @@ public class SummonersTerminal {
 
     private void GameLoop() {
         while (!winConditionMet) {
-            if (playerChampion.isDead() == true) {
+            if (playerChampion.isAlive() == false) {
                 playerChampion.respawn();
             }
 
+            if (enemyChampion.isAlive() == false) {
+                enemyChampion.respawn();
+            }
+
             Copy.newWaveCopy(waveNumber);
-            Action.generateMinionWave(minionWave, waveNumber);
-            Copy.waveCopy(minionWave);
+            Action.generateMinionWave(enemyMinionWave, waveNumber, true);
+            Action.generateMinionWave(allyMinionWave, waveNumber, false);
+            Copy.enemyWaveCopy(enemyMinionWave);
+            Copy.allyWaveCopy(allyMinionWave);
 
             int playerActionCount = 0;
             playerChampion.walkFromBase();
-            boolean shouldEndGame = Action.mainActionsLoop(nexus, playerChampion, enemyChampion, minionWave,
+            enemyChampion.walkFromBase();
+            boolean shouldEndGame = Action.mainActionsLoop(enemyNexus, allyNexus, playerChampion, enemyChampion,
+                    enemyMinionWave,
+                    allyMinionWave,
                     playerActionCount);
 
             if (shouldEndGame == true) {
-                if (nexus.isDestroyed == true) {
-                    endGame(true);
+                if (enemyNexus.isAlive() == false) {
+                    endGame(true, false);
                 }
-                endGame(false);
+                endGame(false, true);
             }
 
             waveNumber++;
         }
     }
 
-    public void endGame(boolean nexusDestroyed) {
-        if (nexusDestroyed) {
+    public void endGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
+        if (enemyNexusDestroyed) {
             Copy.victoryCopy();
+        } else {
+            Copy.defeatCopy();
         }
         this.winConditionMet = true;
     }
