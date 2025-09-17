@@ -31,10 +31,17 @@ public final class Screen {
      */
     private void addToBuffer(int column, int row, String formattedText) {
         int startIndex = row * screenWidth + column;
+        // go through the input string, find a newline, determine length of row
+        // then compare to remaining row space in buffer, discard overflow
+        // find the index for the first column in the row.
+        // then put that row into the buffer, character by character...
+        //int stringWidth = formattedText.substring()
+        for (int it = 0, ib = startIndex; it < formattedText.length() && ib < screenBuffer.length(); it++, ib++) {
+            char c = formattedText.charAt(it);
+            if (c == '\n') {
 
-        for (int i = 0; i < formattedText.length(); i++) {
-            char c = formattedText.charAt(i);
-            screenBuffer.setCharAt(startIndex + i, c);
+            }
+            screenBuffer.setCharAt(ib, c);
         }
     }
 
