@@ -1,6 +1,7 @@
-package summonersTerminal.champion.passives;
+package summonersTerminal.champion.Passives;
 
 import summonersTerminal.Champion;
+import summonersTerminal.champion.Passives.Base.Passive;
 
 public class Factory
 {

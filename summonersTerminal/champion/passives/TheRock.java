@@ -1,7 +1,8 @@
-package summonersTerminal.champion.passives;
+package summonersTerminal.champion.Passives;
 
 import summonersTerminal.Champion;
 import summonersTerminal.Stats;
+import summonersTerminal.champion.Passives.Base.Passive;
 
 public class TheRock extends Passive
 {

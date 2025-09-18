@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import summonersTerminal.champion.abilities.Ability;
-import summonersTerminal.champion.passives.Passive;
+import summonersTerminal.champion.Passives.Base.Passive;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
 

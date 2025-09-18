@@ -1,4 +1,4 @@
-package summonersTerminal.champion.passives;
+package summonersTerminal.champion.Passives.Base;
 
 import summonersTerminal.Champion;
 import summonersTerminal.Stats;
