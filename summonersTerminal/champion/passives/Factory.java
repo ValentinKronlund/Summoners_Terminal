@@ -7,7 +7,7 @@ public class Factory
 {
     public enum ePassive
     {
-        THE_ROCK,
+        THE_GIANT,
         INFINITE_POWER,
         Mundo_Does_What_He_Pleased,
         Dummy
@@ -17,8 +17,8 @@ public class Factory
     {
         switch (pPassive)
         {
-            case THE_ROCK:
-                return new TheRock("The rock", Passive.ePassiveType.STATS, pChampionRef, true);
+            case THE_GIANT:
+                return new TheGiant("The Giant", Passive.ePassiveType.STATS, pChampionRef, true);
             case INFINITE_POWER:
                 return new Dummy("Infinite Power!", Passive.ePassiveType.NONE, pChampionRef, false);
             case Mundo_Does_What_He_Pleased:

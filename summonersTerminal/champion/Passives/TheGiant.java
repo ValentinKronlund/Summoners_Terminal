@@ -4,11 +4,11 @@ import summonersTerminal.Champion;
 import summonersTerminal.Stats;
 import summonersTerminal.champion.Passives.Base.Passive;
 
-public class TheRock extends Passive
+public class TheGiant extends Passive
 {
     private final int mHealthIncrease = 1000;
 
-    public TheRock(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
+    public TheGiant(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
     {
         super(pName, pPassiveType, pChampionRef, pIsActive);
     }
