@@ -113,6 +113,26 @@ public class Stats
                 mMaxAbilityPower == stats.mMaxAbilityPower;
     }
 
+    public void SetMaxStats(final Stats pMaxStats)
+    {
+        this.mMaxHealth = pMaxStats.mMaxHealth;
+        this.mMaxMana = pMaxStats.mMaxMana;
+        this.mMaxArmor = pMaxStats.mMaxArmor;
+        this.mMaxResistance = pMaxStats.mMaxResistance;
+        this.mMaxAttackPower = pMaxStats.mMaxAttackPower;
+        this.mMaxAbilityPower = pMaxStats.mMaxAbilityPower;
+    }
+
+    public void SetCurrentStats(final Stats pCurrentStats)
+    {
+        this.mCurrentHealth = pCurrentStats.mCurrentHealth;
+        this.mCurrentMana = pCurrentStats.mCurrentMana;
+        this.mCurrentArmor = pCurrentStats.mCurrentArmor;
+        this.mCurrentResistance = pCurrentStats.mCurrentResistance;
+        this.mCurrentAttackPower = pCurrentStats.mCurrentAttackPower;
+        this.mCurrentAbilityPower = pCurrentStats.mCurrentAbilityPower;
+    }
+
     public void SetMaxHealth(final int pMaxHealth)
     {
         mMaxHealth = pMaxHealth;
