@@ -67,6 +67,7 @@ public class SummonersTerminal {
                 endGame(false, true);
             }
 
+            playerChampion.getPassive().Tick();
             waveNumber++;
         }
     }

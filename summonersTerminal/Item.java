@@ -57,12 +57,12 @@ public enum Item {
 
         @Override
         public String toString() {
-                return name().replace('_', ' ') + " [HP+" + stats.health()
-                                + " MP+" + stats.mana()
-                                + " ARM+" + stats.armor()
-                                + " RES+" + stats.resistance()
-                                + " ATK+" + stats.attackPower()
-                                + " ABI+" + stats.abilityPower()
+                return name().replace('_', ' ') + " [HP+" + stats.getHealth()
+                                + " MP+" + stats.getMana()
+                                + " ARM+" + stats.getArmor()
+                                + " RES+" + stats.getResistance()
+                                + " ATK+" + stats.getAttackPower()
+                                + " ABI+" + stats.getAbilityPower()
                                 + " | COST " + cost + "]";
         }
 
