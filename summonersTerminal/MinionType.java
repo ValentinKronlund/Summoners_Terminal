@@ -8,7 +8,7 @@ public enum MinionType {
                                         0,
                                         10,
                                         5,
-                                        17,
+                                        100,
                                         0),
                         new Stats(
                                         20,
