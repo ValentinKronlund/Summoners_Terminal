@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import summonersTerminal.champion.Passives.Factory;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
@@ -27,11 +28,19 @@ public class SummonersTerminal {
     }
 
     private void InitiateGame() {
-        String playerName = helper.askLine(scanner, "\nWhat is your gamer tag? ");
+        String playerName = helper.askLine(scanner, "\n\n 🏷️  Before we begin -- What is your gamer tag? ");
         Copy.initialCopy();
 
         this.playerChampion = Action.chooseChampion(playerName);
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
+
+        { // NOTE(Nat): TO-DO make a Choose Passive state
+            Factory passiveFactory = new Factory();
+            this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.THE_GIANT, this.playerChampion));
+            this.playerChampion.getPassive().Init();
+
+            System.out.println("\nSelected passive: " + this.playerChampion.getPassive().GetDescription());
+        }
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
     }
@@ -52,13 +61,13 @@ public class SummonersTerminal {
             Copy.enemyWaveCopy(enemyMinionWave);
             Copy.allyWaveCopy(allyMinionWave);
 
-            int playerActionCount = 0;
+            int actionCount = 5;
             playerChampion.walkFromBase();
             enemyChampion.walkFromBase();
-            boolean shouldEndGame = Action.mainActionsLoop(enemyNexus, allyNexus, playerChampion, enemyChampion,
-                    enemyMinionWave,
+            boolean shouldEndGame = Action.mainActionsLoop(allyNexus, enemyNexus, playerChampion, enemyChampion,
                     allyMinionWave,
-                    playerActionCount);
+                    enemyMinionWave,
+                    actionCount);
 
             if (shouldEndGame == true) {
                 if (enemyNexus.isAlive() == false) {
@@ -67,6 +76,7 @@ public class SummonersTerminal {
                 endGame(false, true);
             }
 
+            playerChampion.getPassive().Tick();
             waveNumber++;
         }
     }

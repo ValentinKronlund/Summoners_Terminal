@@ -10,5 +10,4 @@ public interface Ability {
     int manaCost();
 
     boolean cast(Champion self, Minion target, List<Minion> wave);
-
 }
