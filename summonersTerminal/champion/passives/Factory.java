@@ -9,7 +9,7 @@ public class Factory
     {
         THE_GIANT,
         INFINITE_POWER,
-        Mundo_Does_What_He_Pleased,
+        Undying,
         Dummy
     }
 
@@ -20,9 +20,9 @@ public class Factory
             case THE_GIANT:
                 return new TheGiant("The Giant", Passive.ePassiveType.STATS, pChampionRef, true);
             case INFINITE_POWER:
-                return new Dummy("Infinite Power!", Passive.ePassiveType.NONE, pChampionRef, false);
-            case Mundo_Does_What_He_Pleased:
-                return new MundoDoesWhatHePleased("Mundo Does What He Pleased", Passive.ePassiveType.NONE, pChampionRef, false);
+                return new InfinitePower("Infinite Power!", Passive.ePassiveType.NONE, pChampionRef, true);
+            case Undying:
+                return new Undying(ePassive.Undying.toString(), Passive.ePassiveType.NONE, pChampionRef, true);
             default:
                 return new Dummy("Dummy, I do nothing", Passive.ePassiveType.NONE, pChampionRef, false);
         }

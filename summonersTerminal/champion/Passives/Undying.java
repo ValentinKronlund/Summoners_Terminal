@@ -3,11 +3,11 @@ package summonersTerminal.champion.Passives;
 import summonersTerminal.Champion;
 import summonersTerminal.champion.Passives.Base.Passive;
 
-public class MundoDoesWhatHePleased extends Passive
+public class Undying extends Passive
 {
     private int mHealthRegenPerTurn = 1000;
 
-    public MundoDoesWhatHePleased(final String pName, final Passive.ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
+    public Undying(final String pName, final Passive.ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
     {
         super(pName, pPassiveType, pChampionRef, pIsActive);
     }
@@ -22,11 +22,6 @@ public class MundoDoesWhatHePleased extends Passive
     public boolean Tick()
     {
         //NOTE(Nat): To-DO
-
-        if (mType == ePassiveType.REGEN)
-        {
-            return true;
-        }
 
         return false;
     }
