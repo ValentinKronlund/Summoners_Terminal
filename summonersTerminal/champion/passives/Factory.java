@@ -18,7 +18,7 @@ public class Factory {
             case INFINITE_POWER:
                 return new InfinitePower("Infinite Power!", Passive.ePassiveType.COMBAT, pChampionRef, true);
             case UNDYING:
-                return new Undying(ePassive.UNDYING.toString(), Passive.ePassiveType.NONE, pChampionRef, true);
+                return new Undying("Undying", Passive.ePassiveType.REGEN, pChampionRef, true);
             default:
                 return new Dummy("Dummy, I do nothing", Passive.ePassiveType.NONE, pChampionRef, false);
         }
