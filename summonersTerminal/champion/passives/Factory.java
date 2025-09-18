@@ -2,7 +2,7 @@ package summonersTerminal.champion.passives;
 
 import summonersTerminal.Champion;
 
-public class PassiveFactory
+public class Factory
 {
     public enum ePassive
     {
@@ -21,12 +21,12 @@ public class PassiveFactory
                 return new TheRock("The rock", Passive.ePassiveType.STATS, pChampionRef, true);
             }
             case INFINITE_POWER:
-                return new DummyPassive("Infinite Power!", Passive.ePassiveType.NONE, pChampionRef, false);
+                return new Dummy("Infinite Power!", Passive.ePassiveType.NONE, pChampionRef, false);
             case Mundo_Does_What_He_Pleased:
-                return new DummyPassive("Mundo Does What He Pleased", Passive.ePassiveType.NONE, pChampionRef, false);
+                return new Dummy("Mundo Does What He Pleased", Passive.ePassiveType.NONE, pChampionRef, false);
             default:
             {
-                return new DummyPassive("Dummy, I do nothing", Passive.ePassiveType.NONE, pChampionRef, false);
+                return new Dummy("Dummy, I do nothing", Passive.ePassiveType.NONE, pChampionRef, false);
             }
         }
     }
