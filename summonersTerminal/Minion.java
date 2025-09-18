@@ -2,6 +2,7 @@ package summonersTerminal;
 
 import java.util.List;
 
+import summonersTerminal.champion.Passives.Base.Passive;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.MinionTargetingSystem;
 
@@ -84,6 +85,11 @@ public final class Minion implements Target {
         this._isAlive = false;
         waveIAmIn.remove(this);
         champion.addGold(goldValue);
+
+        if (champion.getPassive().mType == Passive.ePassiveType.COMBAT)
+        {
+            champion.getPassive().Execute();
+        }
     }
 
     private void deathByNPC(
