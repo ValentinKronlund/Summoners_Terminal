@@ -56,6 +56,10 @@ public class Copy {
         System.out.println("♦️ ♦️ ♦️ ♦️ ♦️");
     }
 
+    public static void enemyChampionCopy(Champion enemyChampion) {
+        System.out.println("\n" + enemyChampion.toString());
+    }
+
     public static void nexusCopy(Nexus nexus) {
         System.out.println(nexus.toString());
     }

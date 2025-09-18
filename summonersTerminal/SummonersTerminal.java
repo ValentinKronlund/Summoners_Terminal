@@ -27,7 +27,7 @@ public class SummonersTerminal {
     }
 
     private void InitiateGame() {
-        String playerName = helper.askLine(scanner, "\nWhat is your gamer tag? ");
+        String playerName = helper.askLine(scanner, "\n\n 🏷️  Before we begin -- What is your gamer tag? ");
         Copy.initialCopy();
 
         this.playerChampion = Action.chooseChampion(playerName);
@@ -52,13 +52,13 @@ public class SummonersTerminal {
             Copy.enemyWaveCopy(enemyMinionWave);
             Copy.allyWaveCopy(allyMinionWave);
 
-            int playerActionCount = 0;
+            int actionCount = 5;
             playerChampion.walkFromBase();
             enemyChampion.walkFromBase();
-            boolean shouldEndGame = Action.mainActionsLoop(enemyNexus, allyNexus, playerChampion, enemyChampion,
-                    enemyMinionWave,
+            boolean shouldEndGame = Action.mainActionsLoop(allyNexus, enemyNexus, playerChampion, enemyChampion,
                     allyMinionWave,
-                    playerActionCount);
+                    enemyMinionWave,
+                    actionCount);
 
             if (shouldEndGame == true) {
                 if (enemyNexus.isAlive() == false) {
