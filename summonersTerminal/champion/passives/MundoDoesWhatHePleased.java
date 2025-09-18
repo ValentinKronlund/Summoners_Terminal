@@ -15,7 +15,7 @@ public class MundoDoesWhatHePleased extends Passive
     @Override
     public void Init()
     {
-        SetDescription("\"" + mName + "\"" + "! Regen health by " + mHealthRegenPerTurn + " every turn.");
+        SetDescription("\"" + GetName() + "\"" + "! Regen health by " + mHealthRegenPerTurn + " every turn.");
     }
 
     @Override
