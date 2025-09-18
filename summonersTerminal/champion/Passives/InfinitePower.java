@@ -5,8 +5,8 @@ import summonersTerminal.champion.Passives.Base.Passive;
 
 public class InfinitePower extends Passive
 {
-    private int mIncreasePowerPerStack = 1;
-    private int mIncreasedPowerStack = 0;
+    private final int mIncreasePowerPerStack = 1;
+    private int mStack = 0;
 
     public InfinitePower(final String pName, final Passive.ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
     {
@@ -17,22 +17,19 @@ public class InfinitePower extends Passive
     public void Init()
     {
         SetDescription("\"" + GetName() + "\"" + "! Attack Power and Ability Power increase by " + mIncreasePowerPerStack + " for every takedown.");
+        mStack = 0;
     }
 
     @Override
     public boolean Execute()
     {
-        mChampion.stats().MinusMaxAttackPower(mIncreasedPowerStack);
-        mChampion.stats().MinusMaxAbilityPower(mIncreasedPowerStack);
-        mChampion.stats().MinusCurrentAttackPower(mIncreasedPowerStack);
-        mChampion.stats().MinusCurrentAbilityPower(mIncreasedPowerStack);
+        mChampion.stats().MinusMaxAttackPower(mStack);
+        mChampion.stats().MinusMaxAbilityPower(mStack);
 
-        mIncreasedPowerStack += mIncreasePowerPerStack;
+        mStack += mIncreasePowerPerStack;
 
-        mChampion.stats().AddCurrentAttackPower(mIncreasedPowerStack);
-        mChampion.stats().AddCurrentAbilityPower(mIncreasedPowerStack);
-        mChampion.stats().AddMaxAttackPower(mIncreasedPowerStack);
-        mChampion.stats().AddMaxAbilityPower(mIncreasedPowerStack);
+        mChampion.stats().AddMaxAttackPower(mStack);
+        mChampion.stats().AddMaxAbilityPower(mStack);
 
         return true;
     }
