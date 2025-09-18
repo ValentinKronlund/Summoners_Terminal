@@ -10,7 +10,7 @@ public class Factory
         THE_ROCK,
         INFINITE_POWER,
         Mundo_Does_What_He_Pleased,
-        DummyPassive
+        Dummy
     }
 
     public Passive Create(final ePassive pPassive, final Champion pChampionRef)

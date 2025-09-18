@@ -22,7 +22,6 @@ public class Action {
 
     public static Champion chooseChampion(String playerName) {
         Champion champion = null;
-        Factory passiveFactory = new Factory();
 
         while (champion == null) {
             String championRequest = helper.askLine(scanner, "");
@@ -30,17 +29,14 @@ public class Action {
             switch (championRequest) {
                 case "Garen", "garen", "G", "g": {
                     champion = ChampionID.GAREN.create(playerName);
-                    champion.setPassive(passiveFactory.Create(Factory.ePassive.THE_ROCK, champion));
                     break;
                 }
                 case "Katarina", "katarina", "K", "k": {
                     champion = ChampionID.KATARINA.create(playerName);
-                    champion.setPassive(passiveFactory.Create(Factory.ePassive.Mundo_Does_What_He_Pleased, champion));
                     break;
                 }
                 case "Veigar", "veigar", "V", "v": {
                     champion = ChampionID.VEIGAR.create(playerName);
-                    champion.setPassive(passiveFactory.Create(Factory.ePassive.INFINITE_POWER, champion));
                     break;
                 }
                 default: {
@@ -49,7 +45,6 @@ public class Action {
             }
         }
 
-        champion.getPassive().Init();
         return champion;
     }
 

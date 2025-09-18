@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import summonersTerminal.champion.Passives.Factory;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
@@ -32,6 +33,12 @@ public class SummonersTerminal {
 
         this.playerChampion = Action.chooseChampion(playerName);
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
+
+        { //NOTE(Nat): TO-DO make a Choose Passive state
+        Factory passiveFactory = new Factory();
+        this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.THE_ROCK, this.playerChampion));
+        this.playerChampion.getPassive().Init();
+        }
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
     }
