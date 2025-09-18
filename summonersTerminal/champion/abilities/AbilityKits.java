@@ -13,8 +13,9 @@ public final class AbilityKits {
     public static Ability garenJudgment() {
         return new SimpleAbility("Judgment", 150, (self, target, originalWave) -> {
             Stats championStats = self.stats();
+
             int center = originalWave.indexOf(target);
-            int damageTick = (int) Math.round(championStats.attackPower() * 0.4);
+            int damageTick = (int) Math.round(championStats.GetAttackPower() * 0.4);
 
             System.out.println("\nGaren used 💫'Judgment'💫");
 
@@ -49,13 +50,13 @@ public final class AbilityKits {
     public static Ability katarinaBouncingBlade() {
         return new SimpleAbility("Bouncing Blade", 125, (self, target, originalWave) -> {
             Stats championStats = self.stats();
-            int physicalDamage = (int) Math.round((championStats.attackPower() * 0.45));
-            int spellDamage = (int) championStats.abilityPower();
+
+            int physicalDamage = (int) Math.round((championStats.GetAttackPower() * 0.45));
+            int spellDamage = (int) championStats.GetAbilityPower();
             int targetIdx = originalWave.indexOf(target);
             int aoeEnd = Math.min(originalWave.size(), targetIdx + 3); // <--- Ability hits 3 targets, since toIndex in
                                                                        // subList
             // is exclusive
-
             System.out.println("\nKatarina used 🗡️'Bouncing Blade'🗡️");
             System.out.println("\n🗡️ " + physicalDamage + " 🔮 " + spellDamage);
 
@@ -84,7 +85,7 @@ public final class AbilityKits {
     public static Ability veigarBalefulStrike() {
         return new SimpleAbility("Bouncing Blade", 125, (self, target, originalWave) -> {
             Stats championStats = self.stats();
-            int spellDamage = (int) championStats.abilityPower();
+            int spellDamage = (int) championStats.GetAbilityPower();
             int targetIdx = originalWave.indexOf(target);
             int aoeEnd = Math.min(originalWave.size(), targetIdx + 3);
 

@@ -4,12 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import summonersTerminal.champion.Passives.Base.Passive;
 import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
 
 public final class Champion implements Target {
+    public void setPassive(Passive pPassive) {
+        _passive = pPassive;
+    }
+
+    public void increaseStats(final Stats pStats) {
+        _stats = _stats.plus(pStats);
+    }
+
+    public Passive getPassive() {
+        return _passive;
+    }
 
     private final String championName;
     ChampionID championId;
@@ -22,6 +33,7 @@ public final class Champion implements Target {
 
     private final List<Ability> _abilityKit;
     private final List<Item> _items = new ArrayList<>();
+    private Passive _passive;
 
     public Champion(
             String championName,
@@ -54,12 +66,12 @@ public final class Champion implements Target {
         Stats newStats = baseAtCurrentLevel().plus(itemBonus);
 
         this._stats = new Stats(
-                newStats.health(),
-                newStats.mana(),
-                newStats.armor(),
-                newStats.resistance(),
-                newStats.attackPower(),
-                newStats.abilityPower());
+                newStats.GetHealth(),
+                newStats.GetMana(),
+                newStats.GetArmor(),
+                newStats.GetResistance(),
+                newStats.GetAttackPower(),
+                newStats.GetAbilityPower());
     }
 
     // Actions below 👇🏽 ----------
@@ -86,15 +98,16 @@ public final class Champion implements Target {
     }
 
     public boolean attack(Minion target, List<Minion> minionWave) {
-        return target.takeDamage(this._stats.attackPower(), 0, minionWave, this);
+        return target.takeDamage(this._stats.GetAttackPower(), 0, minionWave, this);
     }
 
     public boolean attackChampion(Champion champion) {
-        return champion.takeDamage(this._stats.attackPower(), 0);
+        return champion.takeDamage(this._stats.GetAttackPower(), 0);
     }
 
     public boolean attackNexus(Nexus nexus) {
-        return nexus.takeDamage(this._stats.attackPower(), 0);
+        return nexus.takeDamage(this._stats.GetAttackPower(), 0);
+
     }
 
     public boolean useAbility(int abilityIndex, Minion target, List<Minion> minionWave) {
@@ -129,23 +142,21 @@ public final class Champion implements Target {
         return true;
     }
 
-    @Override
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
         try {
-            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.armor(),
-                    this._stats.resistance());
+            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.GetArmor(),
+                    this._stats.GetResistance());
 
             this._stats = _stats.minus(new Stats(damageTaken, 0, 0, 0, 0, 0));
             String dmgString = "%s has taken %d damage! | HP: %d".formatted(championName, damageTaken,
-                    this._stats.health());
+                    this._stats.GetHealth());
             System.out.println(dmgString);
 
-            if (this._stats.health() <= 0) {
+            if (this._stats.GetHealth() <= 0) {
                 onDeath();
             }
 
             return true;
-
         } catch (Exception e) {
             System.out.println("Some spooky shit happened when champion tried to take damage 👻");
             return false;
@@ -216,5 +227,4 @@ public final class Champion implements Target {
                 _level, _stats,
                 abilityNames, _gold, itemsString);
     }
-
 }
