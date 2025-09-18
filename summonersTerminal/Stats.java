@@ -113,6 +113,46 @@ public class Stats
                 mMaxAbilityPower == stats.mMaxAbilityPower;
     }
 
+    public void IncreaseCurrentStats(final Stats pCurrentStatsModifier)
+    {
+        this.mCurrentHealth += pCurrentStatsModifier.mCurrentHealth;
+        this.mCurrentMana += pCurrentStatsModifier.mCurrentMana;
+        this.mCurrentArmor += pCurrentStatsModifier.mCurrentArmor;
+        this.mCurrentResistance += pCurrentStatsModifier.mCurrentResistance;
+        this.mCurrentAttackPower += pCurrentStatsModifier.mCurrentAttackPower;
+        this.mCurrentAbilityPower += pCurrentStatsModifier.mCurrentAbilityPower;
+    }
+
+    public void IncreaseMaxStats(final Stats pMaxStatsModifier)
+    {
+        this.mMaxHealth += pMaxStatsModifier.mMaxHealth;
+        this.mMaxMana += pMaxStatsModifier.mMaxMana;
+        this.mMaxArmor += pMaxStatsModifier.mMaxArmor;
+        this.mMaxResistance += pMaxStatsModifier.mMaxResistance;
+        this.mMaxAttackPower += pMaxStatsModifier.mMaxAttackPower;
+        this.mMaxAbilityPower += pMaxStatsModifier.mMaxAbilityPower;
+    }
+
+    public void DecreaseCurrentStats(final Stats pCurrentStatsModifier)
+    {
+        this.mCurrentHealth -= pCurrentStatsModifier.mCurrentHealth;
+        this.mCurrentMana -= pCurrentStatsModifier.mCurrentMana;
+        this.mCurrentArmor -= pCurrentStatsModifier.mCurrentArmor;
+        this.mCurrentResistance -= pCurrentStatsModifier.mCurrentResistance;
+        this.mCurrentAttackPower -= pCurrentStatsModifier.mCurrentAttackPower;
+        this.mCurrentAbilityPower -= pCurrentStatsModifier.mCurrentAbilityPower;
+    }
+
+    public void DecreaseMaxStats(final Stats pMaxStatsModifier)
+    {
+        this.mMaxHealth -= pMaxStatsModifier.mMaxHealth;
+        this.mMaxMana -= pMaxStatsModifier.mMaxMana;
+        this.mMaxArmor -= pMaxStatsModifier.mMaxArmor;
+        this.mMaxResistance -= pMaxStatsModifier.mMaxResistance;
+        this.mMaxAttackPower -= pMaxStatsModifier.mMaxAttackPower;
+        this.mMaxAbilityPower -= pMaxStatsModifier.mMaxAbilityPower;
+    }
+
     public void SetMaxStats(final Stats pMaxStats)
     {
         this.mMaxHealth = pMaxStats.mMaxHealth;
