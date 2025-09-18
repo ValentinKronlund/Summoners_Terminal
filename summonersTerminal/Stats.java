@@ -165,37 +165,37 @@ public class Stats
     public void AddMaxHealth(final int pHealth)
     {
         mMaxHealth += pHealth;
-        mCurrentHealth += pHealth;
+        AddCurrentHealth(pHealth);
     }
 
     public void AddMaxMana(final int pMana)
     {
         mMaxMana += pMana;
-        mCurrentMana += pMana;
+        AddCurrentMana(pMana);
     }
 
     public void AddMaxArmor(final int pArmor)
     {
         mMaxArmor += pArmor;
-        mCurrentArmor += pArmor;
+        AddCurrentArmor(pArmor);
     }
 
     public void AddMaxResistance(final int pResistance)
     {
         mMaxResistance += pResistance;
-        mCurrentResistance += pResistance;
+        AddCurrentResistance(pResistance);
     }
 
     public void AddMaxAttackPower(final int pAttackPower)
     {
         mMaxAttackPower += pAttackPower;
-        mCurrentAttackPower += pAttackPower;
+        AddCurrentAttackPower(pAttackPower);
     }
 
     public void AddMaxAbilityPower(final int pAbilityPower)
     {
         mMaxAbilityPower += pAbilityPower;
-        mCurrentAbilityPower += pAbilityPower;
+        AddCurrentAbilityPower(pAbilityPower);
     }
 
     public void MinusCurrentHealth(final int pHealth)
