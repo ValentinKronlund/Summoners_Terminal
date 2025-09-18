@@ -227,18 +227,35 @@ public class Action {
             boolean takenAction = false;
             while (!takenAction) {
 
+                if (npcChampion.stats().mana() <= 150 || npcChampion.stats().health() <= 75) {
+                    npcChampion.goToBase();
+                    npcSkipNextTurn = true;
+                    takenAction = true;
+                }
+
+                if (npcChampion.gold() >= 1200) {
+                    Action.npcPurchaseOptions(npcChampion, random);
+                    npcSkipNextTurn = true;
+                    takenAction = true;
+                }
+
                 int npcChoice = random.nextInt(0, 2);
 
                 // Main combat choices below 👇🏽 -------------------------
                 switch (npcChoice) {
                     case 0: {
-                        takenAction = Action.npcAttackAction(npcChampion, playerMinionWave, playerNexus, random);
+                        takenAction = Action.npcAttackAction(npcChampion, playerChampion, playerMinionWave, playerNexus,
+                                random);
                         break;
                     }
 
                     case 1: {
+                        if (playerMinionWave.size() == 0) {
+                            takenAction = Action.npcAttackAction(npcChampion, playerChampion, playerMinionWave,
+                                    playerNexus, random);
+                            break;
+                        }
                         takenAction = Action.npcAbilityAction(npcChampion, playerMinionWave, random);
-                        break;
                     }
                 }
 
@@ -293,12 +310,13 @@ public class Action {
         }
     }
 
-    public static boolean npcAttackAction(Champion npcChampion, List<Minion> playerMinionWave, Nexus playerNexus,
+    public static boolean npcAttackAction(Champion npcChampion, Champion playerChampion, List<Minion> playerMinionWave,
+            Nexus playerNexus,
             Random random) {
         boolean hasAttacked = false;
         while (!hasAttacked) {
             if (playerMinionWave.size() > 0) {
-                int targetIdx = random.nextInt(0, playerMinionWave.size());
+                int targetIdx = playerMinionWave.size() >= 0 ? random.nextInt(0, playerMinionWave.size()) : 1;
                 if (targetIdx > playerMinionWave.size() || targetIdx <= 0) {
                     targetIdx = 1;
                 }
@@ -316,6 +334,8 @@ public class Action {
                     System.out.println(
                             "Unexpected error when %s tried to target %d".formatted(npcChampion.name(), targetIdx));
                 }
+            } else if (playerChampion.isAlive() && !playerChampion.inBase()) {
+                return npcChampion.attackChampion(playerChampion);
             } else {
                 Copy.attackNexusCopy(playerNexus);
                 return npcChampion.attackNexus(playerNexus);
@@ -359,7 +379,7 @@ public class Action {
 
         while (!hasUsedAbility) {
             int abilityIndex = random.nextInt(0, npcAbilities.size());
-            int targetIdx = random.nextInt(0, playerMinionWave.size());
+            int targetIdx = playerMinionWave.size() >= 0 ? random.nextInt(0, playerMinionWave.size()) : 1;
             if (targetIdx > playerMinionWave.size() || targetIdx <= 0) {
                 targetIdx = 1;
             }
@@ -373,7 +393,10 @@ public class Action {
 
                 Minion targetMinion = playerMinionWave.get(targetIdx - 1);
                 boolean successfulAttack = npcChampion.useAbility(abilityIndex, targetMinion, playerMinionWave);
-                return successfulAttack;
+                if (!successfulAttack) {
+                    return false;
+                }
+                return true;
 
             } catch (IllegalArgumentException e) {
                 System.out.println("No minion at given index: " + targetIdx);
@@ -418,5 +441,33 @@ public class Action {
 
         }
 
+    }
+
+    public static void npcPurchaseOptions(Champion npcChampion, Random random) {
+        int npcChoice = random.nextInt(1, 5);
+        while (true) {
+            switch (npcChoice) {
+                case 1: {
+                    npcChampion.equip(Item.THORN_MAIL);
+                    return;
+                }
+                case 2: {
+                    npcChampion.equip(Item.ROD_OF_AGES);
+                    return;
+                }
+                case 3: {
+                    npcChampion.equip(Item.INFINITY_EDGE);
+                    return;
+                }
+                case 4: {
+                    npcChampion.equip(Item.RABADONS_DEATHCAP);
+                    return;
+                }
+                default: {
+                    System.out.println("There is no item at the given index of: " + npcChoice);
+                    continue;
+                }
+            }
+        }
     }
 }

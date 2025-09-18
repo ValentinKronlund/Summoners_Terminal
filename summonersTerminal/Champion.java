@@ -70,7 +70,7 @@ public final class Champion implements Target {
 
         this._gold -= item.cost();
         _items.add(item);
-        System.out.println("\nYou purchased " + item.toString() + "\n");
+        System.out.println("\n%s purchased %s \n".formatted(championName, item.toString()));
         return goToBase();
     }
 
@@ -89,6 +89,10 @@ public final class Champion implements Target {
         return target.takeDamage(this._stats.attackPower(), 0, minionWave, this);
     }
 
+    public boolean attackChampion(Champion champion) {
+        return champion.takeDamage(this._stats.attackPower(), 0);
+    }
+
     public boolean attackNexus(Nexus nexus) {
         return nexus.takeDamage(this._stats.attackPower(), 0);
     }
@@ -103,7 +107,7 @@ public final class Champion implements Target {
 
     public boolean goToBase() {
         this._inBase = true;
-        System.out.println("\nYou have gone to the base -- HP and Mana reset!✨\n");
+        System.out.println("\n%s have gone to the base -- HP and Mana reset!✨\n".formatted(championName));
         recalcAllStats();
         this._inBase = false;
         return true;
