@@ -16,7 +16,7 @@ public class TheRock extends Passive
     @Override
     public void Init()
     {
-        SetDescription("\"" + mName + "\"" + "! Increase health amount by " + mHealthIncrease + ".");
+        SetDescription("\"" + GetName() + "\"" + "! Increase health amount by " + mHealthIncrease + ".");
 
         Stats stats = new Stats(mHealthIncrease, 0, 0, 0, 0, 0);
         mStatsModifier = mStatsModifier.plus(stats);

@@ -9,7 +9,8 @@ import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
 
-public class SummonersTerminal {
+public class SummonersTerminal
+{
     Scanner scanner = new Scanner(System.in);
     Helpers helper = new Helpers();
 
@@ -22,12 +23,14 @@ public class SummonersTerminal {
     private List<Minion> allyMinionWave = new ArrayList<>();
     private int waveNumber = 1;
 
-    public void PlayGame() {
+    public void PlayGame()
+    {
         InitiateGame();
         GameLoop();
     }
 
-    private void InitiateGame() {
+    private void InitiateGame()
+    {
         String playerName = helper.askLine(scanner, "\nWhat is your gamer tag? ");
         Copy.initialCopy();
 
@@ -35,21 +38,27 @@ public class SummonersTerminal {
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
         { //NOTE(Nat): TO-DO make a Choose Passive state
-        Factory passiveFactory = new Factory();
-        this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.THE_ROCK, this.playerChampion));
-        this.playerChampion.getPassive().Init();
+            Factory passiveFactory = new Factory();
+            this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.THE_ROCK, this.playerChampion));
+            this.playerChampion.getPassive().Init();
+
+            System.out.println("\nSelected passive: " + this.playerChampion.getPassive().GetDescription());
         }
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
     }
 
-    private void GameLoop() {
-        while (!winConditionMet) {
-            if (playerChampion.isAlive() == false) {
+    private void GameLoop()
+    {
+        while (!winConditionMet)
+        {
+            if (playerChampion.isAlive() == false)
+            {
                 playerChampion.respawn();
             }
 
-            if (enemyChampion.isAlive() == false) {
+            if (enemyChampion.isAlive() == false)
+            {
                 enemyChampion.respawn();
             }
 
@@ -67,8 +76,10 @@ public class SummonersTerminal {
                     allyMinionWave,
                     playerActionCount);
 
-            if (shouldEndGame == true) {
-                if (enemyNexus.isAlive() == false) {
+            if (shouldEndGame == true)
+            {
+                if (enemyNexus.isAlive() == false)
+                {
                     endGame(true, false);
                 }
                 endGame(false, true);
@@ -79,10 +90,13 @@ public class SummonersTerminal {
         }
     }
 
-    public void endGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
-        if (enemyNexusDestroyed) {
+    public void endGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed)
+    {
+        if (enemyNexusDestroyed)
+        {
             Copy.victoryCopy();
-        } else {
+        } else
+        {
             Copy.defeatCopy();
         }
         this.winConditionMet = true;

@@ -15,11 +15,12 @@ public abstract class Passive
 
     public final ePassiveType mType;
 
-    protected final String mName;
+    private final String mName;
     protected final Champion mChampion;
-    protected String mDescription;
     protected Stats mStatsModifier;
     protected boolean mIsActive;
+
+    private String mDescription;
 
     public boolean Tick()
     {
@@ -41,5 +42,15 @@ public abstract class Passive
     public void SetDescription(final String pDescription)
     {
         this.mDescription = pDescription;
+    }
+
+    public String GetName()
+    {
+        return this.mName;
+    }
+
+    public String GetDescription()
+    {
+        return this.mDescription;
     }
 }
