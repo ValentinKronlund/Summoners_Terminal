@@ -18,9 +18,7 @@ public class TheGiant extends Passive
     {
         SetDescription("\"" + GetName() + "\"" + "! Increase health amount by " + mHealthIncrease + ".");
 
-        Stats stats = new Stats(mHealthIncrease, 0, 0, 0, 0, 0);
-        mStatsModifier = mStatsModifier.plus(stats);
-
-        mChampion.increaseStats(mStatsModifier);
+        final Stats stats = new Stats(mHealthIncrease, 0, 0, 0, 0, 0);
+        mChampion.stats().AddMaxStats(stats);
     }
 }

@@ -22,12 +22,19 @@ public abstract class Passive
 
     private String mDescription;
 
+    public void Init()
+    {
+    }
+
     public boolean Tick()
     {
         return true;
     }
 
-    public void Init() {}
+    public boolean Execute()
+    {
+        return true;
+    }
 
     public Passive(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
     {

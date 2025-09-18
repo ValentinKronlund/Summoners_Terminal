@@ -10,17 +10,6 @@ import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
 
 public final class Champion implements Target {
-    public void setPassive(Passive pPassive) {
-        _passive = pPassive;
-    }
-
-    public void increaseStats(final Stats pStats) {
-        _stats = _stats.plus(pStats);
-    }
-
-    public Passive getPassive() {
-        return _passive;
-    }
 
     private final String championName;
     ChampionID championId;
@@ -49,29 +38,42 @@ public final class Champion implements Target {
         recalcAllStats();
     }
 
-    private Stats baseAtCurrentLevel() {
-        Stats st = championId.base;
-        for (int i = 1; i < _level; i++) {
-            st = st.plus(championId.growthPerLevel);
+    private Stats baseAtCurrentLevel()
+    {
+        Stats baseStats = championId.base;
+
+        for (int i = 1; i < _level; i++)
+        {
+            baseStats.AddMaxStats(championId.growthPerLevel);
         }
-        return st;
+
+        baseStats.RestoreToMax();
+        return baseStats;
     }
 
-    private void recalcAllStats() {
-        Stats itemBonus = Stats.ZERO;
-        for (Item item : _items) {
-            itemBonus = itemBonus.plus(item.stats());
+    private Stats CalculateStatsBonusesFromItems()
+    {
+        Stats itemStatsBonus = Stats.ZERO;
+
+        for (Item item : _items)
+        {
+            itemStatsBonus.AddMaxStats(item.stats());
         }
 
-        Stats newStats = baseAtCurrentLevel().plus(itemBonus);
+        return itemStatsBonus;
+    }
 
-        this._stats = new Stats(
-                newStats.GetHealth(),
-                newStats.GetMana(),
-                newStats.GetArmor(),
-                newStats.GetResistance(),
-                newStats.GetAttackPower(),
-                newStats.GetAbilityPower());
+    private void recalcAllStats()
+    {
+        final Stats itemStatsBonuses = CalculateStatsBonusesFromItems();
+        final Stats baseStatsAtCurrentLevel = baseAtCurrentLevel();
+
+        Stats newStats = new Stats();
+        newStats.AddMaxStats(baseStatsAtCurrentLevel);
+        newStats.AddMaxStats(itemStatsBonuses);
+        newStats.RestoreToMax();
+
+        this._stats = newStats;
     }
 
     // Actions below 👇🏽 ----------
@@ -98,15 +100,15 @@ public final class Champion implements Target {
     }
 
     public boolean attack(Minion target, List<Minion> minionWave) {
-        return target.takeDamage(this._stats.GetAttackPower(), 0, minionWave, this);
+        return target.takeDamage(this._stats.GetCurrentAttackPower(), 0, minionWave, this);
     }
 
     public boolean attackChampion(Champion champion) {
-        return champion.takeDamage(this._stats.GetAttackPower(), 0);
+        return champion.takeDamage(this._stats.GetCurrentAttackPower(), 0);
     }
 
     public boolean attackNexus(Nexus nexus) {
-        return nexus.takeDamage(this._stats.GetAttackPower(), 0);
+        return nexus.takeDamage(this._stats.GetCurrentAttackPower(), 0);
 
     }
 
@@ -144,15 +146,16 @@ public final class Champion implements Target {
 
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
         try {
-            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.GetArmor(),
-                    this._stats.GetResistance());
+            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.GetCurrentArmor(),
+                    this._stats.GetCurrentResistance());
 
-            this._stats = _stats.minus(new Stats(damageTaken, 0, 0, 0, 0, 0));
+            this._stats.SetCurrentHealth(this._stats.GetCurrentHealth() - damageTaken);
+
             String dmgString = "%s has taken %d damage! | HP: %d".formatted(championName, damageTaken,
-                    this._stats.GetHealth());
+                    this._stats.GetCurrentHealth());
             System.out.println(dmgString);
 
-            if (this._stats.GetHealth() <= 0) {
+            if (this._stats.GetCurrentHealth() <= 0) {
                 onDeath();
             }
 
@@ -161,6 +164,14 @@ public final class Champion implements Target {
             System.out.println("Some spooky shit happened when champion tried to take damage 👻");
             return false;
         }
+    }
+
+    public void setPassive(Passive pPassive) {
+        _passive = pPassive;
+    }
+
+    public Passive getPassive() {
+        return _passive;
     }
 
     // ----- GETTERS
@@ -202,8 +213,9 @@ public final class Champion implements Target {
         this._inBase = false;
     }
 
-    public void useMana(int manaCost) {
-        this._stats = _stats.minus(new Stats(0, manaCost, 0, 0, 0, 0));
+    public void useMana(int manaCost)
+    {
+        this._stats.SetCurrentMana(this._stats.GetCurrentMana()- manaCost);
     }
 
     public void addGold(int amount) {

@@ -36,7 +36,7 @@ public class SummonersTerminal {
 
         { // NOTE(Nat): TO-DO make a Choose Passive state
             Factory passiveFactory = new Factory();
-            this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.THE_GIANT, this.playerChampion));
+            this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.Undying, this.playerChampion));
             this.playerChampion.getPassive().Init();
 
             System.out.println("\nSelected passive: " + this.playerChampion.getPassive().GetDescription());
@@ -76,7 +76,6 @@ public class SummonersTerminal {
                 endGame(false, true);
             }
 
-            playerChampion.getPassive().Tick();
             waveNumber++;
         }
     }

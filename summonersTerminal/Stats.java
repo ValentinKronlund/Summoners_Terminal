@@ -20,13 +20,6 @@ public class Stats
 
     public Stats()
     {
-        this.mMaxHealth = 100;
-        this.mMaxMana = 100;
-        this.mMaxArmor = 30;
-        this.mMaxResistance = 30;
-        this.mMaxAttackPower = 1;
-        this.mMaxAbilityPower = 0;
-
         RestoreToMax();
     }
 
@@ -50,30 +43,6 @@ public class Stats
         this.mCurrentResistance = this.mMaxResistance;
         this.mCurrentAttackPower = this.mMaxAttackPower;
         this.mCurrentAbilityPower = this.mMaxAbilityPower;
-    }
-
-    public Stats plus(Stats statsModifier)
-    {
-        return new Stats(
-                this.mCurrentHealth + statsModifier.mCurrentHealth,
-                this.mCurrentMana + statsModifier.mCurrentMana,
-                this.mCurrentArmor + statsModifier.mCurrentArmor,
-                this.mCurrentResistance + statsModifier.mCurrentResistance,
-                this.mCurrentAttackPower + statsModifier.mCurrentAttackPower,
-                this.mCurrentAbilityPower + statsModifier.mCurrentAbilityPower
-        );
-    }
-
-    public Stats minus(Stats statsModifier)
-    {
-        return new Stats(
-                this.mCurrentHealth - statsModifier.mCurrentHealth,
-                this.mCurrentMana - statsModifier.mCurrentMana,
-                this.mCurrentArmor - statsModifier.mCurrentArmor,
-                this.mCurrentResistance - statsModifier.mCurrentResistance,
-                this.mCurrentAttackPower - statsModifier.mCurrentAttackPower,
-                this.mCurrentAbilityPower - statsModifier.mCurrentAbilityPower
-        );
     }
 
     @Override
@@ -113,7 +82,7 @@ public class Stats
                 mMaxAbilityPower == stats.mMaxAbilityPower;
     }
 
-    public void IncreaseCurrentStats(final Stats pCurrentStatsModifier)
+    public void AddCurrentStats(final Stats pCurrentStatsModifier)
     {
         this.mCurrentHealth += pCurrentStatsModifier.mCurrentHealth;
         this.mCurrentMana += pCurrentStatsModifier.mCurrentMana;
@@ -123,7 +92,7 @@ public class Stats
         this.mCurrentAbilityPower += pCurrentStatsModifier.mCurrentAbilityPower;
     }
 
-    public void IncreaseMaxStats(final Stats pMaxStatsModifier)
+    public void AddMaxStats(final Stats pMaxStatsModifier)
     {
         this.mMaxHealth += pMaxStatsModifier.mMaxHealth;
         this.mMaxMana += pMaxStatsModifier.mMaxMana;
@@ -133,7 +102,67 @@ public class Stats
         this.mMaxAbilityPower += pMaxStatsModifier.mMaxAbilityPower;
     }
 
-    public void DecreaseCurrentStats(final Stats pCurrentStatsModifier)
+    public void AddCurrentHealth(final int pHealth)
+    {
+        mCurrentHealth += pHealth;
+    }
+
+    public void AddCurrentMana(final int pMana)
+    {
+        mCurrentMana += pMana;
+    }
+
+    public void AddCurrentArmor(final int pArmor)
+    {
+        mCurrentArmor += pArmor;
+    }
+
+    public void AddCurrentResistance(final int pResistance)
+    {
+        mCurrentResistance += pResistance;
+    }
+
+    public void AddCurrentAttackPower(final int pAttackPower)
+    {
+        mCurrentAttackPower += pAttackPower;
+    }
+
+    public void AddCurrentAbilityPower(final int pAbilityPower)
+    {
+        mCurrentAbilityPower += pAbilityPower;
+    }
+
+    public void MinusCurrentHealth(final int pHealth)
+    {
+        mCurrentHealth -= pHealth;
+    }
+
+    public void MinusCurrentMana(final int pMana)
+    {
+        mCurrentMana -= pMana;
+    }
+
+    public void MinusCurrentArmor(final int pArmor)
+    {
+        mCurrentArmor -= pArmor;
+    }
+
+    public void MinusCurrentResistance(final int pResistance)
+    {
+        mCurrentResistance -= pResistance;
+    }
+
+    public void MinusCurrentAttackPower(final int pAttackPower)
+    {
+        mCurrentAttackPower -= pAttackPower;
+    }
+
+    public void MinusCurrentAbilityPower(final int pAbilityPower)
+    {
+        mCurrentAbilityPower -= pAbilityPower;
+    }
+
+    public void MinusCurrentStats(final Stats pCurrentStatsModifier)
     {
         this.mCurrentHealth -= pCurrentStatsModifier.mCurrentHealth;
         this.mCurrentMana -= pCurrentStatsModifier.mCurrentMana;
@@ -143,7 +172,7 @@ public class Stats
         this.mCurrentAbilityPower -= pCurrentStatsModifier.mCurrentAbilityPower;
     }
 
-    public void DecreaseMaxStats(final Stats pMaxStatsModifier)
+    public void MinusMaxStats(final Stats pMaxStatsModifier)
     {
         this.mMaxHealth -= pMaxStatsModifier.mMaxHealth;
         this.mMaxMana -= pMaxStatsModifier.mMaxMana;
@@ -233,32 +262,32 @@ public class Stats
         mCurrentAbilityPower = pCurrentAbilityPower;
     }
 
-    public int GetHealth()
+    public int GetCurrentHealth()
     {
         return mCurrentHealth;
     }
 
-    public int GetMana()
+    public int GetCurrentMana()
     {
         return mCurrentMana;
     }
 
-    public int GetArmor()
+    public int GetCurrentArmor()
     {
         return mCurrentArmor;
     }
 
-    public int GetResistance()
+    public int GetCurrentResistance()
     {
         return mCurrentResistance;
     }
 
-    public int GetAttackPower()
+    public int GetCurrentAttackPower()
     {
         return mCurrentAttackPower;
     }
 
-    public int GetAbilityPower()
+    public int GetCurrentAbilityPower()
     {
         return mCurrentAbilityPower;
     }

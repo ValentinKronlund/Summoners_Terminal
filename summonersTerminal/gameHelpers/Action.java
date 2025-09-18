@@ -12,7 +12,6 @@ import summonersTerminal.Minion;
 import summonersTerminal.MinionType;
 import summonersTerminal.Nexus;
 import summonersTerminal.champion.abilities.Ability;
-import summonersTerminal.champion.Passives.Factory;
 
 public class Action {
     static Helpers helper = new Helpers();
@@ -95,6 +94,7 @@ public class Action {
                         playerMinionWave, npcMinionWave,
                         actionCount, playerSkipNextTurn);
                 System.out.println("FINISHED PLAYER ACTION");
+                playerChampion.getPassive().Tick();
             }
             if (!npcSkipNextTurn) {
                 Action.npcActions(npcNexus, playerNexus, npcChampion, playerChampion, npcMinionWave, playerMinionWave,
@@ -229,7 +229,7 @@ public class Action {
             boolean takenAction = false;
             while (!takenAction) {
 
-                if (npcChampion.stats().GetMana() <= 150 || npcChampion.stats().GetHealth() <= 75) {
+                if (npcChampion.stats().GetCurrentMana() <= 150 || npcChampion.stats().GetCurrentHealth() <= 75) {
                     npcChampion.goToBase();
                     npcSkipNextTurn = true;
                     takenAction = true;

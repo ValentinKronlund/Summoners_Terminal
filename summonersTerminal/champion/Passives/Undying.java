@@ -21,8 +21,7 @@ public class Undying extends Passive
     @Override
     public boolean Tick()
     {
-        //NOTE(Nat): To-DO
-
-        return false;
+        mChampion.stats().AddCurrentHealth(mHealthRegenPerTurn);
+        return true;
     }
 }
