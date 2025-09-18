@@ -9,4 +9,17 @@ public class Dummy extends Passive
     {
         super(pName, pPassiveType, pChampionRef, pIsActive);
     }
+
+    @Override
+    public void Init()
+    {
+        System.out.println("This is dummy Init!");
+    }
+
+    @Override
+    public boolean Tick()
+    {
+        System.out.println("This is dummy passive!");
+        return false;
+    }
 }

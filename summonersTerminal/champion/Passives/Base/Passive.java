@@ -14,6 +14,7 @@ public abstract class Passive
     }
 
     public final ePassiveType mType;
+
     protected final String mName;
     protected final Champion mChampion;
     protected String mDescription;
@@ -25,9 +26,7 @@ public abstract class Passive
         return true;
     }
 
-    public void Init()
-    {
-    }
+    public void Init() {}
 
     public Passive(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
     {
