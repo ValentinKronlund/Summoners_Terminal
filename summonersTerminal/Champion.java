@@ -59,7 +59,8 @@ public final class Champion implements Target {
         return itemStatsBonus;
     }
 
-    private void recalcAllStats() {
+    private void recalcAllStats() { // TODO: Remove this function as it is now redandant -- Instead add "AddMax" to
+                                    // the equip and unequip functions.
         final Stats itemStatsBonuses = CalculateStatsBonusesFromItems();
         final Stats baseStatsAtCurrentLevel = baseAtCurrentLevel();
 

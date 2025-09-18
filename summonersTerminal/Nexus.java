@@ -24,7 +24,6 @@ public final class Nexus implements Target {
         return _name;
     }
 
-
     @Override
     public boolean isAlive() {
         return _isAlive;

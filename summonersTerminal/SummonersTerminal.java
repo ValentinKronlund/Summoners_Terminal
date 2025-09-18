@@ -2,6 +2,7 @@ package summonersTerminal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import summonersTerminal.champion.Passives.Factory;
@@ -35,11 +36,24 @@ public class SummonersTerminal {
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
         { // NOTE(Nat): TO-DO make a Choose Passive state
+            Random random = new Random();
+            int playerIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal()); // TODO: Player should be able to
+                                                                                   // choose between passives
+            int enemyIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal());
+
             Factory passiveFactory = new Factory();
-            this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.Undying, this.playerChampion));
+            this.playerChampion
+                    .setPassive(passiveFactory.Create(Factory.ePassive.values()[playerIndex], this.playerChampion));
             this.playerChampion.getPassive().Init();
 
-            System.out.println("\nSelected passive: " + this.playerChampion.getPassive().GetDescription());
+            this.enemyChampion
+                    .setPassive(passiveFactory.Create(Factory.ePassive.values()[enemyIndex], this.enemyChampion));
+            this.enemyChampion.getPassive().Init();
+
+            System.out.println("\n%s selected passive: %s".formatted(playerChampion.name(),
+                    playerChampion.getPassive().GetDescription()));
+            System.out.println("\n%s selected passive: %s".formatted(enemyChampion.name(),
+                    enemyChampion.getPassive().GetDescription()));
         }
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
@@ -57,7 +71,7 @@ public class SummonersTerminal {
 
             Copy.newWaveCopy(waveNumber);
             Action.generateMinionWave(enemyMinionWave, waveNumber, true);
-            // Action.generateMinionWave(allyMinionWave, waveNumber, false);
+            Action.generateMinionWave(allyMinionWave, waveNumber, false);
             Copy.enemyWaveCopy(enemyMinionWave);
             Copy.allyWaveCopy(allyMinionWave);
 
@@ -70,13 +84,18 @@ public class SummonersTerminal {
                     actionCount);
 
             if (shouldEndGame == true) {
-                if (enemyNexus.isAlive() == false) {
+                if (!enemyNexus.isAlive()) {
                     endGame(true, false);
+                    return;
+                } else {
+                    endGame(false, true);
                 }
-                endGame(false, true);
             }
 
             waveNumber++;
+            if (winConditionMet) {
+                break;
+            }
         }
     }
 
