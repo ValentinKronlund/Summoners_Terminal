@@ -162,6 +162,42 @@ public class Stats
         }
     }
 
+    public void AddMaxHealth(final int pHealth)
+    {
+        mMaxHealth += pHealth;
+        mCurrentHealth += pHealth;
+    }
+
+    public void AddMaxMana(final int pMana)
+    {
+        mMaxMana += pMana;
+        mCurrentMana += pMana;
+    }
+
+    public void AddMaxArmor(final int pArmor)
+    {
+        mMaxArmor += pArmor;
+        mCurrentArmor += pArmor;
+    }
+
+    public void AddMaxResistance(final int pResistance)
+    {
+        mMaxResistance += pResistance;
+        mCurrentResistance += pResistance;
+    }
+
+    public void AddMaxAttackPower(final int pAttackPower)
+    {
+        mMaxAttackPower += pAttackPower;
+        mCurrentAttackPower += pAttackPower;
+    }
+
+    public void AddMaxAbilityPower(final int pAbilityPower)
+    {
+        mMaxAbilityPower += pAbilityPower;
+        mCurrentAbilityPower += pAbilityPower;
+    }
+
     public void MinusCurrentHealth(final int pHealth)
     {
         mCurrentHealth -= pHealth;
@@ -195,31 +231,37 @@ public class Stats
     public void MinusMaxHealth(final int pHealth)
     {
         mMaxHealth -= pHealth;
+        mCurrentHealth -= pHealth;
     }
 
     public void MinusMaxMana(final int pMana)
     {
         mMaxMana -= pMana;
+        mCurrentMana -= pMana;
     }
 
     public void MinusMaxArmor(final int pArmor)
     {
         mMaxArmor -= pArmor;
+        mCurrentArmor -= pArmor;
     }
 
     public void MinusMaxResistance(final int pResistance)
     {
         mMaxResistance -= pResistance;
+        mCurrentResistance -= pResistance;
     }
 
     public void MinusMaxAttackPower(final int pAttackPower)
     {
         mMaxAttackPower -= pAttackPower;
+        mCurrentAttackPower -= pAttackPower;
     }
 
     public void MinusMaxAbilityPower(final int pAbilityPower)
     {
         mMaxAbilityPower -= pAbilityPower;
+        mCurrentAttackPower -= pAbilityPower;
     }
 
     public void MinusCurrentStats(final Stats pCurrentStatsModifier)
