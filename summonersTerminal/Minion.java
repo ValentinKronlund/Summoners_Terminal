@@ -49,7 +49,8 @@ public final class Minion implements Target {
     }
 
     @Override
-    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy) {
+    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy)
+    {
         int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.getArmor(), stats.getResistance());
         this.stats = this.stats.minus(new Stats(damageAmount, 0, 0, 0, 0, 0));
         int currHealth = this.stats.getHealth();

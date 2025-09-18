@@ -10,8 +10,7 @@ import summonersTerminal.champion.passives.Passive;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
 
-
-public final class Champion
+public final class Champion implements Target
 {
     public void setPassive(Passive pPassive)
     {
@@ -159,7 +158,6 @@ public final class Champion
         return true;
     }
 
-    @Override
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target)
     {
         try
