@@ -15,12 +15,14 @@ public class MundoDoesWhatHePleased extends Passive
     @Override
     public void Init()
     {
-        SetDescription("\"" + GetName() + "\"" + "! Regen health by " + mHealthRegenPerTurn + " every turn.");
+        SetDescription("\"" + GetName() + "\"" + ". Regen health by " + mHealthRegenPerTurn + " every turn.");
     }
 
     @Override
     public boolean Tick()
     {
+        //NOTE(Nat): To-DO
+
         if (mType == ePassiveType.REGEN)
         {
             return true;
