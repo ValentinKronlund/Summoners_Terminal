@@ -15,7 +15,7 @@ public final class AbilityKits {
             Stats championStats = self.stats();
 
             int center = originalWave.indexOf(target);
-            int damageTick = (int) Math.round(championStats.getAttackPower() * 0.4);
+            int damageTick = (int) Math.round(championStats.GetAttackPower() * 0.4);
 
             System.out.println("\nGaren used 💫'Judgment'💫");
 
@@ -51,8 +51,8 @@ public final class AbilityKits {
         return new SimpleAbility("Bouncing Blade", 125, (self, target, originalWave) -> {
             Stats championStats = self.stats();
 
-            int physicalDamage = (int) Math.round((championStats.getAttackPower() * 0.45));
-            int spellDamage = (int) championStats.getAbilityPower();
+            int physicalDamage = (int) Math.round((championStats.GetAttackPower() * 0.45));
+            int spellDamage = (int) championStats.GetAbilityPower();
             int targetIdx = originalWave.indexOf(target);
             int aoeEnd = Math.min(originalWave.size(), targetIdx + 3); // <--- Ability hits 3 targets, since toIndex in
                                                                        // subList
@@ -85,7 +85,7 @@ public final class AbilityKits {
     public static Ability veigarBalefulStrike() {
         return new SimpleAbility("Bouncing Blade", 125, (self, target, originalWave) -> {
             Stats championStats = self.stats();
-            int spellDamage = (int) championStats.getAbilityPower();
+            int spellDamage = (int) championStats.GetAbilityPower();
             int targetIdx = originalWave.indexOf(target);
             int aoeEnd = Math.min(originalWave.size(), targetIdx + 3);
 

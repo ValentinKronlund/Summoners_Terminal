@@ -22,12 +22,12 @@ public final class Minion implements Target {
 
         Stats base = minionType.base();
         this.stats = new Stats(
-                base.getHealth(),
-                base.getMana(),
-                base.getArmor(),
-                base.getResistance(),
-                base.getAttackPower(),
-                base.getAbilityPower());
+                base.GetHealth(),
+                base.GetMana(),
+                base.GetArmor(),
+                base.GetResistance(),
+                base.GetAttackPower(),
+                base.GetAbilityPower());
     }
 
     public void minionBehaviour(List<Minion> enemyWave, Champion enemyChampion, Nexus nexus) {
@@ -39,7 +39,7 @@ public final class Minion implements Target {
     }
 
     private void attack(Target target, List<Minion> waveIAmIn) {
-        int physicalDamage = this.stats.getAttackPower();
+        int physicalDamage = this.stats.GetAttackPower();
         if (target instanceof Minion) {
             target.takeDamage(physicalDamage, 0, waveIAmIn, this);
             return;
@@ -51,9 +51,9 @@ public final class Minion implements Target {
     @Override
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy)
     {
-        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.getArmor(), stats.getResistance());
+        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.GetArmor(), stats.GetResistance());
         this.stats = this.stats.minus(new Stats(damageAmount, 0, 0, 0, 0, 0));
-        int currHealth = this.stats.getHealth();
+        int currHealth = this.stats.GetHealth();
 
         String dmgString = "%s has taken %d damage! | HP: %d".formatted(minionName, damageAmount, currHealth);
 
@@ -109,6 +109,6 @@ public final class Minion implements Target {
 
     @Override
     public String toString() {
-        return "%s HP:%d | Gold Value: %d".formatted(minionName, stats.getHealth(), goldValue);
+        return "%s HP:%d | Gold Value: %d".formatted(minionName, stats.GetHealth(), goldValue);
     }
 }

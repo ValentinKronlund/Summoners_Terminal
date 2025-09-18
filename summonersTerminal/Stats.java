@@ -52,66 +52,6 @@ public class Stats
         this.mCurrentAbilityPower = this.mMaxAbilityPower;
     }
 
-    public int getHealth()
-    {
-        return mCurrentHealth;
-    }
-
-    public int getMana()
-    {
-        return mCurrentMana;
-    }
-
-    public int getArmor()
-    {
-        return mCurrentArmor;
-    }
-
-    public int getResistance()
-    {
-        return mCurrentResistance;
-    }
-
-    public int getAttackPower()
-    {
-        return mCurrentAttackPower;
-    }
-
-    public int getAbilityPower()
-    {
-        return mCurrentAbilityPower;
-    }
-
-    public int GetMaxHealth()
-    {
-        return mMaxHealth;
-    }
-
-    public int GetMaxMana()
-    {
-        return mMaxMana;
-    }
-
-    public int GetMaxArmor()
-    {
-        return mMaxArmor;
-    }
-
-    public int GetMaxResistance()
-    {
-        return mMaxResistance;
-    }
-
-    public int GetMaxAttackPower()
-    {
-        return mMaxAttackPower;
-    }
-
-    public int GetMaxAbilityPower()
-    {
-        return mMaxAbilityPower;
-    }
-
     public Stats plus(Stats statsModifier)
     {
         return new Stats(
@@ -171,5 +111,125 @@ public class Stats
                 mMaxResistance == stats.mMaxResistance &&
                 mMaxAttackPower == stats.mMaxAttackPower &&
                 mMaxAbilityPower == stats.mMaxAbilityPower;
+    }
+
+    public void SetMaxHealth(final int pMaxHealth)
+    {
+        mMaxHealth = pMaxHealth;
+    }
+
+    public void SetMaxMana(final int pMaxMana)
+    {
+        mMaxMana = pMaxMana;
+    }
+
+    public void SetMaxArmor(final int pMaxArmor)
+    {
+        mMaxArmor = pMaxArmor;
+    }
+
+    public void SetMaxResistance(final int pMaxResistance)
+    {
+        mMaxResistance = pMaxResistance;
+    }
+
+    public void SetMaxAttackPower(final int pMaxAttackPower)
+    {
+        mMaxAttackPower = pMaxAttackPower;
+    }
+
+    public void SetMaxAbilityPower(final int pMaxAbilityPower)
+    {
+        mMaxAbilityPower = pMaxAbilityPower;
+    }
+
+    public void SetCurrentHealth(final int pCurrentHealth)
+    {
+        mCurrentHealth = pCurrentHealth;
+    }
+
+    public void SetCurrentMana(final int pCurrentMana)
+    {
+        mCurrentMana = pCurrentMana;
+    }
+
+    public void SetCurrentArmor(final int pCurrentArmor)
+    {
+        mCurrentArmor = pCurrentArmor;
+    }
+
+    public void SetCurrentResistance(final int pCurrentResistance)
+    {
+        mCurrentResistance = pCurrentResistance;
+    }
+
+    public void SetCurrentAttackPower(final int pCurrentAttackPower)
+    {
+        mCurrentAttackPower = pCurrentAttackPower;
+    }
+
+    public void SetCurrentAbilityPower(final int pCurrentAbilityPower)
+    {
+        mCurrentAbilityPower = pCurrentAbilityPower;
+    }
+
+    public int GetHealth()
+    {
+        return mCurrentHealth;
+    }
+
+    public int GetMana()
+    {
+        return mCurrentMana;
+    }
+
+    public int GetArmor()
+    {
+        return mCurrentArmor;
+    }
+
+    public int GetResistance()
+    {
+        return mCurrentResistance;
+    }
+
+    public int GetAttackPower()
+    {
+        return mCurrentAttackPower;
+    }
+
+    public int GetAbilityPower()
+    {
+        return mCurrentAbilityPower;
+    }
+
+    public int GetMaxHealth()
+    {
+        return mMaxHealth;
+    }
+
+    public int GetMaxMana()
+    {
+        return mMaxMana;
+    }
+
+    public int GetMaxArmor()
+    {
+        return mMaxArmor;
+    }
+
+    public int GetMaxResistance()
+    {
+        return mMaxResistance;
+    }
+
+    public int GetMaxAttackPower()
+    {
+        return mMaxAttackPower;
+    }
+
+    public int GetMaxAbilityPower()
+    {
+        return mMaxAbilityPower;
     }
 }

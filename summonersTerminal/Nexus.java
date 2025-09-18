@@ -40,9 +40,9 @@ public final class Nexus implements Target {
             this.stats = this.stats.minus(new Stats(physicalDamage, 0, 0, 0, 0, 0));
 
             System.out.println(this._name + " has taken " + physicalDamage + " damage!" + " | HP: "
-                    + this.stats.getHealth());
+                    + this.stats.GetHealth());
 
-            if (this.stats.getHealth() <= 0) {
+            if (this.stats.GetHealth() <= 0) {
                 onDeath();
                 return true;
             }
@@ -56,6 +56,6 @@ public final class Nexus implements Target {
 
     @Override
     public String toString() {
-        return "[%s] - HP:%d".formatted(_name, stats.getHealth());
+        return "[%s] - HP:%d".formatted(_name, stats.GetHealth());
     }
 }

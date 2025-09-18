@@ -43,9 +43,9 @@ public final class SimpleAbility implements Ability
     {
         Stats ownStats = self.stats();
 
-        if (ownStats.getMana() < manaCost)
+        if (ownStats.GetMana() < manaCost)
         {
-            System.out.printf("\nNot enough mana to cast %s (%d/%d)%n", name, ownStats.getMana(), manaCost);
+            System.out.printf("\nNot enough mana to cast %s (%d/%d)%n", name, ownStats.GetMana(), manaCost);
             return false;
         }
 
