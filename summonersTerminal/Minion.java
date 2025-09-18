@@ -53,7 +53,7 @@ public final class Minion implements Target {
     {
         int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.GetCurrentArmor(), stats.GetCurrentResistance());
 
-        this.stats.SetCurrentHealth(this.stats.GetCurrentHealth() - damageAmount);
+        this.stats.MinusCurrentHealth(damageAmount);
 
         int currHealth = this.stats.GetCurrentHealth();
 

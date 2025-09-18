@@ -149,7 +149,7 @@ public final class Champion implements Target {
             int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.GetCurrentArmor(),
                     this._stats.GetCurrentResistance());
 
-            this._stats.SetCurrentHealth(this._stats.GetCurrentHealth() - damageTaken);
+            this._stats.MinusCurrentHealth(damageTaken);
 
             String dmgString = "%s has taken %d damage! | HP: %d".formatted(championName, damageTaken,
                     this._stats.GetCurrentHealth());

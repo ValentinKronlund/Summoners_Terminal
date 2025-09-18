@@ -37,7 +37,7 @@ public final class Nexus implements Target {
     @Override
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
         try {
-            this.stats.SetCurrentHealth(this.stats.GetCurrentHealth() - physicalDamage);
+            this.stats.MinusCurrentHealth(physicalDamage);
 
             System.out.println(this._name + " has taken " + physicalDamage + " damage!" + " | HP: "
                     + this.stats.GetCurrentHealth());
