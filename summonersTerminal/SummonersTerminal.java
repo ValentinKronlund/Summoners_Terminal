@@ -57,7 +57,7 @@ public class SummonersTerminal {
 
             Copy.newWaveCopy(waveNumber);
             Action.generateMinionWave(enemyMinionWave, waveNumber, true);
-            Action.generateMinionWave(allyMinionWave, waveNumber, false);
+            // Action.generateMinionWave(allyMinionWave, waveNumber, false);
             Copy.enemyWaveCopy(enemyMinionWave);
             Copy.allyWaveCopy(allyMinionWave);
 

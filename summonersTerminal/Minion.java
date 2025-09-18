@@ -1,7 +1,6 @@
 package summonersTerminal;
 
 import java.util.List;
-
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.MinionTargetingSystem;
 
@@ -11,23 +10,29 @@ public final class Minion implements Target {
     private Stats stats;
     private final int goldValue;
     private boolean _isAlive;
+    private int _level;
 
     public Minion(
             String uniqueIdentifier,
-            MinionType minionType) {
-        this.minionName = uniqueIdentifier + minionType.nameType();
+            MinionType minionType,
+            int level) {
         this.minionType = minionType;
+        this.stats = minionType.base();
         this.goldValue = minionType.goldValue();
         this._isAlive = true;
+        this._level = level;
+        this.minionName = "%s %s (Lvl: %d)".formatted(uniqueIdentifier, minionType.nameType(), _level);
 
-        Stats base = minionType.base();
-        this.stats = new Stats(
-                base.GetCurrentHealth(),
-                base.GetCurrentMana(),
-                base.GetCurrentArmor(),
-                base.GetCurrentResistance(),
-                base.GetCurrentAttackPower(),
-                base.GetCurrentAbilityPower());
+        minionStatsPerLevel(_level);
+    }
+
+    public void minionStatsPerLevel(int level) {
+        for (int i = 1; i < level; i++) {
+            stats.AddMaxStats(minionType.growthPerCycle());
+            stats.RestoreToMax();
+            System.out.println("NAME: %s | BASE STATS: %s | CURRENT STATS: %s".formatted(minionName,
+                    minionType.growthPerCycle(), stats.toString()));
+        }
     }
 
     public void minionBehaviour(List<Minion> enemyWave, Champion enemyChampion, Nexus nexus) {
@@ -49,9 +54,10 @@ public final class Minion implements Target {
     }
 
     @Override
-    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy)
-    {
-        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.GetCurrentArmor(), stats.GetCurrentResistance());
+
+    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy) {
+        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.GetCurrentArmor(),
+                stats.GetCurrentResistance());
 
         this.stats.MinusCurrentHealth(damageAmount);
 

@@ -38,12 +38,10 @@ public final class Champion implements Target {
         recalcAllStats();
     }
 
-    private Stats baseAtCurrentLevel()
-    {
+    private Stats baseAtCurrentLevel() {
         Stats baseStats = championId.base;
 
-        for (int i = 1; i < _level; i++)
-        {
+        for (int i = 1; i < _level; i++) {
             baseStats.AddMaxStats(championId.growthPerLevel);
         }
 
@@ -51,20 +49,17 @@ public final class Champion implements Target {
         return baseStats;
     }
 
-    private Stats CalculateStatsBonusesFromItems()
-    {
+    private Stats CalculateStatsBonusesFromItems() {
         Stats itemStatsBonus = Stats.ZERO;
 
-        for (Item item : _items)
-        {
+        for (Item item : _items) {
             itemStatsBonus.AddMaxStats(item.stats());
         }
 
         return itemStatsBonus;
     }
 
-    private void recalcAllStats()
-    {
+    private void recalcAllStats() {
         final Stats itemStatsBonuses = CalculateStatsBonusesFromItems();
         final Stats baseStatsAtCurrentLevel = baseAtCurrentLevel();
 
@@ -140,7 +135,7 @@ public final class Champion implements Target {
         this._isAlive = true;
         this._inBase = false;
         recalcAllStats();
-        System.out.println("\nYou have respawned! 🩵\n");
+        System.out.println("\n%s have respawned! 🩵\n".formatted(championName));
         return true;
     }
 
@@ -213,9 +208,8 @@ public final class Champion implements Target {
         this._inBase = false;
     }
 
-    public void useMana(int manaCost)
-    {
-        this._stats.SetCurrentMana(this._stats.GetCurrentMana()- manaCost);
+    public void useMana(int manaCost) {
+        this._stats.SetCurrentMana(this._stats.GetCurrentMana() - manaCost);
     }
 
     public void addGold(int amount) {
