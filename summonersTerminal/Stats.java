@@ -192,6 +192,36 @@ public class Stats
         mCurrentAbilityPower -= pAbilityPower;
     }
 
+    public void MinusMaxHealth(final int pHealth)
+    {
+        mMaxHealth -= pHealth;
+    }
+
+    public void MinusMaxMana(final int pMana)
+    {
+        mMaxMana -= pMana;
+    }
+
+    public void MinusMaxArmor(final int pArmor)
+    {
+        mMaxArmor -= pArmor;
+    }
+
+    public void MinusMaxResistance(final int pResistance)
+    {
+        mMaxResistance -= pResistance;
+    }
+
+    public void MinusMaxAttackPower(final int pAttackPower)
+    {
+        mMaxAttackPower -= pAttackPower;
+    }
+
+    public void MinusMaxAbilityPower(final int pAbilityPower)
+    {
+        mMaxAbilityPower -= pAbilityPower;
+    }
+
     public void MinusCurrentStats(final Stats pCurrentStatsModifier)
     {
         this.mCurrentHealth -= pCurrentStatsModifier.mCurrentHealth;
