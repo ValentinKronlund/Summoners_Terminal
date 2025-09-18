@@ -8,10 +8,10 @@ public enum MinionType {
                                         0,
                                         10,
                                         5,
-                                        100,
+                                        17,
                                         0),
                         new Stats(
-                                        20,
+                                        40,
                                         0,
                                         4,
                                         0,
@@ -28,7 +28,7 @@ public enum MinionType {
                                         13,
                                         0),
                         new Stats(
-                                        20,
+                                        30,
                                         0,
                                         0,
                                         0,
@@ -45,7 +45,7 @@ public enum MinionType {
                                         25,
                                         0),
                         new Stats(
-                                        40,
+                                        80,
                                         0,
                                         5,
                                         0,

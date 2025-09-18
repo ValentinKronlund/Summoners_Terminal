@@ -54,22 +54,24 @@ public class Action {
 
         for (int i = 0; i < 2; i++) { // Add Melee minions
             String uniqueIdentifier = "%s %d ".formatted(identifier, meleeCounter);
-            Minion newMinion = new Minion(uniqueIdentifier, MinionType.MELEE);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.MELEE, waveNumber);
             wave.add(newMinion);
             meleeCounter++;
         }
-        for (int i = 0; i < 3; i++) { // Add Caster minions
-            String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
-            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER);
-            wave.add(newMinion);
-            casterCounter++;
-        }
-        if (waveNumber % 3 == 0) {
-            String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
-            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON);
-            wave.add(newMinion);
-            canonCounter++;
-        }
+        // for (int i = 0; i < 3; i++) { // Add Caster minions
+        // String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
+        // Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER,
+        // waveNumber);
+        // wave.add(newMinion);
+        // casterCounter++;
+        // }
+        // if (waveNumber % 3 == 0) {
+        // String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
+        // Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON,
+        // waveNumber);
+        // wave.add(newMinion);
+        // canonCounter++;
+        // }
 
         for (Minion minion : wave) {
             minionWave.add(minion);
@@ -93,14 +95,12 @@ public class Action {
                 Action.playerActions(playerNexus, npcNexus, playerChampion, npcChampion,
                         playerMinionWave, npcMinionWave,
                         actionCount, playerSkipNextTurn);
-                System.out.println("FINISHED PLAYER ACTION");
                 playerChampion.getPassive().Tick();
             }
             if (!npcSkipNextTurn) {
                 Action.npcActions(npcNexus, playerNexus, npcChampion, playerChampion, npcMinionWave, playerMinionWave,
                         actionCount, npcSkipNextTurn);
-                System.out.println("FINISHED NPC ACTION");
-
+                // npcChampion.getPassive().Tick();
             }
 
             int minionAttackOrder = random.nextInt(0, 2);

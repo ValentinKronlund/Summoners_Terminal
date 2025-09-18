@@ -64,7 +64,6 @@ public final class AbilityKits {
 
             for (Minion minion : aoeTargets) {
                 if (minion != null) {
-                    System.out.println("\n");
                     minion.takeDamage(physicalDamage, spellDamage, originalWave, self);
                 }
                 try {
@@ -104,6 +103,7 @@ public final class AbilityKits {
                 }
 
             }
+
             System.out.println("\n");
 
             return true;
