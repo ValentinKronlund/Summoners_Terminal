@@ -58,20 +58,20 @@ public class Action {
             wave.add(newMinion);
             meleeCounter++;
         }
-        // for (int i = 0; i < 3; i++) { // Add Caster minions
-        // String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
-        // Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER,
-        // waveNumber);
-        // wave.add(newMinion);
-        // casterCounter++;
-        // }
-        // if (waveNumber % 3 == 0) {
-        // String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
-        // Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON,
-        // waveNumber);
-        // wave.add(newMinion);
-        // canonCounter++;
-        // }
+        for (int i = 0; i < 3; i++) { // Add Caster minions
+            String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER,
+                    waveNumber);
+            wave.add(newMinion);
+            casterCounter++;
+        }
+        if (waveNumber % 3 == 0) {
+            String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON,
+                    waveNumber);
+            wave.add(newMinion);
+            canonCounter++;
+        }
 
         for (Minion minion : wave) {
             minionWave.add(minion);
@@ -118,6 +118,10 @@ public class Action {
             playerSkipNextTurn = false;
             npcSkipNextTurn = false;
             actionCount--;
+
+            if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
+                return true;
+            }
 
         }
 
