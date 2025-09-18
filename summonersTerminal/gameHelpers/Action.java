@@ -46,21 +46,25 @@ public class Action {
         return champion;
     }
 
-    public static void generateMinionWave(List<Minion> minionWave, int waveNumber) {
+    public static void generateMinionWave(List<Minion> minionWave, int waveNumber, boolean isEnemy) {
         List<Minion> wave = new ArrayList<>();
+        String identifier = isEnemy ? "♦️ Enemy" : "🔷 Ally";
 
         for (int i = 0; i < 2; i++) { // Add Melee minions
-            Minion newMinion = new Minion(meleeCounter, MinionType.MELEE);
+            String uniqueIdentifier = "%s %d ".formatted(identifier, meleeCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.MELEE);
             wave.add(newMinion);
             meleeCounter++;
         }
         for (int i = 0; i < 3; i++) { // Add Caster minions
-            Minion newMinion = new Minion(casterCounter, MinionType.CASTER);
+            String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER);
             wave.add(newMinion);
             casterCounter++;
         }
         if (waveNumber % 3 == 0) {
-            Minion newMinion = new Minion(canonCounter, MinionType.CANON);
+            String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON);
             wave.add(newMinion);
             canonCounter++;
         }
@@ -71,12 +75,19 @@ public class Action {
     }
 
     public static boolean mainActionsLoop(
-            Nexus nexus,
+            Nexus enemyNexus,
+            Nexus allyNexus,
             Champion playerChampion,
             Champion enemyChampion,
-            List<Minion> minionWave,
+            List<Minion> enemyMinionWave,
+            List<Minion> allyMinionWave,
             int playerActionCount) {
-        while (playerActionCount < 5 & playerChampion.isDead() == false) {
+        /*
+         * Right now we only progress the game on player actions, which is not suitable
+         * for enemy behaviour.
+         * Future patch should also consider enemy actions seperately
+         */
+        while (playerActionCount < 5 & playerChampion.isAlive() == true) {
             System.out.println("\n" + playerChampion.toString());
             Copy.baseActionChoiceCopy(playerActionCount);
 
@@ -86,14 +97,14 @@ public class Action {
                 // Main combat choices below 👇🏽 -------------------------
                 switch (playerChoice) {
                     case 'a': {
-                        boolean successfulAttack = Action.abilityAction(playerChampion, minionWave);
+                        boolean successfulAttack = Action.abilityAction(playerChampion, enemyMinionWave);
                         if (successfulAttack)
                             playerActionCount++;
                         break;
                     }
 
                     case 'm': {
-                        Action.attackAction(playerChampion, minionWave, nexus);
+                        Action.attackAction(playerChampion, enemyMinionWave, enemyNexus);
                         playerActionCount++;
                         break;
                     }
@@ -113,21 +124,37 @@ public class Action {
                         playerActionCount += 2;
                         break;
                     }
-                    case 'e': {
-                        System.out.println("\n" + enemyChampion.toString());
-                        continue; // <----- Continue here as to not lose a round or take damage.
+
+                    case 'q': {
+                        Copy.allyWaveCopy(allyMinionWave);
+                        continue;
                     }
 
                     case 'w': {
-                        Copy.waveCopy(minionWave);
-                        continue; // <----- Continue here as to not lose a round or take damage.
+                        Copy.enemyWaveCopy(enemyMinionWave);
+                        continue;
                     }
 
-                    case 'q': {
+                    case 'e': {
+                        System.out.println("\n" + enemyChampion.toString());
+                        continue;
+                    }
+
+                    case 'r': {
+                        Copy.nexusCopy(allyNexus);
+                        continue;
+                    }
+
+                    case 't': {
+                        Copy.nexusCopy(enemyNexus);
+                        continue;
+                    }
+
+                    case 'x': {
                         Copy.quitCopy();
                         char quitConfirmation = helper.askChar(scanner, "");
                         switch (quitConfirmation) {
-                            case 'q':
+                            case 'x':
                                 return true;
                             default:
                                 continue;
@@ -143,20 +170,23 @@ public class Action {
                 continue;
             }
 
-            if (nexus.isDestroyed) {
+            if (!enemyNexus.isAlive() || !allyNexus.isAlive()) {
                 return true;
             }
 
-            if (playerChampion.inBase() == false) {
-                for (Minion minion : minionWave) {
-                    if (playerChampion.isDead() == true) {
-                        break;
-                    }
-                    playerChampion.takeDamage(minion.attack());
+            for (Minion minion : enemyMinionWave) {
+                if (minion != null && minion.isAlive()) {
+                    minion.minionBehaviour(allyMinionWave, playerChampion, allyNexus);
                 }
             }
 
-            if (playerChampion.isDead() == true) {
+            for (Minion minion : allyMinionWave) {
+                if (minion != null && minion.isAlive()) {
+                    minion.minionBehaviour(enemyMinionWave, enemyChampion, enemyNexus);
+                }
+            }
+
+            if (playerChampion.isAlive() == false) {
                 break;
             }
 

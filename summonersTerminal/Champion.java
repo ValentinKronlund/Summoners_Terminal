@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
 
-public final class Champion {
+public final class Champion implements Target {
 
-    String championName;
+    private final String championName;
     ChampionID championId;
     private Stats _stats;
     private int _level = 1;
     private final int _startGold = 500;
     private int _gold = _startGold;
-    private boolean _isDead = false;
+    private boolean _isAlive = true;
     private boolean _inBase = false;
 
     private final List<Ability> _abilityKit;
@@ -85,11 +86,11 @@ public final class Champion {
     }
 
     public boolean attack(Minion target, List<Minion> minionWave) {
-        return target.takeDamage(this._stats.attackPower(), minionWave, this);
+        return target.takeDamage(this._stats.attackPower(), 0, minionWave, this);
     }
 
     public boolean attackNexus(Nexus nexus) {
-        return nexus.takeDamage(this._stats.attackPower());
+        return nexus.takeDamage(this._stats.attackPower(), 0);
     }
 
     public boolean useAbility(int abilityIndex, Minion target, List<Minion> minionWave) {
@@ -109,31 +110,38 @@ public final class Champion {
     }
 
     public boolean onDeath() {
-        System.out.println("You have been slain! 😵");
-        this._isDead = true;
+        String deathString = "%s has been slain! 😵".formatted(championName);
+        System.out.println(deathString);
+        this._isAlive = false;
         this._inBase = true;
         return true;
     }
 
     public boolean respawn() {
-        this._isDead = false;
+        this._isAlive = true;
         this._inBase = false;
         recalcAllStats();
         System.out.println("\nYou have respawned! 🩵\n");
         return true;
     }
 
-    public boolean takeDamage(int damageAmount) {
-        int damageTaken = (int) Math.round(Damage.damageAfterArmor(damageAmount, _stats.armor()));
+    @Override
+    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
         try {
+            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.armor(),
+                    this._stats.resistance());
+
             this._stats = _stats.minus(new Stats(damageTaken, 0, 0, 0, 0, 0));
-            System.out.println("You have taken " + damageTaken + " damage!" + " | HP: " + this._stats.health());
+            String dmgString = "%s has taken %d damage! | HP: %d".formatted(championName, damageTaken,
+                    this._stats.health());
+            System.out.println(dmgString);
 
             if (this._stats.health() <= 0) {
                 onDeath();
             }
 
             return true;
+
         } catch (Exception e) {
             System.out.println("Some spooky shit happened when champion tried to take damage 👻");
             return false;
@@ -141,6 +149,11 @@ public final class Champion {
     }
 
     // ----- GETTERS
+    @Override
+    public String name() {
+        return championName;
+    }
+
     public Stats stats() {
         return _stats;
     }
@@ -153,8 +166,8 @@ public final class Champion {
         return _gold;
     }
 
-    public boolean isDead() {
-        return _isDead;
+    public boolean isAlive() {
+        return _isAlive;
     }
 
     public boolean inBase() {
