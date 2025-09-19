@@ -1,6 +1,7 @@
 package summonersTerminal.gameHelpers;
 
 import java.util.List;
+
 import summonersTerminal.Item;
 import summonersTerminal.Nexus;
 import summonersTerminal.champion.Champion;
@@ -106,6 +107,10 @@ public class Copy {
         }
         System.out.println("🔮 🔮 🔮 🔮 🔮");
 
+    }
+
+    public static void selectedPassive(String cName, String description) {
+        System.out.println("\n%s selected passive: %s".formatted(cName, description));
     }
 
     public static void attackNexusCopy(Nexus nexus) {

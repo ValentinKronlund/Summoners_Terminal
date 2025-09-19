@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
 import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.Passives.Factory;
@@ -47,28 +48,23 @@ public class SummonersTerminal {
         String playerName = helper.askLine(scanner, "\n\n 🏷️  Before we begin -- What is your gamer tag? ");
         Copy.initialCopy();
 
-        this.playerChampion = Action.chooseChampion(playerName);
-        this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
+        playerChampion = Action.chooseChampion(playerName);
+        enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
-        { // NOTE(Nat): TO-DO make a Choose Passive state
+        { // TODO: NOTE(Nat): make a Choose Passive state
             Random random = new Random();
-            int playerIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal()); // TODO: Player should be able to
-                                                                                   // choose between passives
+            int playerIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal());
             int enemyIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal());
 
             Factory passiveFactory = new Factory();
-            this.playerChampion
-                    .setPassive(passiveFactory.Create(Factory.ePassive.values()[playerIndex], this.playerChampion));
-            this.playerChampion.getPassive().Init();
+            playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.values()[playerIndex], playerChampion));
+            playerChampion.getPassive().Init();
 
-            this.enemyChampion
-                    .setPassive(passiveFactory.Create(Factory.ePassive.values()[enemyIndex], this.enemyChampion));
-            this.enemyChampion.getPassive().Init();
+            enemyChampion.setPassive(passiveFactory.Create(Factory.ePassive.values()[enemyIndex], enemyChampion));
+            enemyChampion.getPassive().Init();
 
-            System.out.println("\n%s selected passive: %s".formatted(playerChampion.name(),
-                    playerChampion.getPassive().GetDescription()));
-            System.out.println("\n%s selected passive: %s".formatted(enemyChampion.name(),
-                    enemyChampion.getPassive().GetDescription()));
+            Copy.selectedPassive(playerChampion.name(), playerChampion.getPassive().GetDescription());
+            Copy.selectedPassive(enemyChampion.name(), enemyChampion.getPassive().GetDescription());
         }
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
