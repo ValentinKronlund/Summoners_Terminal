@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
 import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.Passives.Factory;
@@ -86,6 +85,7 @@ public class SummonersTerminal {
             }
 
             Copy.newWaveCopy(waveNumber);
+
             Action.generateMinionWave(enemyMinionWave, waveNumber, true);
             Action.generateMinionWave(allyMinionWave, waveNumber, false);
             Copy.enemyWaveCopy(enemyMinionWave);
@@ -94,6 +94,7 @@ public class SummonersTerminal {
             int actionCount = 5;
             playerChampion.walkFromBase();
             enemyChampion.walkFromBase();
+
             boolean shouldEndGame = Action.mainActionsLoop(allyNexus, enemyNexus, playerChampion, enemyChampion,
                     allyMinionWave,
                     enemyMinionWave,
@@ -109,7 +110,8 @@ public class SummonersTerminal {
             }
 
             waveNumber++;
-            if (winConditionMet) {
+
+            if (winConditionMet) { // <--- Fallback, should never run
                 break;
             }
         }
