@@ -40,7 +40,7 @@ public final class Champion implements Target {
 
     public void levelUp() {
         this._level++;
-        recalcAllStats();
+        this._stats.AddMaxStats(this.championId.growthPerLevel);
     }
 
     private Stats baseAtCurrentLevel() {
@@ -54,29 +54,6 @@ public final class Champion implements Target {
         return baseStats;
     }
 
-    private Stats CalculateStatsBonusesFromItems() {
-        Stats itemStatsBonus = Stats.ZERO;
-
-        for (Item item : _items) {
-            itemStatsBonus.AddMaxStats(item.stats());
-        }
-
-        return itemStatsBonus;
-    }
-
-    private void recalcAllStats() { // TODO: Remove this function as it is now redandant -- Instead add "AddMax" to
-                                    // the equip and unequip functions.
-        final Stats itemStatsBonuses = CalculateStatsBonusesFromItems();
-        final Stats baseStatsAtCurrentLevel = baseAtCurrentLevel();
-
-        Stats newStats = new Stats();
-        newStats.AddMaxStats(baseStatsAtCurrentLevel);
-        newStats.AddMaxStats(itemStatsBonuses);
-        newStats.RestoreToMax();
-
-        this._stats = newStats;
-    }
-
     // Actions below 👇🏽 ----------
     public boolean equip(Item item) {
         if (!Validation.validateEquipItem(item, _items, _gold)) {
@@ -86,6 +63,9 @@ public final class Champion implements Target {
         this._gold -= item.cost();
         _items.add(item);
         System.out.println("\n%s purchased %s \n".formatted(championName, item.toString()));
+
+        _stats.AddMaxStats(item.stats());
+
         return goToBase();
     }
 
@@ -96,7 +76,9 @@ public final class Champion implements Target {
         int sellAmount = (int) Math.round(item.cost() * 0.6);
         System.out.println("\nSold item for: " + sellAmount);
         _gold += sellAmount;
-        recalcAllStats();
+
+        stats().MinusMaxStats(item.stats());
+
         return true;
     }
 
@@ -124,7 +106,7 @@ public final class Champion implements Target {
     public boolean goToBase() {
         this._inBase = true;
         System.out.println("\n%s have gone to the base -- HP and Mana reset!✨\n".formatted(championName));
-        recalcAllStats();
+        this._stats.RestoreToMax();
         this._inBase = false;
         return true;
     }
@@ -140,7 +122,7 @@ public final class Champion implements Target {
     public boolean respawn() {
         this._isAlive = true;
         this._inBase = false;
-        recalcAllStats();
+        this._stats.RestoreToMax();
         System.out.println("\n%s have respawned! 🩵\n".formatted(championName));
         return true;
     }

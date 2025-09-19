@@ -92,6 +92,8 @@ public class Stats {
         this.mMaxResistance += pMaxStatsModifier.mMaxResistance;
         this.mMaxAttackPower += pMaxStatsModifier.mMaxAttackPower;
         this.mMaxAbilityPower += pMaxStatsModifier.mMaxAbilityPower;
+
+        AddCurrentStats(pMaxStatsModifier);
     }
 
     public void AddCurrentHealth(final int pHealth) {
@@ -242,6 +244,8 @@ public class Stats {
         this.mMaxResistance -= pMaxStatsModifier.mMaxResistance;
         this.mMaxAttackPower -= pMaxStatsModifier.mMaxAttackPower;
         this.mMaxAbilityPower -= pMaxStatsModifier.mMaxAbilityPower;
+
+        MinusCurrentStats(pMaxStatsModifier);
     }
 
     public void SetMaxStats(final Stats pMaxStats) {
