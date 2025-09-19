@@ -40,7 +40,6 @@ public final class Minion implements Target {
     public void minionStatsPerLevel(int level) {
         for (int i = 1; i < level; i++) {
             stats.AddCurrentStats(minionType.growthPerCycle());
-            System.out.println("CURRENT STATS: %s \n".formatted(stats.toString()));
         }
         stats.RestoreToMax();
     }
