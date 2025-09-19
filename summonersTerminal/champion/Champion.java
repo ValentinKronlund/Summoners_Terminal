@@ -1,13 +1,18 @@
-package summonersTerminal;
+package summonersTerminal.champion;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import summonersTerminal.Item;
+import summonersTerminal.Nexus;
+import summonersTerminal.Stats;
+import summonersTerminal.Target;
 import summonersTerminal.champion.Passives.Base.Passive;
 import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
+import summonersTerminal.minion.Minion;
 
 public final class Champion implements Target {
 
@@ -59,7 +64,8 @@ public final class Champion implements Target {
         return itemStatsBonus;
     }
 
-    private void recalcAllStats() {
+    private void recalcAllStats() { // TODO: Remove this function as it is now redandant -- Instead add "AddMax" to
+                                    // the equip and unequip functions.
         final Stats itemStatsBonuses = CalculateStatsBonusesFromItems();
         final Stats baseStatsAtCurrentLevel = baseAtCurrentLevel();
 

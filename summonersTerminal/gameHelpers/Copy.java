@@ -1,12 +1,11 @@
 package summonersTerminal.gameHelpers;
 
 import java.util.List;
-
-import summonersTerminal.Champion;
 import summonersTerminal.Item;
-import summonersTerminal.Minion;
 import summonersTerminal.Nexus;
+import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.abilities.Ability;
+import summonersTerminal.minion.Minion;
 
 public class Copy {
 
@@ -131,7 +130,7 @@ public class Copy {
 
     public static void victoryCopy() {
         System.out.println(
-                "\n\n🔻 The Enemy Nexus has been destroyed! 🔻\n\n");
+                "\n\n💠 The Enemy Nexus has been destroyed! 💠\n\n");
 
         System.out.println(
                 "\n\n"
@@ -150,7 +149,7 @@ public class Copy {
 
     public static void defeatCopy() {
         System.out.println(
-                "\n\n🔻 The Enemy Nexus has been destroyed! 🔻\n\n");
+                "\n\n🔻 Your Nexus has been destroyed! 🔻\n\n");
 
         System.out.println(
                 "\n\n"

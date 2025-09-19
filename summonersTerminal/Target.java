@@ -2,6 +2,9 @@ package summonersTerminal;
 
 import java.util.List;
 
+import summonersTerminal.champion.Champion;
+import summonersTerminal.minion.Minion;
+
 public sealed interface Target permits Minion, Champion, Nexus {
     String name();
 

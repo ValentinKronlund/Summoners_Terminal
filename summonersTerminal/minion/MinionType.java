@@ -1,4 +1,6 @@
-package summonersTerminal;
+package summonersTerminal.minion;
+
+import summonersTerminal.Stats;
 
 public enum MinionType {
         MELEE(

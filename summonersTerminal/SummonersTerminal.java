@@ -2,17 +2,21 @@ package summonersTerminal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
-
+import summonersTerminal.champion.Champion;
+import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.Passives.Factory;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
+import summonersTerminal.minion.Minion;
 
 public class SummonersTerminal {
-    Scanner scanner = new Scanner(System.in);
-    Helpers helper = new Helpers();
+    private static SummonersTerminal instance;
 
+    private Scanner scanner = new Scanner(System.in);
+    private Helpers helper = new Helpers();
     private boolean winConditionMet = false;
     private Champion playerChampion;
     private Champion enemyChampion;
@@ -21,6 +25,18 @@ public class SummonersTerminal {
     private List<Minion> enemyMinionWave = new ArrayList<>();
     private List<Minion> allyMinionWave = new ArrayList<>();
     private int waveNumber = 1;
+
+    private SummonersTerminal() {
+
+    }
+
+    public static SummonersTerminal getInstance() {
+        if (instance == null) {
+            instance = new SummonersTerminal();
+        }
+
+        return instance;
+    }
 
     public void PlayGame() {
         InitiateGame();
@@ -35,11 +51,24 @@ public class SummonersTerminal {
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
         { // NOTE(Nat): TO-DO make a Choose Passive state
+            Random random = new Random();
+            int playerIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal()); // TODO: Player should be able to
+                                                                                   // choose between passives
+            int enemyIndex = random.nextInt(0, Factory.ePassive.DUMMY.ordinal());
+
             Factory passiveFactory = new Factory();
-            this.playerChampion.setPassive(passiveFactory.Create(Factory.ePassive.Undying, this.playerChampion));
+            this.playerChampion
+                    .setPassive(passiveFactory.Create(Factory.ePassive.values()[playerIndex], this.playerChampion));
             this.playerChampion.getPassive().Init();
 
-            System.out.println("\nSelected passive: " + this.playerChampion.getPassive().GetDescription());
+            this.enemyChampion
+                    .setPassive(passiveFactory.Create(Factory.ePassive.values()[enemyIndex], this.enemyChampion));
+            this.enemyChampion.getPassive().Init();
+
+            System.out.println("\n%s selected passive: %s".formatted(playerChampion.name(),
+                    playerChampion.getPassive().GetDescription()));
+            System.out.println("\n%s selected passive: %s".formatted(enemyChampion.name(),
+                    enemyChampion.getPassive().GetDescription()));
         }
 
         Copy.championsSelectedCopy(playerChampion, enemyChampion);
@@ -56,31 +85,39 @@ public class SummonersTerminal {
             }
 
             Copy.newWaveCopy(waveNumber);
+
             Action.generateMinionWave(enemyMinionWave, waveNumber, true);
-            // Action.generateMinionWave(allyMinionWave, waveNumber, false);
+            Action.generateMinionWave(allyMinionWave, waveNumber, false);
             Copy.enemyWaveCopy(enemyMinionWave);
             Copy.allyWaveCopy(allyMinionWave);
 
             int actionCount = 5;
             playerChampion.walkFromBase();
             enemyChampion.walkFromBase();
+
             boolean shouldEndGame = Action.mainActionsLoop(allyNexus, enemyNexus, playerChampion, enemyChampion,
                     allyMinionWave,
                     enemyMinionWave,
                     actionCount);
 
             if (shouldEndGame == true) {
-                if (enemyNexus.isAlive() == false) {
-                    endGame(true, false);
+                if (!enemyNexus.isAlive()) {
+                    EndGame(true, false);
+                    return;
+                } else {
+                    EndGame(false, true);
                 }
-                endGame(false, true);
             }
 
             waveNumber++;
+
+            if (winConditionMet) { // <--- Fallback, should never run
+                break;
+            }
         }
     }
 
-    public void endGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
+    private void EndGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
         if (enemyNexusDestroyed) {
             Copy.victoryCopy();
         } else {

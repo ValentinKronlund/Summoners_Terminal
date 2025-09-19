@@ -1,10 +1,9 @@
 package summonersTerminal.gameHelpers;
 
 import java.util.List;
-
 import summonersTerminal.Item;
-import summonersTerminal.Minion;
 import summonersTerminal.champion.abilities.Ability;
+import summonersTerminal.minion.Minion;
 
 public class Validation {
 

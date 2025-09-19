@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import summonersTerminal.Champion;
-import summonersTerminal.ChampionID;
 import summonersTerminal.Item;
-import summonersTerminal.Minion;
-import summonersTerminal.MinionType;
 import summonersTerminal.Nexus;
+import summonersTerminal.champion.Champion;
+import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.abilities.Ability;
+import summonersTerminal.minion.Minion;
+import summonersTerminal.minion.MinionType;
 
 public class Action {
     static Helpers helper = new Helpers();
@@ -58,20 +58,20 @@ public class Action {
             wave.add(newMinion);
             meleeCounter++;
         }
-        // for (int i = 0; i < 3; i++) { // Add Caster minions
-        // String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
-        // Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER,
-        // waveNumber);
-        // wave.add(newMinion);
-        // casterCounter++;
-        // }
-        // if (waveNumber % 3 == 0) {
-        // String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
-        // Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON,
-        // waveNumber);
-        // wave.add(newMinion);
-        // canonCounter++;
-        // }
+        for (int i = 0; i < 3; i++) { // Add Caster minions
+            String uniqueIdentifier = "%s %d ".formatted(identifier, casterCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CASTER,
+                    waveNumber);
+            wave.add(newMinion);
+            casterCounter++;
+        }
+        if (waveNumber % 3 == 0) {
+            String uniqueIdentifier = "%s %d ".formatted(identifier, canonCounter);
+            Minion newMinion = new Minion(uniqueIdentifier, MinionType.CANON,
+                    waveNumber);
+            wave.add(newMinion);
+            canonCounter++;
+        }
 
         for (Minion minion : wave) {
             minionWave.add(minion);
@@ -97,10 +97,18 @@ public class Action {
                         actionCount, playerSkipNextTurn);
                 playerChampion.getPassive().Tick();
             }
+
+            if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
+                return true;
+            }
+
             if (!npcSkipNextTurn) {
                 Action.npcActions(npcNexus, playerNexus, npcChampion, playerChampion, npcMinionWave, playerMinionWave,
                         actionCount, npcSkipNextTurn);
                 // npcChampion.getPassive().Tick();
+            }
+            if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
+                return true;
             }
 
             int minionAttackOrder = random.nextInt(0, 2);
@@ -115,9 +123,17 @@ public class Action {
                 System.out.println("FINISHED MINION ACTION - Prio NPC ♦️");
             }
 
+            if (playerNexus.isAlive() && npcNexus.isAlive()) {
+                break;
+            }
+
             playerSkipNextTurn = false;
             npcSkipNextTurn = false;
             actionCount--;
+
+            if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
+                return true;
+            }
 
         }
 
@@ -202,6 +218,9 @@ public class Action {
                         switch (quitConfirmation) {
                             case 'x':
                                 playerNexus.onDeath();
+                                takenAction = true;
+                                actionCount = 0;
+                                break;
                             default:
                                 continue;
                         }

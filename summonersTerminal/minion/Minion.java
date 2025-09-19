@@ -1,15 +1,18 @@
-package summonersTerminal;
+package summonersTerminal.minion;
 
 import java.util.List;
+import summonersTerminal.Nexus;
+import summonersTerminal.Stats;
+import summonersTerminal.Target;
+import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.Passives.Base.Passive;
-
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.MinionTargetingSystem;
 
 public final class Minion implements Target {
     String minionName;
     MinionType minionType;
-    private Stats stats;
+    private final Stats stats;
     private final int goldValue;
     private boolean _isAlive;
     private int _level;
@@ -19,22 +22,27 @@ public final class Minion implements Target {
             MinionType minionType,
             int level) {
         this.minionType = minionType;
-        this.stats = minionType.base();
+        this.stats = new Stats(
+                minionType.base().GetMaxHealth(),
+                minionType.base().GetMaxMana(),
+                minionType.base().GetMaxArmor(),
+                minionType.base().GetMaxResistance(),
+                minionType.base().GetMaxAttackPower(),
+                minionType.base().GetMaxAbilityPower());
         this.goldValue = minionType.goldValue();
         this._isAlive = true;
         this._level = level;
-        this.minionName = "%s %s (Lvl: %d)".formatted(uniqueIdentifier, minionType.nameType(), _level);
+        this.minionName = "%s%s (Lvl: %d)".formatted(uniqueIdentifier, minionType.nameType(), _level);
 
         minionStatsPerLevel(_level);
     }
 
     public void minionStatsPerLevel(int level) {
         for (int i = 1; i < level; i++) {
-            stats.AddMaxStats(minionType.growthPerCycle());
-            stats.RestoreToMax();
-            System.out.println("NAME: %s | BASE STATS: %s | CURRENT STATS: %s".formatted(minionName,
-                    minionType.growthPerCycle(), stats.toString()));
+            stats.AddCurrentStats(minionType.growthPerCycle());
+            System.out.println("CURRENT STATS: %s \n".formatted(stats.toString()));
         }
+        stats.RestoreToMax();
     }
 
     public void minionBehaviour(List<Minion> enemyWave, Champion enemyChampion, Nexus nexus) {
@@ -93,8 +101,7 @@ public final class Minion implements Target {
         waveIAmIn.remove(this);
         champion.addGold(goldValue);
 
-        if (champion.getPassive().mType == Passive.ePassiveType.COMBAT)
-        {
+        if (champion.getPassive().mType == Passive.ePassiveType.COMBAT) {
             champion.getPassive().Execute();
         }
     }

@@ -1,6 +1,7 @@
 package summonersTerminal;
 
 import java.util.List;
+import summonersTerminal.minion.Minion;
 
 public final class Nexus implements Target {
     private final String _name;
@@ -23,7 +24,6 @@ public final class Nexus implements Target {
     public String name() {
         return _name;
     }
-
 
     @Override
     public boolean isAlive() {
