@@ -39,7 +39,7 @@ public final class Minion implements Target {
 
     public void minionStatsPerLevel(int level) {
         for (int i = 1; i < level; i++) {
-            stats.AddCurrentStats(minionType.growthPerCycle());
+            stats.AddMaxStats(minionType.growthPerCycle());
         }
         stats.RestoreToMax();
     }
