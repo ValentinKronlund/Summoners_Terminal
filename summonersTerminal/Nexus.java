@@ -1,6 +1,7 @@
 package summonersTerminal;
 
 import java.util.List;
+import summonersTerminal.minion.Minion;
 
 public final class Nexus implements Target {
     private final String _name;

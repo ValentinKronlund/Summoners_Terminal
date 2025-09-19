@@ -5,15 +5,19 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import summonersTerminal.champion.Champion;
+import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.Passives.Factory;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
+import summonersTerminal.minion.Minion;
 
 public class SummonersTerminal {
-    Scanner scanner = new Scanner(System.in);
-    Helpers helper = new Helpers();
+    private static SummonersTerminal instance;
 
+    private Scanner scanner = new Scanner(System.in);
+    private Helpers helper = new Helpers();
     private boolean winConditionMet = false;
     private Champion playerChampion;
     private Champion enemyChampion;
@@ -22,6 +26,18 @@ public class SummonersTerminal {
     private List<Minion> enemyMinionWave = new ArrayList<>();
     private List<Minion> allyMinionWave = new ArrayList<>();
     private int waveNumber = 1;
+
+    private SummonersTerminal() {
+
+    }
+
+    public static SummonersTerminal getInstance() {
+        if (instance == null) {
+            instance = new SummonersTerminal();
+        }
+
+        return instance;
+    }
 
     public void PlayGame() {
         InitiateGame();
@@ -85,10 +101,10 @@ public class SummonersTerminal {
 
             if (shouldEndGame == true) {
                 if (!enemyNexus.isAlive()) {
-                    endGame(true, false);
+                    EndGame(true, false);
                     return;
                 } else {
-                    endGame(false, true);
+                    EndGame(false, true);
                 }
             }
 
@@ -99,7 +115,7 @@ public class SummonersTerminal {
         }
     }
 
-    public void endGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
+    private void EndGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
         if (enemyNexusDestroyed) {
             Copy.victoryCopy();
         } else {

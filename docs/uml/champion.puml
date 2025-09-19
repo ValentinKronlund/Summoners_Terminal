@@ -1,0 +1,85 @@
+@startuml
+title Champion – Class Diagram
+
+skinparam classAttributeIconSize 0
+skinparam dpi 160
+skinparam monochrome true
+
+package summonersTerminal {
+
+  interface Target {
+    +name(): String
+    +isAlive(): boolean
+    +takeDamage(pDamage: int, sDamage: int, context: List<? extends Target>, attacker: Target): boolean
+  }
+
+  class Champion implements Target {
+    - playerName: String
+    - id: ChampionId
+    - level: int = 1
+    - gold: int = 0
+    - stats: Stats
+    - items: List<Item>
+    - kit: List<Ability>
+
+    + Champion(playerName: String, id: ChampionId)
+    + name(): String
+    + isAlive(): boolean
+    + stats(): Stats
+    + getLevel(): int
+    + getGold(): int
+    + levelUp(): void
+    + equip(item: Item): boolean
+    + unequip(item: Item): boolean
+    + useAbility(index: int, target: Target, wave: List<? extends Target>): boolean
+    + useAbility(name: String, target: Target, wave: List<? extends Target>): boolean
+    + takeDamage(pDamage: int, sDamage: int, context: List<? extends Target>, attacker: Target): boolean
+    --
+    - baseAtCurrentLevel(): Stats
+    - recalcAllStats(): void
+  }
+
+  class Stats <<record>> {
+    + health(): int
+    + mana(): int
+    + armor(): int
+    + resistance(): int
+    + attackPower(): int
+    + abilityPower(): int
+    + plus(o: Stats): Stats
+    + minus(o: Stats): Stats
+  }
+
+  enum ChampionId {
+    GAREN
+    KATARINA
+    VEIGAR
+    ..
+  }
+
+  interface Ability {
+    + name(): String
+    + manaCost(): int
+    + cast(self: Champion, target: Target, wave: List<? extends Target>): boolean
+  }
+
+  enum Item {
+    .. // THORN_MAIL, ROD_OF_AGES, INFINITY_EDGE, RABADONS_DEATHCAP, ...
+  }
+
+  ' Relationships
+  Champion ..|> Target
+  Champion --> ChampionId : has
+  Champion --> Stats : uses
+  Champion "0..*" o--> Item : items
+  Champion "0..*" o--> Ability : kit
+}
+
+note right of Champion
+  Owns stats and ability kit.
+  Uses immutable Stats replacement
+  (plus/minus) when leveling,
+  equipping, and damage taken.
+end note
+
+@enduml

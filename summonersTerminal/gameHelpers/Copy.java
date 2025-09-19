@@ -1,12 +1,11 @@
 package summonersTerminal.gameHelpers;
 
 import java.util.List;
-
-import summonersTerminal.Champion;
 import summonersTerminal.Item;
-import summonersTerminal.Minion;
 import summonersTerminal.Nexus;
+import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.abilities.Ability;
+import summonersTerminal.minion.Minion;
 
 public class Copy {
 

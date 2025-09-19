@@ -1,6 +1,7 @@
-package summonersTerminal;
+package summonersTerminal.champion;
 
 import java.util.List;
+import summonersTerminal.Stats;
 import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.champion.abilities.AbilityKits;
 

@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import summonersTerminal.Champion;
-import summonersTerminal.ChampionID;
 import summonersTerminal.Item;
-import summonersTerminal.Minion;
-import summonersTerminal.MinionType;
 import summonersTerminal.Nexus;
+import summonersTerminal.champion.Champion;
+import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.abilities.Ability;
+import summonersTerminal.minion.Minion;
+import summonersTerminal.minion.MinionType;
 
 public class Action {
     static Helpers helper = new Helpers();
@@ -97,10 +97,18 @@ public class Action {
                         actionCount, playerSkipNextTurn);
                 playerChampion.getPassive().Tick();
             }
+
+            if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
+                return true;
+            }
+
             if (!npcSkipNextTurn) {
                 Action.npcActions(npcNexus, playerNexus, npcChampion, playerChampion, npcMinionWave, playerMinionWave,
                         actionCount, npcSkipNextTurn);
                 // npcChampion.getPassive().Tick();
+            }
+            if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
+                return true;
             }
 
             int minionAttackOrder = random.nextInt(0, 2);
@@ -113,6 +121,10 @@ public class Action {
                 Action.npcMinionActions(npcMinionWave, playerMinionWave, playerChampion, playerNexus);
                 Action.allyMinionActions(playerMinionWave, npcMinionWave, npcChampion, npcNexus);
                 System.out.println("FINISHED MINION ACTION - Prio NPC ♦️");
+            }
+
+            if (playerNexus.isAlive() && npcNexus.isAlive()) {
+                break;
             }
 
             playerSkipNextTurn = false;
@@ -206,6 +218,9 @@ public class Action {
                         switch (quitConfirmation) {
                             case 'x':
                                 playerNexus.onDeath();
+                                takenAction = true;
+                                actionCount = 0;
+                                break;
                             default:
                                 continue;
                         }

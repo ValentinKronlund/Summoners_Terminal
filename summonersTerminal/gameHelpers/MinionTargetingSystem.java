@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import summonersTerminal.Champion;
-import summonersTerminal.Minion;
 import summonersTerminal.Nexus;
 import summonersTerminal.Target;
+import summonersTerminal.champion.Champion;
+import summonersTerminal.minion.Minion;
 
 public class MinionTargetingSystem {
 

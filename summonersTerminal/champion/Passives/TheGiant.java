@@ -1,7 +1,7 @@
 package summonersTerminal.champion.Passives;
 
-import summonersTerminal.Champion;
 import summonersTerminal.Stats;
+import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.Passives.Base.Passive;
 
 public class TheGiant extends Passive {

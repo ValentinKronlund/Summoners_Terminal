@@ -2,9 +2,8 @@ package summonersTerminal.champion.abilities;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import summonersTerminal.Minion;
 import summonersTerminal.Stats;
+import summonersTerminal.minion.Minion;
 
 public final class AbilityKits {
     private AbilityKits() {
