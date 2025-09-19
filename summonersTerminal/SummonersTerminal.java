@@ -26,12 +26,13 @@ public class SummonersTerminal {
     }
 
     private void InitiateGame() {
-        String playerName = helper.askLine(scanner, "\nWhat is your gamer tag?\n");
+        String playerName = helper.askLine(scanner, "What is your gamer tag?");
         Screen.get().addIntroMessage().draw();
 
+        String prompt = "Enter champion name (or initial)";
         while (playerChampion == null) {
             try {
-                String championRequest = helper.askLine(scanner, "");
+                String championRequest = helper.askLine(scanner, prompt);
 
                 switch (championRequest) {
                     case "Garen", "garen", "G", "g": {
@@ -47,19 +48,24 @@ public class SummonersTerminal {
                         break;
                     }
                     default: {
-                        System.out.println("\n There is no champion named: " + championRequest);
+                        prompt = "That champion does not exist! (Enter name or initial)";
                         throw new IllegalArgumentException();
                     }
                 }
             } catch (IllegalArgumentException err) {
-                System.out.println("Try again! ");
                 continue;
             }
         }
 
         this.enemyChampion = ChampionID.VEIGAR.create("Enemy Veigar");
 
-        Copy.championsSelectedCopy(playerChampion, enemyChampion);
+        Screen.get()
+            .addMainWindow()
+            .addMainMessage(Copy.championsSelectedCopy(playerChampion, enemyChampion))
+            .addStatusWindow()
+            .addStatusMessage("Press <Enter> to continue...")
+            .draw();
+        helper.askChar(scanner, "");
     }
 
     private void GameLoop() {

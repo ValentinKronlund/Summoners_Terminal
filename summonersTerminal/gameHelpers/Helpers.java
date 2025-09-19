@@ -5,14 +5,20 @@ import java.util.Scanner;
 public class Helpers {
     /* ----- HELPERS! 👷🏽 ----- */
     public String askLine(Scanner input, String prompt) {
-        System.out.print(prompt);
+        Screen.get()
+            .addStatusWindow()
+            .addStatusMessage(prompt)
+            .draw();
         while (true) {
             String correctInput = input.nextLine().trim();
 
             if (correctInput != null && !correctInput.isEmpty()) {
                 return correctInput;
             } else {
-                Screen.get().addStatus("⚠️ Please enter a correct input value, don't leave it blank! ⚠️").draw();
+                Screen.get()
+                .addStatusWindow()
+                .addStatusMessage("⚠️ Please enter a correct input value, don't leave it blank! ⚠️")
+                .draw();
             }
         }
     }
@@ -24,7 +30,10 @@ public class Helpers {
             try {
                 return Integer.parseInt(inputAsString);
             } catch (NumberFormatException e) {
-                System.out.println("⚠️ Please enter a whole number! ⚠️");
+                Screen.get()
+                    .addStatusWindow()
+                    .addStatusMessage("⚠️ Please enter a whole number! ⚠️")
+                    .draw();
             }
 
         }
@@ -37,7 +46,10 @@ public class Helpers {
             try {
                 return Double.parseDouble(inputAsString);
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a number!");
+                Screen.get()
+                    .addStatusWindow()
+                    .addStatusMessage("Please enter a number!")
+                    .draw();
             }
 
         }
