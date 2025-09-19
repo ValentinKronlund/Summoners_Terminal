@@ -1,20 +1,21 @@
 package summonersTerminal.gameHelpers;
 /**
- * The Screen class is responsible for creating a text buffer of fixed size<br>
- * that is drawn to the screen once after every game action.
+ * The Screen class creates and holds a text buffer of fixed size<br>
+ * which is drawn all at once to the screen. It also has public methods<br>
+ * for adding text to the buffer at specific locations on the screen.<br>
  */
 public final class Screen {
+    // HAD-O-CODE-O, BAY-BEE!
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int screenWidth = 80, screenHeight = 20;
+
     // Singleton instance
     private static Screen _screen;
+    private final StringBuilder screenBuffer;
 
-    private StringBuilder screenBuffer;
-    // HADO-CODE-O, BAYBEE!
-    private final int screenWidth = 80, screenHeight = 20;
     private Screen() {
         screenBuffer = new StringBuilder(screenWidth * screenHeight);
-        for (int i = 0; i < screenBuffer.capacity(); i++) {
-            screenBuffer.append(' ');
-        }
+        screenBuffer.repeat("█", screenBuffer.capacity());
     }
 
     public static Screen get() {
@@ -25,65 +26,82 @@ public final class Screen {
     }
 
     /**
-     * Will place the formatted text into the screen buffer at the desired position
-     * discarding any text that falls outside of the screen buffer.
-     * @param formattedText
+     * Wipe the buffer
+     */
+    @SuppressWarnings("unused")
+    public Screen clearBuffer() {
+        screenBuffer.replace(0, screenBuffer.length(), "█".repeat(screenBuffer.length()));
+        return this;
+    }
+    /**
+     * Place an arbitrary text into the screen buffer at the desired position<br>
+     * discarding any text that falls outside of the screen buffer.<br>
+     * Negative coordinates will give undesired results or crash!
      */
     private void addToBuffer(int column, int row, String formattedText) {
         int startIndex = row * screenWidth + column;
-        // go through the input string, find a newline, determine length of row
-        // then compare to remaining row space in buffer, discard overflow
-        // find the index for the first column in the row.
-        // then put that row into the buffer, character by character...
-        //int stringWidth = formattedText.substring()
-        for (int it = 0, ib = startIndex; it < formattedText.length() && ib < screenBuffer.length(); it++, ib++) {
-            char c = formattedText.charAt(it);
-            if (c == '\n') {
+        int maxWidth = screenWidth - column;
 
+        String[] texts = formattedText.split("\\R", 0);
+        for (var text : texts) {
+            if (startIndex >= screenBuffer.length()) {
+                break;
             }
-            screenBuffer.setCharAt(ib, c);
+            int length = Math.min(text.length(), maxWidth);
+            screenBuffer.replace(startIndex, startIndex + length, text.substring(0, length));
+            startIndex += screenWidth;
         }
     }
 
     /**
-     * Adds a message into the status window
-     * @param message
+     * Add a text in the main window(should be no wider than 50 characters)
      */
-    public Screen addStatus(String message) {
-        addToBuffer(5, 19, message.substring(0, 63).strip());
+    public Screen addMainMessage(String message) {
+        addToBuffer(7, 1, message);
         return this;
     }
-
     /**
-     * Add the borders of the statuswindow near the bottom of the buffer
+     * Add the main window border to the buffer
+     */
+    public Screen addMainWindow() {
+        addToBuffer(3, 0, Copy.mainWindowCopy());
+        return this;
+    }
+    /**
+     * Add a message into the status window
+     */
+    public Screen addStatusMessage(String message) {
+        if (message.length() > 63) {
+            message = message.substring(0, 63);
+        }
+        addToBuffer(5, 18, message);
+        return this;
+    }
+    /**
+     * Add the borders of the status window near the bottom of the buffer
      */
     public Screen addStatusWindow() {
-        addToBuffer(
-            3, 18,
-            """
-            ▄■▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀■■▀▄▄
-            █                                                                 ■■■■■██▄▄
-            ▀■▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄■■▄▀▀
-            """
-        );
+        addToBuffer(3, 17, Copy.statusBarCopy());
         return this;
     }
-
+    /**
+     * Add the game instructions text to the buffer
+     */
     public Screen addIntroMessage() {
         addToBuffer(0, 0, Copy.initialCopy());
         return this;
     }
-
+    /**
+     * Draw the buffer
+     */
     public void draw() {
-        //Clears the screen if running in a terminal
-        System.out.print("\033[H\033[2J");
+        // Clears the screen if running in a terminal
+        System.out.
+                print("\033[H\033[2J");
 
-        int rowStart = 0;
-        for (int i = 0; i < screenBuffer.length(); i++) {
-            if(i % screenWidth == screenWidth - 1) {
-                System.out.println(screenBuffer.substring(rowStart, i));
-                rowStart = i + 1;
-            }
+        // Draw the screen buffer
+        for (int i = 0; i < screenBuffer.length(); i += screenWidth) {
+            System.out.println(screenBuffer.substring(i, i + screenWidth));
         }
     }
 }
