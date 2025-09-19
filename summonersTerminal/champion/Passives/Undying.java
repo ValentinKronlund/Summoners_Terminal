@@ -1,6 +1,6 @@
 package summonersTerminal.champion.Passives;
 
-import summonersTerminal.Champion;
+import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.Passives.Base.Passive;
 
 public class Undying extends Passive {

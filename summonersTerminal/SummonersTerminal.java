@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-
+import summonersTerminal.champion.Champion;
+import summonersTerminal.champion.ChampionID;
 import summonersTerminal.champion.Passives.Factory;
 import summonersTerminal.gameHelpers.Action;
 import summonersTerminal.gameHelpers.Copy;
 import summonersTerminal.gameHelpers.Helpers;
+import summonersTerminal.minion.Minion;
 
 public class SummonersTerminal {
-    Scanner scanner = new Scanner(System.in);
-    Helpers helper = new Helpers();
+    private static SummonersTerminal instance;
 
+    private Scanner scanner = new Scanner(System.in);
+    private Helpers helper = new Helpers();
     private boolean winConditionMet = false;
     private Champion playerChampion;
     private Champion enemyChampion;
@@ -22,6 +25,18 @@ public class SummonersTerminal {
     private List<Minion> enemyMinionWave = new ArrayList<>();
     private List<Minion> allyMinionWave = new ArrayList<>();
     private int waveNumber = 1;
+
+    private SummonersTerminal() {
+
+    }
+
+    public static SummonersTerminal getInstance() {
+        if (instance == null) {
+            instance = new SummonersTerminal();
+        }
+
+        return instance;
+    }
 
     public void PlayGame() {
         InitiateGame();
@@ -70,6 +85,7 @@ public class SummonersTerminal {
             }
 
             Copy.newWaveCopy(waveNumber);
+
             Action.generateMinionWave(enemyMinionWave, waveNumber, true);
             Action.generateMinionWave(allyMinionWave, waveNumber, false);
             Copy.enemyWaveCopy(enemyMinionWave);
@@ -78,6 +94,7 @@ public class SummonersTerminal {
             int actionCount = 5;
             playerChampion.walkFromBase();
             enemyChampion.walkFromBase();
+
             boolean shouldEndGame = Action.mainActionsLoop(allyNexus, enemyNexus, playerChampion, enemyChampion,
                     allyMinionWave,
                     enemyMinionWave,
@@ -85,21 +102,22 @@ public class SummonersTerminal {
 
             if (shouldEndGame == true) {
                 if (!enemyNexus.isAlive()) {
-                    endGame(true, false);
+                    EndGame(true, false);
                     return;
                 } else {
-                    endGame(false, true);
+                    EndGame(false, true);
                 }
             }
 
             waveNumber++;
-            if (winConditionMet) {
+
+            if (winConditionMet) { // <--- Fallback, should never run
                 break;
             }
         }
     }
 
-    public void endGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
+    private void EndGame(boolean enemyNexusDestroyed, boolean allyNexusDestroyed) {
         if (enemyNexusDestroyed) {
             Copy.victoryCopy();
         } else {

@@ -1,12 +1,10 @@
 package summonersTerminal.champion.Passives.Base;
 
-import summonersTerminal.Champion;
 import summonersTerminal.Stats;
+import summonersTerminal.champion.Champion;
 
-public abstract class Passive
-{
-    public enum ePassiveType
-    {
+public abstract class Passive {
+    public enum ePassiveType {
         STATS,
         REGEN,
         COMBAT,
@@ -22,22 +20,19 @@ public abstract class Passive
 
     private String mDescription;
 
-    public void Init()
-    {
+    public void Init() {
     }
 
-    public boolean Tick()
-    {
+    public boolean Tick() {
         return true;
     }
 
-    public boolean Execute()
-    {
+    public boolean Execute() {
         return true;
     }
 
-    public Passive(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef, final boolean pIsActive)
-    {
+    public Passive(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef,
+            final boolean pIsActive) {
         mStatsModifier = new Stats(0, 0, 0, 0, 0, 0);
 
         this.mName = pName;
@@ -46,18 +41,15 @@ public abstract class Passive
         this.mChampion = pChampionRef;
     }
 
-    public void SetDescription(final String pDescription)
-    {
+    public void SetDescription(final String pDescription) {
         this.mDescription = pDescription;
     }
 
-    public String GetName()
-    {
+    public String GetName() {
         return this.mName;
     }
 
-    public String GetDescription()
-    {
+    public String GetDescription() {
         return this.mDescription;
     }
 }

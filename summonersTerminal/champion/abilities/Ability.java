@@ -1,8 +1,8 @@
 package summonersTerminal.champion.abilities;
 
 import java.util.List;
-import summonersTerminal.Champion;
-import summonersTerminal.Minion;
+import summonersTerminal.champion.Champion;
+import summonersTerminal.minion.Minion;
 
 public interface Ability {
     String name();

@@ -1,15 +1,18 @@
-package summonersTerminal;
+package summonersTerminal.minion;
 
 import java.util.List;
+import summonersTerminal.Nexus;
+import summonersTerminal.Stats;
+import summonersTerminal.Target;
+import summonersTerminal.champion.Champion;
 import summonersTerminal.champion.Passives.Base.Passive;
-
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.MinionTargetingSystem;
 
 public final class Minion implements Target {
     String minionName;
     MinionType minionType;
-    private Stats stats;
+    private final Stats stats;
     private final int goldValue;
     private boolean _isAlive;
     private int _level;
@@ -98,8 +101,7 @@ public final class Minion implements Target {
         waveIAmIn.remove(this);
         champion.addGold(goldValue);
 
-        if (champion.getPassive().mType == Passive.ePassiveType.COMBAT)
-        {
+        if (champion.getPassive().mType == Passive.ePassiveType.COMBAT) {
             champion.getPassive().Execute();
         }
     }

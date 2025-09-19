@@ -1,0 +1,54 @@
+@startuml
+title Summoner's Terminal – Game Flow (Activity)
+
+start
+:Main creates SummonersTerminal;
+:SummonersTerminal.initiateGame();
+
+while (Win condition met?) is (no)
+  :Action loop\n• read input\n• run actions\n• update state;
+endwhile (yes)
+
+:SummonersTerminal.endGame();
+stop
+@enduml
+
+@startuml
+title High-Level Classes
+
+class Main {
+  + main(args: String[]): void
+}
+
+class "SummonersTerminal" as ST {
+  - winConditionMet: boolean
+  - waveNumber: int
+  --
+  + playGame(): boolean
+  - initiateGame(): void
+  - gameLoop(): void
+  - endGame(): void
+}
+
+Main --> ST : creates/uses
+@enduml
+
+@startuml
+title Play Session
+
+actor Player
+participant Main
+participant "SummonersTerminal" as ST
+
+Player -> Main : run()
+Main -> ST : new()
+Main -> ST : playGame()
+ST -> ST : initiateGame()
+
+loop until win condition met
+  ST -> ST : actionLoop()\n(handle input, actions, updates)
+  ST -> ST : evaluateWinCondition()
+end
+
+ST -> ST : endGame()
+@enduml

@@ -1,0 +1,93 @@
+@startuml
+title Champion (summonersTerminal.champion)
+
+skinparam packageStyle rectangle
+skinparam classAttributeIconSize 0
+skinparam dpi 160
+hide empty members
+
+package "summonersTerminal" {
+  interface Target {
+    +name(): String
+    +isAlive(): boolean
+    +takeDamage(pDamage: int, sDamage: int,
+                wave: List<Minion>, attacker: Target): boolean
+  }
+
+  class Stats {
+    +health(): int
+    +mana(): int
+    +armor(): int
+    +resistance(): int
+    +attackPower(): int
+    +abilityPower(): int
+    +plus(o: Stats): Stats
+    +minus(o: Stats): Stats
+  }
+
+  class Item
+  class Minion
+  class Nexus
+}
+
+package "summonersTerminal.abilities" {
+  interface Ability {
+    +name(): String
+    +manaCost(): int
+    +cast(self: summonersTerminal.champion.Champion,
+          target: summonersTerminal.Target,
+          wave: List<Minion>): boolean
+  }
+}
+
+package "summonersTerminal.champion" {
+  ' represent the passive type that Champion holds
+  interface "Passives.Base.Passive" as Passive
+
+  enum ChampionID {
+    +base: Stats
+    +growthPerLevel: Stats
+    +abilityKit: List<Ability>
+    ..
+  }
+
+  class Champion {
+    - championName: String
+    - championId: ChampionID
+    - _stats: Stats
+    - _level: int = 1
+    - _startGold: int = 500
+    - _gold: int
+    - _isAlive: boolean = true
+    - inBase: boolean = false
+    - _abilityKit: List<Ability>
+    - _items: List<Item>
+    - _passive: Passive
+
+    + Champion(championName: String, championId: ChampionID)
+    + name(): String
+    + isAlive(): boolean
+    + stats(): Stats
+    + getLevel(): int
+    + getGold(): int
+    + levelUp(): void
+    + equip(item: Item): boolean
+    + unequip(item: Item): boolean
+    + useAbility(index: int, target: Target, wave: List<Minion>): boolean
+    + useAbility(name: String, target: Target, wave: List<Minion>): boolean
+    + takeDamage(pDamage: int, sDamage: int,
+                 wave: List<Minion>, attacker: Target): boolean
+    --
+    - baseAtCurrentLevel(): Stats
+    - recalcAllStats(): void
+  }
+
+  Champion ..|> Target
+  Champion --> ChampionID : has
+  Champion --> Stats : uses
+  Champion "0..*" o--> Item : items
+  Champion "0..*" o--> Ability : abilityKit
+  Champion --> Passive : passive
+  Champion --> Nexus : can attack/defend
+}
+@enduml

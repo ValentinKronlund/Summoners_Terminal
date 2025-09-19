@@ -1,13 +1,18 @@
-package summonersTerminal;
+package summonersTerminal.champion;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import summonersTerminal.Item;
+import summonersTerminal.Nexus;
+import summonersTerminal.Stats;
+import summonersTerminal.Target;
 import summonersTerminal.champion.Passives.Base.Passive;
 import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;
+import summonersTerminal.minion.Minion;
 
 public final class Champion implements Target {
 
