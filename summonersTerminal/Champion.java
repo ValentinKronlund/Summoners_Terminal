@@ -194,7 +194,7 @@ public final class Champion {
                         .map(Item::toString)
                         .collect(Collectors.joining("\n"));
 
-        return "\n[%s] - (%s | Lv.%d)\n[Stats]: %s\n[Abilities]: %s\n[Gold]: %d\n[Items]: %s".formatted(championName,
+        return "[%s] - (%s | Lv.%d)\n[Stats]: %s\n[Abilities]: %s\n[Gold]: %d\n[Items]: %s".formatted(championName,
                 championId.displayName,
                 _level, _stats,
                 abilityNames, _gold, itemsString);
