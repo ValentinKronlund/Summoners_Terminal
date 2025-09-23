@@ -37,12 +37,12 @@ public final class Nexus implements Target {
     @Override
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
         try {
-            this.stats.MinusCurrentHealth(physicalDamage);
+            this.stats.minusCurrentHealth(physicalDamage);
 
             System.out.println(this._name + " has taken " + physicalDamage + " damage!" + " | HP: "
-                    + this.stats.GetCurrentHealth());
+                    + this.stats.getCurrentHealth());
 
-            if (this.stats.GetCurrentHealth() <= 0) {
+            if (this.stats.getCurrentHealth() <= 0) {
                 onDeath();
                 return true;
             }
@@ -56,6 +56,6 @@ public final class Nexus implements Target {
 
     @Override
     public String toString() {
-        return "[%s] - HP:%d".formatted(_name, stats.GetCurrentHealth());
+        return "[%s] - HP:%d".formatted(_name, stats.getCurrentHealth());
     }
 }

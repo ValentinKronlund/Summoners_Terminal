@@ -23,12 +23,12 @@ public final class Minion implements Target {
             int level) {
         this.minionType = minionType;
         this.stats = new Stats(
-                minionType.base().GetMaxHealth(),
-                minionType.base().GetMaxMana(),
-                minionType.base().GetMaxArmor(),
-                minionType.base().GetMaxResistance(),
-                minionType.base().GetMaxAttackPower(),
-                minionType.base().GetMaxAbilityPower());
+                minionType.base().getMaxHealth(),
+                minionType.base().getMaxMana(),
+                minionType.base().getMaxArmor(),
+                minionType.base().getMaxResistance(),
+                minionType.base().getMaxAttackPower(),
+                minionType.base().getMaxAbilityPower());
         this.goldValue = minionType.goldValue();
         this._isAlive = true;
         this._level = level;
@@ -39,9 +39,9 @@ public final class Minion implements Target {
 
     public void minionStatsPerLevel(int level) {
         for (int i = 1; i < level; i++) {
-            stats.AddMaxStats(minionType.growthPerCycle());
+            stats.addStats(minionType.growthPerCycle());
         }
-        stats.RestoreToMax();
+        stats.restore();
     }
 
     public void minionBehaviour(List<Minion> enemyWave, Champion enemyChampion, Nexus nexus) {
@@ -53,7 +53,7 @@ public final class Minion implements Target {
     }
 
     private void attack(Target target, List<Minion> waveIAmIn) {
-        int physicalDamage = this.stats.GetCurrentAttackPower();
+        int physicalDamage = this.stats.getCurrentAttackPower();
         if (target instanceof Minion) {
             target.takeDamage(physicalDamage, 0, waveIAmIn, this);
             return;
@@ -65,12 +65,12 @@ public final class Minion implements Target {
     @Override
 
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy) {
-        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.GetCurrentArmor(),
-                stats.GetCurrentResistance());
+        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.getCurrentArmor(),
+                stats.getCurrentResistance());
 
-        this.stats.MinusCurrentHealth(damageAmount);
+        this.stats.minusCurrentHealth(damageAmount);
 
-        int currHealth = this.stats.GetCurrentHealth();
+        int currHealth = this.stats.getCurrentHealth();
 
         String dmgString = "%s has taken %d damage! | HP: %d".formatted(minionName, damageAmount, currHealth);
 
@@ -130,6 +130,6 @@ public final class Minion implements Target {
 
     @Override
     public String toString() {
-        return "%s HP:%d | Gold Value: %d".formatted(minionName, stats.GetCurrentHealth(), goldValue);
+        return "%s HP:%d | Gold Value: %d".formatted(minionName, stats.getCurrentHealth(), goldValue);
     }
 }

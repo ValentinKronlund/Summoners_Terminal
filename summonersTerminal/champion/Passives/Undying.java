@@ -18,7 +18,7 @@ public class Undying extends Passive {
 
     @Override
     public boolean Tick() {
-        mChampion.stats().AddCurrentHealth(mHealthRegenPerTurn * mChampion.level());
+        mChampion.stats().addCurrentHealth(mHealthRegenPerTurn * mChampion.level());
         return true;
     }
 }
