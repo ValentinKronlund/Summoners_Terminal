@@ -248,7 +248,7 @@ public class Action {
             boolean takenAction = false;
             while (!takenAction) {
 
-                if (npcChampion.stats().GetCurrentMana() <= 150 || npcChampion.stats().GetCurrentHealth() <= 75) {
+                if (npcChampion.stats().getCurrentMana() <= 150 || npcChampion.stats().getCurrentHealth() <= 75) {
                     npcChampion.goToBase();
                     npcSkipNextTurn = true;
                     takenAction = true;

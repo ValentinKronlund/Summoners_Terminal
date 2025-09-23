@@ -57,12 +57,12 @@ public enum Item {
 
         @Override
         public String toString() {
-                return name().replace('_', ' ') + " [HP+" + stats.GetCurrentHealth()
-                                + " MP+" + stats.GetCurrentMana()
-                                + " ARM+" + stats.GetCurrentArmor()
-                                + " RES+" + stats.GetCurrentResistance()
-                                + " ATK+" + stats.GetCurrentAttackPower()
-                                + " ABI+" + stats.GetCurrentAbilityPower()
+                return name().replace('_', ' ') + " [HP+" + stats.getCurrentHealth()
+                                + " MP+" + stats.getCurrentMana()
+                                + " ARM+" + stats.getCurrentArmor()
+                                + " RES+" + stats.getCurrentResistance()
+                                + " ATK+" + stats.getCurrentAttackPower()
+                                + " ABI+" + stats.getCurrentAbilityPower()
                                 + " | COST " + cost + "]";
         }
 

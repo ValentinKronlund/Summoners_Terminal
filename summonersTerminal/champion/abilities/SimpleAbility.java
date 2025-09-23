@@ -37,8 +37,8 @@ public final class SimpleAbility implements Ability {
             List<Minion> wave) {
         Stats ownStats = self.stats();
 
-        if (ownStats.GetCurrentMana() < manaCost) {
-            System.out.printf("\nNot enough mana to cast %s (%d/%d)%n", name, ownStats.GetCurrentMana(), manaCost);
+        if (ownStats.getCurrentMana() < manaCost) {
+            System.out.printf("\nNot enough mana to cast %s (%d/%d)%n", name, ownStats.getCurrentMana(), manaCost);
             return false;
         }
 

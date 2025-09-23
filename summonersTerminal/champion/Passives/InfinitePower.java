@@ -22,8 +22,8 @@ public class InfinitePower extends Passive {
     @Override
     public boolean Execute() {
         mStack++;
-        mChampion.stats().AddMaxAttackPower(mIncreasePowerPerStack);
-        mChampion.stats().AddMaxAbilityPower(mIncreasePowerPerStack);
+        mChampion.stats().addAttackPower(mIncreasePowerPerStack);
+        mChampion.stats().addAbilityPower(mIncreasePowerPerStack);
 
         return true;
     }

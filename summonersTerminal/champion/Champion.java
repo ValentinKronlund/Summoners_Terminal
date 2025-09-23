@@ -40,17 +40,17 @@ public final class Champion implements Target {
 
     public void levelUp() {
         this._level++;
-        this._stats.AddMaxStats(this.championId.growthPerLevel);
+        this._stats.addStats(this.championId.growthPerLevel);
     }
 
     private Stats baseAtCurrentLevel() {
         Stats baseStats = championId.base;
 
         for (int i = 1; i < _level; i++) {
-            baseStats.AddMaxStats(championId.growthPerLevel);
+            baseStats.addStats(championId.growthPerLevel);
         }
 
-        baseStats.RestoreToMax();
+        baseStats.restore();
         return baseStats;
     }
 
@@ -64,7 +64,7 @@ public final class Champion implements Target {
         _items.add(item);
         System.out.println("\n%s purchased %s \n".formatted(championName, item.toString()));
 
-        _stats.AddMaxStats(item.stats());
+        _stats.addStats(item.stats());
 
         return goToBase();
     }
@@ -77,21 +77,21 @@ public final class Champion implements Target {
         System.out.println("\nSold item for: " + sellAmount);
         _gold += sellAmount;
 
-        stats().MinusMaxStats(item.stats());
+        stats().minusMaxStats(item.stats());
 
         return true;
     }
 
     public boolean attack(Minion target, List<Minion> minionWave) {
-        return target.takeDamage(this._stats.GetCurrentAttackPower(), 0, minionWave, this);
+        return target.takeDamage(this._stats.getCurrentAttackPower(), 0, minionWave, this);
     }
 
     public boolean attackChampion(Champion champion) {
-        return champion.takeDamage(this._stats.GetCurrentAttackPower(), 0);
+        return champion.takeDamage(this._stats.getCurrentAttackPower(), 0);
     }
 
     public boolean attackNexus(Nexus nexus) {
-        return nexus.takeDamage(this._stats.GetCurrentAttackPower(), 0);
+        return nexus.takeDamage(this._stats.getCurrentAttackPower(), 0);
 
     }
 
@@ -106,7 +106,7 @@ public final class Champion implements Target {
     public boolean goToBase() {
         this._inBase = true;
         System.out.println("\n%s have gone to the base -- HP and Mana reset!✨\n".formatted(championName));
-        this._stats.RestoreToMax();
+        this._stats.restore();
         this._inBase = false;
         return true;
     }
@@ -122,23 +122,23 @@ public final class Champion implements Target {
     public boolean respawn() {
         this._isAlive = true;
         this._inBase = false;
-        this._stats.RestoreToMax();
+        this._stats.restore();
         System.out.println("\n%s have respawned! 🩵\n".formatted(championName));
         return true;
     }
 
     public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> wave, Target target) {
         try {
-            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.GetCurrentArmor(),
-                    this._stats.GetCurrentResistance());
+            int damageTaken = Damage.damageAfterReduction(physicalDamage, spellDamage, this._stats.getCurrentArmor(),
+                    this._stats.getCurrentResistance());
 
-            this._stats.MinusCurrentHealth(damageTaken);
+            this._stats.minusCurrentHealth(damageTaken);
 
             String dmgString = "%s has taken %d damage! | HP: %d".formatted(championName, damageTaken,
-                    this._stats.GetCurrentHealth());
+                    this._stats.getCurrentHealth());
             System.out.println(dmgString);
 
-            if (this._stats.GetCurrentHealth() <= 0) {
+            if (this._stats.getCurrentHealth() <= 0) {
                 onDeath();
             }
 
@@ -197,7 +197,7 @@ public final class Champion implements Target {
     }
 
     public void useMana(int manaCost) {
-        this._stats.SetCurrentMana(this._stats.GetCurrentMana() - manaCost);
+        this._stats.setCurrentMana(this._stats.getCurrentMana() - manaCost);
     }
 
     public void addGold(int amount) {
