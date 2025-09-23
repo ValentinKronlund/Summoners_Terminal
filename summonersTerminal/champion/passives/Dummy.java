@@ -1,7 +1,6 @@
 package summonersTerminal.champion.Passives;
 
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
 
 public class Dummy extends Passive {
     public Dummy(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef,
@@ -10,12 +9,12 @@ public class Dummy extends Passive {
     }
 
     @Override
-    public void Init() {
+    protected void OnInit() {
         System.out.println("This is dummy Init!");
     }
 
     @Override
-    public boolean Tick() {
+    protected boolean OnTick() {
         System.out.println("This is dummy passive!");
         return false;
     }

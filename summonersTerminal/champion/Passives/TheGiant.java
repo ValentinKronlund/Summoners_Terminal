@@ -1,8 +1,6 @@
 package summonersTerminal.champion.Passives;
 
-import summonersTerminal.Stats;
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
 
 public class TheGiant extends Passive {
     private final int mHealthIncrease = 200;
@@ -13,7 +11,7 @@ public class TheGiant extends Passive {
     }
 
     @Override
-    public void Init() {
+    protected void OnInit() {
         SetDescription("\"" + GetName() + "\"" + "! Increase health amount by " + mHealthIncrease + ".");
         mChampion.stats().addHealth(mHealthIncrease);
     }

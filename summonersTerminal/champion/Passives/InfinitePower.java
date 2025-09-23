@@ -1,7 +1,7 @@
 package summonersTerminal.champion.Passives;
 
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
+import summonersTerminal.minion.Minion;
 
 public class InfinitePower extends Passive {
     private final int mIncreasePowerPerStack = 5;
@@ -13,18 +13,22 @@ public class InfinitePower extends Passive {
     }
 
     @Override
-    public void Init() {
+    protected void OnInit() {
         SetDescription("\"" + GetName() + "\"" + "! Attack Power and Ability Power increase by "
                 + mIncreasePowerPerStack + " for every takedown.");
         mStack = 0;
     }
 
     @Override
-    public boolean Execute() {
-        mStack++;
-        mChampion.stats().addAttackPower(mIncreasePowerPerStack);
-        mChampion.stats().addAbilityPower(mIncreasePowerPerStack);
+    protected boolean OnExecute(Object... pObjects) {
 
-        return true;
+        if (pObjects.length > 0 && pObjects[0] instanceof Minion) {
+            mStack++;
+            mChampion.stats().addAttackPower(mIncreasePowerPerStack);
+            mChampion.stats().addAbilityPower(mIncreasePowerPerStack);
+            return true;
+        }
+
+        return false;
     }
 }

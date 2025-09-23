@@ -8,7 +8,7 @@ import summonersTerminal.Item;
 import summonersTerminal.Nexus;
 import summonersTerminal.Stats;
 import summonersTerminal.Target;
-import summonersTerminal.champion.Passives.Base.Passive;
+import summonersTerminal.champion.Passives.Passive;
 import summonersTerminal.champion.abilities.Ability;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.Validation;

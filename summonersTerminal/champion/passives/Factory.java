@@ -1,7 +1,6 @@
 package summonersTerminal.champion.Passives;
 
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
 
 public class Factory {
     public enum ePassive {

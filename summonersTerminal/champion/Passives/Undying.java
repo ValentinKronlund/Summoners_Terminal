@@ -1,7 +1,6 @@
 package summonersTerminal.champion.Passives;
 
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
 
 public class Undying extends Passive {
     private int mHealthRegenPerTurn = 40;
@@ -12,12 +11,12 @@ public class Undying extends Passive {
     }
 
     @Override
-    public void Init() {
+    protected void OnInit() {
         SetDescription("\"" + GetName() + "\"" + ". Regen health by " + mHealthRegenPerTurn + " every turn.");
     }
 
     @Override
-    public boolean Tick() {
+    protected boolean OnTick() {
         mChampion.stats().addCurrentHealth(mHealthRegenPerTurn * mChampion.level());
         return true;
     }
