@@ -7,9 +7,9 @@ public class InfinitePower extends Passive {
     private final int mIncreasePowerPerStack = 5;
     private int mStack = 0;
 
-    public InfinitePower(final String pName, final Passive.ePassiveType pPassiveType, final Champion pChampionRef,
+    public InfinitePower(final String pName, final Champion pChampionRef,
             final boolean pIsActive) {
-        super(pName, pPassiveType, pChampionRef, pIsActive);
+        super(pName, pChampionRef, pIsActive);
     }
 
     @Override

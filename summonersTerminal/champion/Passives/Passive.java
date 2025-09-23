@@ -4,26 +4,16 @@ import summonersTerminal.champion.Champion;
 
 public abstract class Passive
 {
-    public enum ePassiveType
-    {
-        STATS,
-        REGEN,
-        COMBAT,
-        NONE
-    }
-
     protected boolean mIsActive;
     protected final Champion mChampion;
 
     private String mDescription;
     private final String mName;
-    private final ePassiveType mType;
 
-    public Passive(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef,
+    public Passive(final String pName, final Champion pChampionRef,
                    final boolean pIsActive)
     {
         mName = pName;
-        mType = pPassiveType;
         mIsActive = pIsActive;
         mChampion = pChampionRef;
     }
@@ -80,10 +70,5 @@ public abstract class Passive
     public String GetDescription()
     {
         return mDescription;
-    }
-
-    public ePassiveType GetType()
-    {
-        return mType;
     }
 }

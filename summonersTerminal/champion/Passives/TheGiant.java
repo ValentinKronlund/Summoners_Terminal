@@ -5,9 +5,9 @@ import summonersTerminal.champion.Champion;
 public class TheGiant extends Passive {
     private final int mHealthIncrease = 200;
 
-    public TheGiant(final String pName, final ePassiveType pPassiveType, final Champion pChampionRef,
+    public TheGiant(final String pName, final Champion pChampionRef,
             final boolean pIsActive) {
-        super(pName, pPassiveType, pChampionRef, pIsActive);
+        super(pName, pChampionRef, pIsActive);
     }
 
     @Override
