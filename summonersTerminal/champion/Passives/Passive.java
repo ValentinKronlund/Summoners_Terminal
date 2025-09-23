@@ -33,11 +33,11 @@ public abstract class Passive
         return false;
     }
 
-    public final boolean Execute(Object... pArgs)
+    public final boolean Execute(Object... pObjects)
     {
         if (mIsActive)
         {
-            return OnExecute(pArgs);
+            return OnExecute(pObjects);
         }
 
         return false;
@@ -52,7 +52,7 @@ public abstract class Passive
         return true;
     }
 
-    protected boolean OnExecute(Object... pArgs)
+    protected boolean OnExecute(Object... pObjects)
     {
         return true;
     }
