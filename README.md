@@ -32,11 +32,6 @@ TODO:
   - Add 'passive' mana regen between actions.
   - Attempting to purchase item without gold should fail without sending you you to base.
 
-- Add more ability options. _CURRENLY DOING_
-
-  - Each champion should have 2 abilities: one basic ability, and one ultimate.
-  - Each champion should be able to choose between a passive -- shared between champions
-
 - Add level-up system.
 
   - Minions should award exp when killed.
@@ -45,10 +40,11 @@ TODO:
   - Max level should be 18.
 
 - Add Towers.
-  - Tower should attack player if they attempt to hit it.
+
+  - Tower should attack player if they attempt to hit it without any minions being alive.
   - (Optional) - Tower should attack minions if possible (even when player hits tower).
 
 - Add more dynamic items effects.
+
   - Crit chance.
-  - Reduced healing.
   - Increased health/mana regen.

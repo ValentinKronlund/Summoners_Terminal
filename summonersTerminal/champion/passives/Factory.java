@@ -1,7 +1,6 @@
 package summonersTerminal.champion.Passives;
 
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
 
 public class Factory {
     public enum ePassive {
@@ -14,13 +13,13 @@ public class Factory {
     public Passive Create(final ePassive pPassive, final Champion pChampionRef) {
         switch (pPassive) {
             case THE_GIANT:
-                return new TheGiant("The Giant", Passive.ePassiveType.STATS, pChampionRef, true);
+                return new TheGiant("The Giant", pChampionRef, true);
             case INFINITE_POWER:
-                return new InfinitePower("Infinite Power!", Passive.ePassiveType.COMBAT, pChampionRef, true);
+                return new InfinitePower("Infinite Power!", pChampionRef, true);
             case UNDYING:
-                return new Undying("Undying", Passive.ePassiveType.REGEN, pChampionRef, true);
+                return new Undying("Undying", pChampionRef, true);
             default:
-                return new Dummy("Dummy, I do nothing", Passive.ePassiveType.NONE, pChampionRef, false);
+                return new Dummy("Dummy, I do nothing", pChampionRef, false);
         }
     }
 }

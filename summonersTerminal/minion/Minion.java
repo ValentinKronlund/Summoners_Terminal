@@ -1,15 +1,16 @@
 package summonersTerminal.minion;
 
 import java.util.List;
+
 import summonersTerminal.Nexus;
 import summonersTerminal.Stats;
 import summonersTerminal.Target;
 import summonersTerminal.champion.Champion;
-import summonersTerminal.champion.Passives.Base.Passive;
 import summonersTerminal.gameHelpers.Damage;
 import summonersTerminal.gameHelpers.MinionTargetingSystem;
 
-public final class Minion implements Target {
+public final class Minion implements Target
+{
     String minionName;
     MinionType minionType;
     private final Stats stats;
@@ -20,15 +21,16 @@ public final class Minion implements Target {
     public Minion(
             String uniqueIdentifier,
             MinionType minionType,
-            int level) {
+            int level)
+    {
         this.minionType = minionType;
         this.stats = new Stats(
-                minionType.base().GetMaxHealth(),
-                minionType.base().GetMaxMana(),
-                minionType.base().GetMaxArmor(),
-                minionType.base().GetMaxResistance(),
-                minionType.base().GetMaxAttackPower(),
-                minionType.base().GetMaxAbilityPower());
+                minionType.base().getMaxHealth(),
+                minionType.base().getMaxMana(),
+                minionType.base().getMaxArmor(),
+                minionType.base().getMaxResistance(),
+                minionType.base().getMaxAttackPower(),
+                minionType.base().getMaxAbilityPower());
         this.goldValue = minionType.goldValue();
         this._isAlive = true;
         this._level = level;
@@ -37,24 +39,30 @@ public final class Minion implements Target {
         minionStatsPerLevel(_level);
     }
 
-    public void minionStatsPerLevel(int level) {
-        for (int i = 1; i < level; i++) {
-            stats.AddCurrentStats(minionType.growthPerCycle());
+    public void minionStatsPerLevel(int level)
+    {
+        for (int i = 1; i < level; i++)
+        {
+            stats.addStats(minionType.growthPerCycle());
         }
-        stats.RestoreToMax();
+        stats.restore();
     }
 
-    public void minionBehaviour(List<Minion> enemyWave, Champion enemyChampion, Nexus nexus) {
+    public void minionBehaviour(List<Minion> enemyWave, Champion enemyChampion, Nexus nexus)
+    {
         Target enemyTarget = MinionTargetingSystem.targetPriority(enemyWave, enemyChampion, nexus);
-        if (enemyTarget != null && enemyTarget.isAlive()) {
+        if (enemyTarget != null && enemyTarget.isAlive())
+        {
             this.attack(enemyTarget, enemyWave);
         }
 
     }
 
-    private void attack(Target target, List<Minion> waveIAmIn) {
-        int physicalDamage = this.stats.GetCurrentAttackPower();
-        if (target instanceof Minion) {
+    private void attack(Target target, List<Minion> waveIAmIn)
+    {
+        int physicalDamage = this.stats.getCurrentAttackPower();
+        if (target instanceof Minion)
+        {
             target.takeDamage(physicalDamage, 0, waveIAmIn, this);
             return;
         }
@@ -64,23 +72,28 @@ public final class Minion implements Target {
 
     @Override
 
-    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy) {
-        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.GetCurrentArmor(),
-                stats.GetCurrentResistance());
+    public boolean takeDamage(int physicalDamage, int spellDamage, List<Minion> waveIAmIn, Target attackingEnemy)
+    {
+        int damageAmount = Damage.damageAfterReduction(physicalDamage, spellDamage, stats.getCurrentArmor(),
+                stats.getCurrentResistance());
 
-        this.stats.MinusCurrentHealth(damageAmount);
+        this.stats.minusCurrentHealth(damageAmount);
 
-        int currHealth = this.stats.GetCurrentHealth();
+        int currHealth = this.stats.getCurrentHealth();
 
         String dmgString = "%s has taken %d damage! | HP: %d".formatted(minionName, damageAmount, currHealth);
 
-        if (currHealth <= 0) {
-            if (attackingEnemy instanceof Champion ch) {
+        if (currHealth <= 0)
+        {
+            if (attackingEnemy instanceof Champion ch)
+            {
                 deathByChampion(waveIAmIn, ch, dmgString);
-            } else {
+            } else
+            {
                 deathByNPC(waveIAmIn, dmgString);
             }
-        } else {
+        } else
+        {
             System.out.println(dmgString);
         }
 
@@ -90,7 +103,8 @@ public final class Minion implements Target {
     private void deathByChampion(
             List<Minion> waveIAmIn,
             Champion champion,
-            String dmgString) {
+            String dmgString)
+    {
         String deathString = "%s | %s has died! %s has been awarded with %d🪙".formatted(dmgString, minionName,
                 champion.name(), goldValue);
 
@@ -99,15 +113,13 @@ public final class Minion implements Target {
         this._isAlive = false;
         waveIAmIn.remove(this);
         champion.addGold(goldValue);
-
-        if (champion.getPassive().mType == Passive.ePassiveType.COMBAT) {
-            champion.getPassive().Execute();
-        }
+        champion.getPassive().Execute(this);
     }
 
     private void deathByNPC(
             List<Minion> waveIAmIn,
-            String dmgString) {
+            String dmgString)
+    {
         String deathString = "%s | %s has died!".formatted(dmgString, minionName);
         System.out.println(deathString);
         this._isAlive = false;
@@ -115,21 +127,25 @@ public final class Minion implements Target {
     }
 
     @Override
-    public String name() {
+    public String name()
+    {
         return minionName;
     }
 
     @Override
-    public boolean isAlive() {
+    public boolean isAlive()
+    {
         return _isAlive;
     }
 
-    public MinionType getMinionType() {
+    public MinionType getMinionType()
+    {
         return this.minionType;
     }
 
     @Override
-    public String toString() {
-        return "%s HP:%d | Gold Value: %d".formatted(minionName, stats.GetCurrentHealth(), goldValue);
+    public String toString()
+    {
+        return "%s HP:%d | Gold Value: %d".formatted(minionName, stats.getCurrentHealth(), goldValue);
     }
 }
