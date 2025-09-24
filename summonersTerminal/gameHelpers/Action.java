@@ -105,7 +105,7 @@ public class Action {
             if (!npcSkipNextTurn) {
                 Action.npcActions(npcNexus, playerNexus, npcChampion, playerChampion, npcMinionWave, playerMinionWave,
                         actionCount, npcSkipNextTurn);
-                // npcChampion.getPassive().Tick();
+                npcChampion.getPassive().Tick();
             }
             if (!playerNexus.isAlive() || !npcNexus.isAlive()) {
                 return true;
@@ -115,16 +115,9 @@ public class Action {
             if (minionAttackOrder == 0) {
                 Action.allyMinionActions(playerMinionWave, npcMinionWave, npcChampion, npcNexus);
                 Action.npcMinionActions(npcMinionWave, playerMinionWave, playerChampion, playerNexus);
-                System.out.println("FINISHED MINION ACTION - Prio Ally 🔷");
-
             } else {
                 Action.npcMinionActions(npcMinionWave, playerMinionWave, playerChampion, playerNexus);
                 Action.allyMinionActions(playerMinionWave, npcMinionWave, npcChampion, npcNexus);
-                System.out.println("FINISHED MINION ACTION - Prio NPC ♦️");
-            }
-
-            if (playerNexus.isAlive() && npcNexus.isAlive()) {
-                break;
             }
 
             playerSkipNextTurn = false;
